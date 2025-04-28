@@ -134,6 +134,8 @@ type_contents_order:
     - subscript
     - type_property
     - instance_property
+    - view_life_cycle_method
+    - ib_action
     - type_method
     - other_method
 type_name:

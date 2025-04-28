@@ -1,0 +1,21 @@
+import SwiftUI
+
+struct SplashView: View {
+    init(coordinator: SplashCoordinator, viewModel: SplashViewModel) {
+        self.coordinator = coordinator
+        self.viewModel = viewModel
+    }
+    
+    private weak var coordinator: SplashCoordinator?
+    @State private var viewModel: SplashViewModel
+    
+    var body: some View {
+        VStack {
+            Text("Splash View")
+                .font(.title2)
+                .bold()
+        }
+        .task {
+        }
+    }
+}

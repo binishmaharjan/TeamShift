@@ -9,6 +9,7 @@ let package = Package(
     platforms: [.iOS(.v17), .macOS(.v12)],
     products: [
         .library(name: "TeamShift", targets: ["TeamShift"]),
+        .library(name: "SharedModels", targets: ["SharedModels"]),
         .library(name: "SharedUIs", targets: ["SharedUIs"]),
     ],
     dependencies: [
@@ -18,8 +19,16 @@ let package = Package(
         .target(
             name: "TeamShift",
             dependencies: [
+                "SharedModels",
                 "SharedUIs"
             ],
+            plugins: [
+                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
+            ]
+        ),
+        .target(
+            name: "SharedModels",
+            dependencies: [],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
             ]

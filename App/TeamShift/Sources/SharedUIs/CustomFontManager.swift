@@ -102,4 +102,3 @@ extension Font {
         custom(font.rawValue, size: style.size, relativeTo: style)
     }
 }
-
