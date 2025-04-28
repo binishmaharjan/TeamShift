@@ -15,9 +15,16 @@ let package = Package(
             ]
         ),
     ],
+    dependencies: [
+        .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", exact: "0.58.2"),
+    ],
     targets: [
         .target(
-            name: "TeamShift")
-        ,
+            name: "TeamShift",
+            dependencies: [],
+            plugins: [
+                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
+            ]
+        ),
     ]
 )
