@@ -31,8 +31,13 @@ let package = Package(
                 .process("Resources"),
             ],
             plugins: [
-                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
+                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
+                .plugin(name: "AssetGenPlugin")
             ]
-        )
+        ),
+        .plugin(
+            name: "AssetGenPlugin",
+            capability: .buildTool()
+        ),
     ]
 )
