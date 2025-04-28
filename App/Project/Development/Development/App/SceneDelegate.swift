@@ -9,4 +9,3 @@ import UIKit
 import TeamShift
 
 class SceneDelegate: TeamShift.SceneDelegate { }
-

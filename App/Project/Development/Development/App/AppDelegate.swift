@@ -10,4 +10,3 @@ import TeamShift
 
 @main
 class AppDelegate: TeamShift.AppDelegate { }
-
