@@ -6,6 +6,7 @@ struct DummyView: View {
     var body: some View {
         Text("Hello World")
             .foregroundStyle(Color.accent)
+            .font(.customBody)
     }
 }
 
