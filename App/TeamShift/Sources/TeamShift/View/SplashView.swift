@@ -11,11 +11,13 @@ struct SplashView: View {
     
     var body: some View {
         VStack {
-            Text("Splash View")
-                .font(.title2)
-                .bold()
+            Image.teamShift
+                .resizable()
+                .aspectRatio(contentMode: .fit)
         }
+        .frame(maxHeight: .infinity)
         .task {
+            await viewModel.performSomeAction()
         }
     }
 }

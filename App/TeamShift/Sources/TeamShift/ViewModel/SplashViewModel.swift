@@ -1,8 +1,9 @@
 import Foundation
 import SwiftUI
 
-@Observable
+@Observable @MainActor
 final class SplashViewModel {
-    func performSomeAction() async {        
+    func performSomeAction() async {
+        print("Will perform action")
     }
 }

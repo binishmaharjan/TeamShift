@@ -2,14 +2,6 @@ import SharedUIs
 import SwiftUI
 import UIKit
 
-struct DummyView: View {
-    var body: some View {
-        Text("Hello World")
-            .foregroundStyle(Color.accent)
-            .font(.customBody)
-    }
-}
-
 open class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     open var window: UIWindow?
     private var rootCoordinator: RootCoordinator?
