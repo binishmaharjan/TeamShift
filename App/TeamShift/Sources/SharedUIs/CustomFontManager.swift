@@ -2,10 +2,10 @@ import Foundation
 import SwiftUI
 
 public enum CustomFont: String, CaseIterable {
-    case light = "Nunito-Light"
-    case regular = "Nunito-Medium"
-    case semiBold = "Nunito-SemiBold"
-    case bold = "Nunito-Bold"
+    case light = "Roboto-Light"
+    case regular = "Roboto-Regular"
+    case semiBold = "Roboto-SemiBold"
+    case bold = "Roboto-Bold"
 }
 
 // MARK: Custom Font Manager

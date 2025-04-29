@@ -11,7 +11,7 @@ public struct SecondaryButtonStyle: ButtonStyle {
             .padding(.vertical, 16)
             .background((configuration.isPressed || !isEnabled) ? Color.secondaryHighlighted : Color.secondary)
             .foregroundStyle((configuration.isPressed || !isEnabled) ? Color.primaryHighlighted : Color.primary)
-            .font(.system(size: 14, weight: .semibold))
+            .font(.customSubHeadline)
             .mask(RoundedRectangle(cornerRadius: 30))
     }
 }

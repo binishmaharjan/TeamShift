@@ -11,7 +11,7 @@ public struct PrimaryButtonStyle: ButtonStyle {
             .padding(.vertical, 16)
             .background((configuration.isPressed || !isEnabled) ? Color.primaryHighlighted : Color.primary)
             .foregroundStyle((configuration.isPressed || !isEnabled) ? Color.background.opacity(0.5) : Color.background)
-            .font(.system(size: 14, weight: .semibold))
+            .font(.customSubHeadline)
             .mask(RoundedRectangle(cornerRadius: 30))
     }
 }
