@@ -21,7 +21,8 @@ let package = Package(
             name: "TeamShift",
             dependencies: [
                 "SharedModels",
-                "SharedUIs"
+                "SharedUIs",
+                "FeatureAuthentication"
             ],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")

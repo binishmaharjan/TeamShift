@@ -1,8 +1,7 @@
 import SwiftUI
 
 struct SplashView: View {
-    init(coordinator: SplashCoordinator, viewModel: SplashViewModel) {
-        self.coordinator = coordinator
+    init(viewModel: SplashViewModel) {
         self.viewModel = viewModel
     }
     

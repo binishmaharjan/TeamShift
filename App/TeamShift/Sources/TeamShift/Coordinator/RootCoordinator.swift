@@ -1,9 +1,12 @@
+import FeatureAuthentication
 import SharedModels
 import SharedUIs
 import SwiftUI
 
 @MainActor
 final class RootCoordinator: CompositionCoordinator {
+    typealias ResultType = Void
+    
     // MARK: Child Coordinator
     weak var finishDelegate: (any CoordinatorFinishDelegate)?
     var childCoordinators = [any Coordinator]()
@@ -21,6 +24,24 @@ final class RootCoordinator: CompositionCoordinator {
         startViewController.replace(splashCoordinator.startViewController, animated: false)
     }
     
-    func didFinish(childCoordinator: any Coordinator) {
+    func didFinish(childCoordinator: any Coordinator, with result: Any?) {
+        if childCoordinator is SplashCoordinator, let splashResult = result as? SplashResult {
+            switch splashResult {
+            case .showAuthentication:
+                startAuthentication()
+            }
+        }
+        
+        // Clean up
+        removeChild(childCoordinator)
+    }
+}
+
+extension RootCoordinator {
+    private func startAuthentication() {
+        let authenticationCoordinator = AuthenticationCoordinator()
+        addChild(authenticationCoordinator)
+        authenticationCoordinator.start()
+        startViewController.replace(authenticationCoordinator.startViewController, animated: false)
     }
 }

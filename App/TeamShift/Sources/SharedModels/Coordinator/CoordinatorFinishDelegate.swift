@@ -6,5 +6,5 @@ import Foundation
 public protocol CoordinatorFinishDelegate: AnyObject {
     /// Called when a child coordinator has completed its flow.
     @MainActor
-    func didFinish(childCoordinator: Coordinator)
+    func didFinish(childCoordinator: any Coordinator, with result: Any?)
 }

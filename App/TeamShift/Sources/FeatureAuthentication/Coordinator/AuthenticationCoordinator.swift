@@ -2,8 +2,12 @@ import Foundation
 import SharedModels
 import SwiftUI
 
+public enum AuthenticationResult { }
+
 @MainActor
 public final class AuthenticationCoordinator: FlowCoordinator {
+    public typealias ResultType = AuthenticationResult
+    
     // MARK: Init
     public init() {
         print("Start AuthenticationCoordinator")
@@ -15,7 +19,7 @@ public final class AuthenticationCoordinator: FlowCoordinator {
     
     // MARK: Properties
     public var childCoordinator: (any Coordinator)?
-    public var finishDelegate: (any CoordinatorFinishDelegate)?
+    public weak var finishDelegate: (any CoordinatorFinishDelegate)?
     public private(set) var startViewController = UIViewController()
     
     // MARK: Methods

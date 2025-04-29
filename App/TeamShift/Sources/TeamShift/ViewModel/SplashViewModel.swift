@@ -3,7 +3,13 @@ import SwiftUI
 
 @Observable @MainActor
 final class SplashViewModel {
+    // MARK: Properties
+    var didRequestFinish: ((SplashResult) -> Void)?
+    
+    // MARK: Methods
     func performSomeAction() async {
-        print("Will perform action")
+        let clock = ContinuousClock()
+        try? await clock.sleep(for: .seconds(3))
+        didRequestFinish?(.showAuthentication)
     }
 }
