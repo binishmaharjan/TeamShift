@@ -12,17 +12,19 @@ struct OnboardingView: View {
     
     var body: some View {
         VStack {
+            Spacer()
+            
             Button {
                 print("Find a Service")
             } label: {
-                Text("Find a Service")
+                Text(Strings.findAService)
             }
             .buttonStyle(.primary)
             
             Button {
                 print("Become Freelancer")
             } label: {
-                Text("Become Freelancer")
+                Text(Strings.becomeFreelancer)
             }
             .buttonStyle(.secondary)
         }

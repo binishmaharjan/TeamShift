@@ -1,7 +1,40 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-
+    "Become Freelancer" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Become Freelancer"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "フリーランサーになる"
+          }
+        }
+      }
+    },
+    "Find a Service" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Find a Service"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サービスを探す"
+          }
+        }
+      }
+    }
   },
   "version" : "1.0"
 }
