@@ -10,31 +10,34 @@ struct AssetGenPlugin: BuildToolPlugin {
             return []
         }
         
+        let strings = fetchLocalizedStrings(in: target)
+        let (images, colors) = fetchImagesAndColors(in: target)
+
         let generatedFileContent = """
         import Foundation
         import SwiftUI
         
         extension Color {
-        \(EscapeCharacter.tab.rawValue)\(fetchAsset(in: target, for: .colorset).map(\.toStaticProperty)
+        \(EscapeCharacter.tab.rawValue)\(colors.map(\.toStaticProperty)
             .joined(separator: "\(EscapeCharacter.newLine.rawValue)\(EscapeCharacter.tab.rawValue)"))
         }
         
         extension Image {
-        \(EscapeCharacter.tab.rawValue)\(fetchAsset(in: target, for: .imageset).map(\.toStaticProperty)
+        \(EscapeCharacter.tab.rawValue)\(images.map(\.toStaticProperty)
             .joined(separator: "\(EscapeCharacter.newLine.rawValue)\(EscapeCharacter.tab.rawValue)"))
         }
         
         public struct Strings {
-        \(EscapeCharacter.tab.rawValue)\(fetchAsset(in: target, for: .xcstrings).map(\.toStaticProperty)
+        \(EscapeCharacter.tab.rawValue)\(strings.map(\.toStaticProperty)
             .joined(separator: "\(EscapeCharacter.newLine.rawValue)\(EscapeCharacter.tab.rawValue)"))
         }
         """
         
         let tmpOutputFilePathString = try tmpOutputFilePath().string
         try generatedFileContent.write(to: URL(fileURLWithPath: tmpOutputFilePathString), atomically: true, encoding: .utf8)
-        print("[AssetGen] - Writing to temp file at \(tmpOutputFilePathString)")
+        print("[AssetGen]:✅: Writing to temp file at \(tmpOutputFilePathString)")
         let outputFilePath = try outputFilePath(workDirectory: context.pluginWorkDirectory)
-        print("[AssetGen] - For output check \(outputFilePath)")
+        print("[AssetGen]:✅: For output check \(outputFilePath)")
         
         // TODO: Auto generating take too much build time
         // Find a way to build only when new asset is added.
@@ -48,40 +51,55 @@ struct AssetGenPlugin: BuildToolPlugin {
         ]
     }
     
-    private func fetchAsset(in target: SourceModuleTarget, for ext: FileExtension) -> [Asset] {
-        do {
-            if ext == .xcstrings {
-                // for string
-                if let localizeableFile = target.sourceFiles(withSuffix: ext.rawValue).first {
-                    let assets: [Asset] = try FileManager.default.fetchAssets(using: ext.fetcher, atPath: localizeableFile.url.absoluteString)
-                    return assets
-                } else {
-                    return []
-                }
-                
-            } else {
-                // For image and colors
-                let result = try target.sourceFiles(withSuffix: FileExtension.xcassets.rawValue).map { catalog in
-                    // path to the catalog asset
-                    let input = catalog.path
-                    // list of assets in the catalog asset  as string
-                    let assets: [Asset] = try FileManager.default.fetchAssets(using: ext.fetcher, atPath: input.string)
-                    
-                    // show debug log
-                    print("[AssetGen] - Found asset catalog named \(input.stem).\(FileExtension.xcassets.rawValue)")
-                    print("[AssetGen] - Searching for \(ext.rawValue)...")
-                    print("[AssetGen] - Found \(assets.count) \(ext.rawValue) in this catalog")
-                    
-                    // return all color name in camel case
-                    return assets
-                }
-                // flat map [[String]] from multiple catalog to single [String]
-                .flatMap { $0 }
-                
-                return result
-            }
-        } catch {
+    private func fetchLocalizedStrings(in target: SourceModuleTarget) -> [StringAsset] {
+        guard let localizedFilePath = target.sourceFiles(withSuffix: ResourceExtension.xcstrings.rawValue).first else {
             return []
+        }
+        do {
+            let assets = try FileManager.default.fetchAssets(using: LocalizableAssetFetcher(), atPath: localizedFilePath.url.absoluteString)
+            print("[AssetGen]:✅: Found total of \(assets.count) strings in Localizable.xcstrings")
+            return assets
+        } catch {
+            print("[AssetGen]:❌:  Couldn't find Localizable.xcstrings")
+            return []
+        }
+    }
+    
+    private func fetchImagesAndColors(in target: SourceModuleTarget) -> ([ImageAsset], [ColorAsset]) {
+        do {
+            let assetCatalogs: FileList = target.sourceFiles(withSuffix: ResourceExtension.xcassets.rawValue)
+            
+            // 1. Map each asset catalog path to a tuple of its image and color assets.
+            let assetsPerCatalog: [([ImageAsset], [ColorAsset])] = try assetCatalogs.map { catalog in
+                let input = catalog.path
+                let inputString = input.string
+                print("[AssetGen]:✅: Found Asset Catalog: \(input.stem).\(ResourceExtension.xcassets.rawValue)")
+                
+                print("[AssetGen]:✅: Searching for \(CatalogExtension.imageset.rawValue)...")
+                let imageAssets = try FileManager.default.fetchAssets(using: ImageAssetFetcher(), atPath: inputString)
+                print("[AssetGen]:✅: Found total of \(imageAssets.count) \(CatalogExtension.imageset.rawValue).")
+                
+                print("[AssetGen]:✅: Searching for \(CatalogExtension.colorset.rawValue)...")
+                let colorAssets = try FileManager.default.fetchAssets(using: ColorAssetFetcher(), atPath: inputString)
+                print("[AssetGen]:✅: Found total of \(colorAssets.count) \(CatalogExtension.colorset.rawValue).")
+                
+                return (imageAssets, colorAssets)
+            }
+            
+            // 2. Reduce the array of tuples into a single tuple.
+            let initialValue: ([ImageAsset], [ColorAsset]) = ([], [])
+            let combinedAssets = assetsPerCatalog.reduce(initialValue) { accumulator, currentTuple in
+                // Concatenate the arrays within the tuples
+                let allImages = accumulator.0 + currentTuple.0
+                let allColors = accumulator.1 + currentTuple.1
+                return (allImages, allColors)
+            }
+            
+            // 3. Return the final combined tuple
+            return combinedAssets
+        } catch {
+            print("[AssetGen]:❌:  Error while finding asset catalogs.")
+            return ([], [])
         }
     }
     

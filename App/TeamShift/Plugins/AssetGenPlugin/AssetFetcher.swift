@@ -12,18 +12,18 @@ struct ColorAssetFetcher: AssetFetcher {
     /// returns all file name with extension color set
     func fetchAssets(atPath path: String) throws -> [ColorAsset] {
         try FileManager.default.contentsOfDirectory(atPath: path)
-            .filter { $0.hasSuffix(FileExtension.colorset.rawValue) }
+            .filter { $0.hasSuffix(CatalogExtension.colorset.rawValue) }
             .compactMap { $0.components(separatedBy: ".").first }
             .map { ColorAsset(originalName: $0, camelCaseName: $0.toCamelCase) }
     }
 }
 
-/// Implementation for Color Asset
+/// Implementation for Image Asset
 struct ImageAssetFetcher: AssetFetcher {
     /// returns all file name with extension image set
     func fetchAssets(atPath path: String) throws -> [ImageAsset] {
         let imagesName: [String?] = try FileManager.default.contentsOfDirectory(atPath: path)
-            .filter { $0.hasSuffix(FileExtension.imageset.rawValue) }
+            .filter { $0.hasSuffix(CatalogExtension.imageset.rawValue) }
             .map { dirent in
                 let contentsJsonURL = URL(fileURLWithPath: "\(path)/\(dirent)/Contents.json")
                 let jsonData = try Data(contentsOf: contentsJsonURL)
@@ -44,6 +44,7 @@ struct ImageAssetFetcher: AssetFetcher {
     }
 }
 
+/// Implementation for Localizable Strings
 struct LocalizableAssetFetcher: AssetFetcher {
     func fetchAssets(atPath path: String) throws -> [StringAsset] {
         let contentURL = URL(string: path)!
