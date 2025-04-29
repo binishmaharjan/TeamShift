@@ -12,9 +12,23 @@ struct OnboardingView: View {
     
     var body: some View {
         VStack {
-            Text("Onboarding View")
+            Button {
+                print("Find a Service")
+            } label: {
+                Text("Find a Service")
+            }
+            .buttonStyle(.primary)
+            
+            Button {
+                print("Become Freelancer")
+            } label: {
+                Text("Become Freelancer")
+            }
+            .buttonStyle(.secondary)
         }
         .frame(maxHeight: .infinity)
+        .padding(.horizontal, 24)
+        .background(Color.background)
         .task {
             await viewModel.performSomeAction()
         }

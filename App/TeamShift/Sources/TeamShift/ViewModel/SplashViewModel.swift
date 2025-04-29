@@ -9,7 +9,7 @@ final class SplashViewModel {
     // MARK: Methods
     func performSomeAction() async {
         let clock = ContinuousClock()
-        try? await clock.sleep(for: .seconds(3))
+        try? await clock.sleep(for: .seconds(1))
         didRequestFinish?(.showAuthentication)
     }
 }
