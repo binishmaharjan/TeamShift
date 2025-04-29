@@ -1,5 +1,6 @@
 import Foundation
 import SharedModels
+import SharedUIs
 import SwiftUI
 
 public enum AuthenticationResult { }
@@ -10,11 +11,11 @@ public final class AuthenticationCoordinator: FlowCoordinator {
     
     // MARK: Init
     public init() {
-        print("Start AuthenticationCoordinator")
+        print("\(Self.self): Start AuthenticationCoordinator")
     }
     
     deinit {
-        print("Deinit AuthenticationCoordinator")
+        print("\(Self.self): Deinit AuthenticationCoordinator")
     }
     
     // MARK: Properties
@@ -26,7 +27,7 @@ public final class AuthenticationCoordinator: FlowCoordinator {
     public func start() {
         let viewModel = OnboardingViewModel()
         let view = OnboardingView(coordinator: self, viewModel: viewModel)
-        let viewController = UIHostingController(rootView: view)
+        let viewController = NamedUIHostingController(rootView: view)
         startViewController = viewController
     }
 }

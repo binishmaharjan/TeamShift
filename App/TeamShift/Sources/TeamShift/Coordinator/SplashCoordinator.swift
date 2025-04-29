@@ -1,5 +1,6 @@
 import Foundation
 import SharedModels
+import SharedUIs
 import SwiftUI
 
 enum SplashResult {
@@ -12,11 +13,11 @@ final class SplashCoordinator: FlowCoordinator {
     
     // MARK: Init
     init() {
-        print("Start SplashCoordinator")
+        print("\(Self.self): Start SplashCoordinator")
     }
     
     deinit {
-        print("Deinit SplashCoordinator")
+        print("\(Self.self): Deinit SplashCoordinator")
     }
     
     // MARK: Coordinator
@@ -33,7 +34,7 @@ final class SplashCoordinator: FlowCoordinator {
             self?.finish(with: result)
         }
         let view = SplashView(viewModel: viewModel)
-        let viewController = UIHostingController(rootView: view)
+        let viewController = NamedUIHostingController(rootView: view)
         startViewController = viewController
     }
 }

@@ -38,7 +38,7 @@ opt_in_rules: # some rules are turned off by default, so you need to opt-in
   - identical_operands
   - implicit_return
   - implicitly_unwrapped_optional
-  - indentation_width
+#  - indentation_width
   - joined_default_parameter
   - last_where
   - legacy_multiple
