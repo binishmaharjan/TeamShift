@@ -1,7 +1,6 @@
 import Foundation
 import SharedModels
 import SwiftUI
-import UIKit
 
 @MainActor
 final class SplashCoordinator: FlowCoordinator {

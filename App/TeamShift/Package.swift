@@ -11,6 +11,7 @@ let package = Package(
         .library(name: "TeamShift", targets: ["TeamShift"]),
         .library(name: "SharedModels", targets: ["SharedModels"]),
         .library(name: "SharedUIs", targets: ["SharedUIs"]),
+        .library(name: "FeatureAuthentication", targets: ["FeatureAuthentication"]),
     ],
     dependencies: [
         .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", exact: "0.58.2"),
@@ -42,6 +43,16 @@ let package = Package(
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
                 .plugin(name: "AssetGenPlugin")
+            ]
+        ),
+        .target(
+            name: "FeatureAuthentication",
+            dependencies: [
+                "SharedUIs",
+                "SharedModels"
+            ],
+            plugins: [
+                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
             ]
         ),
         .plugin(

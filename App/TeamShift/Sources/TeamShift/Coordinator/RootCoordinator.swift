@@ -1,7 +1,6 @@
 import SharedModels
 import SharedUIs
 import SwiftUI
-import UIKit
 
 @MainActor
 final class RootCoordinator: CompositionCoordinator {
