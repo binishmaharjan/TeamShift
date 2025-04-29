@@ -8,6 +8,8 @@ enum FileExtension: String {
     case colorset
     /// Image Set
     case imageset
+    /// Localizable
+    case xcstrings
     
     var fetcher: any AssetFetcher {
         switch self {
@@ -18,6 +20,8 @@ enum FileExtension: String {
             return ColorAssetFetcher()
         case .imageset:
             return ImageAssetFetcher()
+        case .xcstrings:
+            return LocalizableAssetFetcher()
         }
     }
 }

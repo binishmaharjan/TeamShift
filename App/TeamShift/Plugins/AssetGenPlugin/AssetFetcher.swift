@@ -43,3 +43,14 @@ struct ImageAssetFetcher: AssetFetcher {
             .map { ImageAsset(originalName: $0, camelCaseName: $0.toCamelCase) }
     }
 }
+
+struct LocalizableAssetFetcher: AssetFetcher {
+    func fetchAssets(atPath path: String) throws -> [StringAsset] {
+        let contentURL = URL(string: path)!
+        let jsonData = try Data(contentsOf: contentURL)
+        let decoder = JSONDecoder()
+        let xcStringsData = try decoder.decode(XCStringsFile.self, from: jsonData)
+        return xcStringsData.strings.keys
+            .map { StringAsset(originalName: $0, camelCaseName: $0.toCamelCase) }
+    }
+}

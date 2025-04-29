@@ -23,10 +23,12 @@ struct AssetGenPlugin: BuildToolPlugin {
         \(EscapeCharacter.tab.rawValue)\(fetchAsset(in: target, for: .imageset).map(\.toStaticProperty)
             .joined(separator: "\(EscapeCharacter.newLine.rawValue)\(EscapeCharacter.tab.rawValue)"))
         }
+        
+        public struct Strings {
+        \(EscapeCharacter.tab.rawValue)\(fetchAsset(in: target, for: .xcstrings).map(\.toStaticProperty)
+            .joined(separator: "\(EscapeCharacter.newLine.rawValue)\(EscapeCharacter.tab.rawValue)"))
+        }
         """
-        
-        
-        // TODO: Generate for images
         
         let tmpOutputFilePathString = try tmpOutputFilePath().string
         try generatedFileContent.write(to: URL(fileURLWithPath: tmpOutputFilePathString), atomically: true, encoding: .utf8)
@@ -48,24 +50,36 @@ struct AssetGenPlugin: BuildToolPlugin {
     
     private func fetchAsset(in target: SourceModuleTarget, for ext: FileExtension) -> [Asset] {
         do {
-            let result = try target.sourceFiles(withSuffix: FileExtension.xcassets.rawValue).map { catalog in
-                // path to the catalog asset
-                let input = catalog.path
-                // list of assets in the catalog asset  as string
-                let assets: [Asset] = try FileManager.default.fetchAssets(using: ext.fetcher, atPath: input.string)
+            if ext == .xcstrings {
+                // for string
+                if let localizeableFile = target.sourceFiles(withSuffix: ext.rawValue).first {
+                    let assets: [Asset] = try FileManager.default.fetchAssets(using: ext.fetcher, atPath: localizeableFile.url.absoluteString)
+                    return assets
+                } else {
+                    return []
+                }
                 
-                // show debug log
-                print("[AssetGen] - Found asset catalog named \(input.stem).\(FileExtension.xcassets.rawValue)")
-                print("[AssetGen] - Searching for \(ext.rawValue)...")
-                print("[AssetGen] - Found \(assets.count) \(ext.rawValue) in this catalog")
+            } else {
+                // For image and colors
+                let result = try target.sourceFiles(withSuffix: FileExtension.xcassets.rawValue).map { catalog in
+                    // path to the catalog asset
+                    let input = catalog.path
+                    // list of assets in the catalog asset  as string
+                    let assets: [Asset] = try FileManager.default.fetchAssets(using: ext.fetcher, atPath: input.string)
+                    
+                    // show debug log
+                    print("[AssetGen] - Found asset catalog named \(input.stem).\(FileExtension.xcassets.rawValue)")
+                    print("[AssetGen] - Searching for \(ext.rawValue)...")
+                    print("[AssetGen] - Found \(assets.count) \(ext.rawValue) in this catalog")
+                    
+                    // return all color name in camel case
+                    return assets
+                }
+                // flat map [[String]] from multiple catalog to single [String]
+                .flatMap { $0 }
                 
-                // return all color name in camel case
-                return assets
+                return result
             }
-            // flat map [[String]] from multiple catalog to single [String]
-            .flatMap { $0 }
-            
-            return result
         } catch {
             return []
         }

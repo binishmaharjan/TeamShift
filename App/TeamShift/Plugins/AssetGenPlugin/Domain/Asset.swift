@@ -18,6 +18,7 @@ struct ColorAsset: Asset {
     }
 }
 
+/// Representation of image asset
 struct ImageAsset: Asset {
     var originalName: String
     var camelCaseName: String
@@ -25,6 +26,18 @@ struct ImageAsset: Asset {
     var toStaticProperty: String {
         """
         public static let \(camelCaseName) = Image(\"\(originalName)\", bundle: .module)
+        """
+    }
+}
+
+/// Representation of string asset
+struct StringAsset: Asset {
+    var originalName: String
+    var camelCaseName: String
+    
+    var toStaticProperty: String {
+        """
+        public static let \(camelCaseName) = String(localized: \"\(originalName)\", bundle: .module)
         """
     }
 }

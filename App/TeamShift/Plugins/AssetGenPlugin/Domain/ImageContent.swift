@@ -1,8 +1,8 @@
 import Foundation
 
-/// Representation for Content.json file of Image asset
+/// Structure matching the Content.json file of Image asset
 struct ImageContent: Decodable {
-    /// Representation of Image asset
+    // Nested struct for the value part of the "images" dictionary
     struct Image: Decodable {
         let filename: String?
     }
