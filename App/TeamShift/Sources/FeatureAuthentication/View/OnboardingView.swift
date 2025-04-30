@@ -14,19 +14,27 @@ struct OnboardingView: View {
         VStack {
             Spacer()
             
-            Button {
-                print("Find a Service")
-            } label: {
-                Text(Strings.findAService)
+            PrimaryButton(
+                image: .icnPersonAdd,
+                title: l10.createAccount
+            ) {
+                print(l10.createAccount)
             }
-            .buttonStyle(.primary)
             
-            Button {
-                print("Become Freelancer")
-            } label: {
-                Text(Strings.becomeFreelancer)
+            SecondaryButton(
+                image: .icnLogin,
+                title: l10.login
+            ) {
+                print(l10.login)
             }
-            .buttonStyle(.secondary)
+            
+            Text(continueAsGuestUserString)
+                .font(.customCaption)
+                .bold()
+                .padding(10)
+                .onTapGesture {
+                    print("Continue as Guest User")
+                }
         }
         .frame(maxHeight: .infinity)
         .padding(.horizontal, 24)
@@ -34,5 +42,18 @@ struct OnboardingView: View {
         .task {
             await viewModel.performSomeAction()
         }
+    }
+}
+
+extension OnboardingView {
+    private var continueAsGuestUserString: AttributedString {
+        var attributedString = AttributedString(l10.continueAsGuestUser)
+        if let range = attributedString.range(of: l10.continueAs) {
+            attributedString[range].foregroundColor = Color.subText
+        }
+        if let range = attributedString.range(of: l10.guestUser) {
+            attributedString[range].foregroundColor = Color.appPrimary
+        }
+        return attributedString
     }
 }

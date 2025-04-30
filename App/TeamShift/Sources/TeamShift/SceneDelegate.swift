@@ -22,5 +22,6 @@ extension SceneDelegate {
         window.rootViewController = rootCoordinator.startViewController
         window.makeKeyAndVisible()
         self.rootCoordinator = rootCoordinator
+        
     }
 }

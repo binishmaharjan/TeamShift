@@ -27,7 +27,7 @@ struct AssetGenPlugin: BuildToolPlugin {
             .joined(separator: "\(EscapeCharacter.newLine.rawValue)\(EscapeCharacter.tab.rawValue)"))
         }
         
-        public struct Strings {
+        public struct l10 {
         \(EscapeCharacter.tab.rawValue)\(strings.map(\.toStaticProperty)
             .joined(separator: "\(EscapeCharacter.newLine.rawValue)\(EscapeCharacter.tab.rawValue)"))
         }

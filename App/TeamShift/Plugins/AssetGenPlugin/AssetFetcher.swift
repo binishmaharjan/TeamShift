@@ -52,6 +52,7 @@ struct LocalizableAssetFetcher: AssetFetcher {
         let decoder = JSONDecoder()
         let xcStringsData = try decoder.decode(XCStringsFile.self, from: jsonData)
         return xcStringsData.strings.keys
+            .filter { !$0.isEmpty }
             .map { StringAsset(originalName: $0, camelCaseName: $0.toCamelCase) }
     }
 }
