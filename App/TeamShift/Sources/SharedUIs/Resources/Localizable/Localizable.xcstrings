@@ -85,6 +85,94 @@
           }
         }
       }
+    },
+    "Onboarding Description 1" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Simplify staff scheduling and shift management in one place. Keep your entire team coordinated and informed with ease."
+          }
+        }
+      }
+    },
+    "Onboarding Description 2" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Build your team's schedule in minutes with our intuitive interface. Publish and instantly share updates with all employees."
+          }
+        }
+      }
+    },
+    "Onboarding Description 3" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View your upcoming shifts and team schedule at a glance. Never miss a shift with timely notifications and calendar integration."
+          }
+        }
+      }
+    },
+    "Onboarding Description 4" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Need to swap a shift? Request exchanges directly in the app. Managers receive notifications and can approve with one tap."
+          }
+        }
+      }
+    },
+    "Onboarding Title 1" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Welcome to TeamShift"
+          }
+        }
+      }
+    },
+    "Onboarding Title 2" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create Schedules"
+          }
+        }
+      }
+    },
+    "Onboarding Title 3" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check Your Schedule"
+          }
+        }
+      }
+    },
+    "Onboarding Title 4" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exchange Shifts"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

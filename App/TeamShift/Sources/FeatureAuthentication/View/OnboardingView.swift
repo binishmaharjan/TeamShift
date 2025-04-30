@@ -9,39 +9,88 @@ struct OnboardingView: View {
     
     private weak var coordinator: AuthenticationCoordinator?
     @State private var viewModel: OnboardingViewModel
+    @State private var item: [Item] = [
+        .init(color: .onboardingBackground, title: l10.onboardingTitle1, subTitle: l10.onboardingDescription1),
+        .init(color: .onboardingBackground, title: l10.onboardingTitle2, subTitle: l10.onboardingDescription2),
+        .init(color: .onboardingBackground, title: l10.onboardingTitle3, subTitle: l10.onboardingDescription3),
+        .init(color: .onboardingBackground, title: l10.onboardingTitle4, subTitle: l10.onboardingDescription4),
+    ]
     
     var body: some View {
-        VStack {
-            Spacer()
+        VStack(spacing: 12) {
+            paginSlider
             
-            PrimaryButton(
-                image: .icnPersonAdd,
-                title: l10.createAccount
-            ) {
-                print(l10.createAccount)
-            }
+            createAccountButton
             
-            SecondaryButton(
-                image: .icnLogin,
-                title: l10.login
-            ) {
-                print(l10.login)
-            }
+            loginButton
             
-            Text(continueAsGuestUserString)
-                .font(.customCaption)
-                .bold()
-                .padding(10)
-                .onTapGesture {
-                    print("Continue as Guest User")
-                }
+            continueAsGuestLink
         }
+        .padding(.top, 35) // use safe area padding to avoid clipping of scrollview
         .frame(maxHeight: .infinity)
         .padding(.horizontal, 24)
         .background(Color.background)
         .task {
             await viewModel.performSomeAction()
         }
+    }
+}
+
+// MARK: View
+extension OnboardingView {
+    @ViewBuilder
+    private var paginSlider: some View {
+        PagingSlider(data: $item) { $item in
+            RoundedRectangle(cornerRadius: 15)
+                .fill(item.color.gradient)
+                .padding(.top, 8)
+        } titleContent: { $item in
+            VStack(spacing: 4) {
+                Text(item.title)
+                    .foregroundStyle(Color.text)
+                    .font(.customTitle)
+                    .lineLimit(1)
+                    .multilineTextAlignment(.center)
+                
+                Text(item.subTitle)
+                    .foregroundStyle(Color.subText)
+                    .font(.customFootnote)
+                    .lineLimit(3)
+                    .multilineTextAlignment(.center)
+            }
+        }
+        .padding(.bottom, 8)
+    }
+    
+    @ViewBuilder
+    private var createAccountButton: some View {
+        PrimaryButton(
+            image: .icnPersonAdd,
+            title: l10.createAccount
+        ) {
+            print(l10.createAccount)
+        }
+    }
+    
+    @ViewBuilder
+    private var loginButton: some View {
+        SecondaryButton(
+            image: .icnLogin,
+            title: l10.login
+        ) {
+            print(l10.login)
+        }
+    }
+    
+    @ViewBuilder
+    private var continueAsGuestLink: some View {
+        Text(continueAsGuestUserString)
+            .font(.customCaption)
+            .bold()
+            .padding(8)
+            .onTapGesture {
+                print("Continue as Guest User")
+            }
     }
 }
 
