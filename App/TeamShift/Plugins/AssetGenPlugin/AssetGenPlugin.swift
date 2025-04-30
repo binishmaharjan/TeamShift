@@ -98,7 +98,7 @@ struct AssetGenPlugin: BuildToolPlugin {
             // 3. Return the final combined tuple
             return combinedAssets
         } catch {
-            print("[AssetGen]:❌:  Error while finding asset catalogs.")
+            print("[AssetGen]:❌: Error while finding asset catalogs.")
             return ([], [])
         }
     }
