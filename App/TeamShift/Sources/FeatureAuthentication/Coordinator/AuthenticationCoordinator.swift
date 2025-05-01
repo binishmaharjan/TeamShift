@@ -26,7 +26,7 @@ public final class AuthenticationCoordinator: FlowCoordinator {
     // MARK: Methods
     public func start() {
         let viewModel = OnboardingViewModel()
-        let view = OnboardingView(coordinator: self, viewModel: viewModel)
+        let view = OnboardingView(viewModel: viewModel)
         let viewController = NamedUIHostingController(rootView: view)
         startViewController = viewController
     }

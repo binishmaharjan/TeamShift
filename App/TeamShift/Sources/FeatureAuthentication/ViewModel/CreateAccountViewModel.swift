@@ -2,7 +2,7 @@ import Foundation
 import Observation
 
 @Observable @MainActor
-final class OnboardingViewModel {
+final class CreateAccountViewModel {
     func performSomeAction() async {
     }
 }

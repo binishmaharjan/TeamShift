@@ -12,7 +12,7 @@ public struct SecondaryButtonStyle: ButtonStyle {
             .background((configuration.isPressed || !isEnabled) ? Color.appSecondaryHighlighted : Color.appSecondary)
             .foregroundStyle((configuration.isPressed || !isEnabled) ? Color.appPrimaryHighlighted : Color.appPrimary)
             .font(.customSubHeadline)
-            .mask(RoundedRectangle(cornerRadius: 21))
+            .mask(RoundedRectangle(cornerRadius: 10))
     }
 }
 

@@ -2,12 +2,10 @@ import SharedUIs
 import SwiftUI
 
 struct OnboardingView: View {
-    init(coordinator: AuthenticationCoordinator, viewModel: OnboardingViewModel) {
-        self.coordinator = coordinator
+    init(viewModel: OnboardingViewModel) {
         self.viewModel = viewModel
     }
     
-    private weak var coordinator: AuthenticationCoordinator?
     @State private var viewModel: OnboardingViewModel
     @State private var item: [Item] = [
         .init(color: .onboardingBackground, title: l10.onboardingTitle1, subTitle: l10.onboardingDescription1),
@@ -55,7 +53,7 @@ extension OnboardingView {
                 Text(item.subTitle)
                     .foregroundStyle(Color.subText)
                     .font(.customFootnote)
-                    .lineLimit(3)
+                    .lineLimit(4)
                     .multilineTextAlignment(.center)
             }
         }
@@ -105,4 +103,8 @@ extension OnboardingView {
         }
         return attributedString
     }
+}
+
+#Preview {
+    OnboardingView(viewModel: OnboardingViewModel())
 }
