@@ -8,7 +8,11 @@ struct MainTabView: View {
     @State private var viewModel: MainTabViewModel
     
     var body: some View {
-        Text("Main Tab View")
+        Button {
+            viewModel.doneButtonTapped()
+        } label: {
+            Text("Done")
+        }
     }
 }
 

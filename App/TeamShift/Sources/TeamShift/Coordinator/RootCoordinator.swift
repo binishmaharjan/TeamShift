@@ -40,6 +40,13 @@ final class RootCoordinator: CompositionCoordinator {
             }
         }
         
+        if childCoordinator is MainTabCoordinator, let mainTabResult = result as? MainTabResult {
+            switch mainTabResult {
+            case .showAuthentication:
+                startAuthentication()
+            }
+        }
+        
         // Clean up
         removeChild(childCoordinator)
     }
