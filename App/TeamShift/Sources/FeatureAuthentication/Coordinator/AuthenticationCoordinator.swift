@@ -23,9 +23,6 @@ public final class AuthenticationCoordinator: FlowCoordinator {
     public weak var finishDelegate: (any CoordinatorFinishDelegate)?
     public lazy var startNavigationController: UINavigationController = {
         let navigationController = UINavigationController()
-        // Configure appearance if needed
-        // navigationController.navigationItem.largeTitleDisplayMode = .never
-        navigationController.isNavigationBarHidden = true
         return navigationController
     }()
     
@@ -36,8 +33,9 @@ public final class AuthenticationCoordinator: FlowCoordinator {
             self?.onboardingDidRequestNavigation(for: route)
         }
         let view = OnboardingView(viewModel: viewModel)
+            .toolbar(.hidden)
         let viewController = NamedUIHostingController(rootView: view)
-        startNavigationController.setViewControllers([viewController], animated: false) 
+        startNavigationController.setViewControllers([viewController], animated: false)
     }
 }
 
@@ -56,6 +54,8 @@ extension AuthenticationCoordinator {
     private func pushCreateAccountView() {
         let viewModel = CreateAccountViewModel()
         let view = CreateAccountView(viewModel: viewModel)
+            .navigationBar()
+            .withCustomBackButton()
         let viewController = NamedUIHostingController(rootView: view)
         startNavigationController.pushViewController(viewController, animated: true)
     }
@@ -63,6 +63,8 @@ extension AuthenticationCoordinator {
     private func pushLoginView() {
         let viewModel = LoginViewModel()
         let view = LoginView(viewModel: viewModel)
+            .navigationBar()
+            .withCustomBackButton()
         let viewController = NamedUIHostingController(rootView: view)
         startNavigationController.pushViewController(viewController, animated: true)
     }
@@ -71,4 +73,3 @@ extension AuthenticationCoordinator {
         startNavigationController.popViewController(animated: true)
     }
 }
-
