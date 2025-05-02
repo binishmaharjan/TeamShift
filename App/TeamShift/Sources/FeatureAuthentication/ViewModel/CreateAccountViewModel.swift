@@ -3,6 +3,10 @@ import Observation
 
 @Observable @MainActor
 final class CreateAccountViewModel {
-    func performSomeAction() async {
+    // MARK: Properties
+    var didRequestFinish: ((AuthenticationResult) -> Void)?
+    
+    func createButtonTapped() {
+        didRequestFinish?(.showMainTab)
     }
 }

@@ -3,7 +3,9 @@ import SharedModels
 import SharedUIs
 import SwiftUI
 
-public enum AuthenticationResult { }
+public enum AuthenticationResult {
+    case showMainTab
+}
 
 @MainActor
 public final class AuthenticationCoordinator: FlowCoordinator {
@@ -53,18 +55,28 @@ extension AuthenticationCoordinator {
     
     private func pushCreateAccountView() {
         let viewModel = CreateAccountViewModel()
+        viewModel.didRequestFinish = { [weak self] result in
+            self?.finish(with: result)
+        }
+        
         let view = CreateAccountView(viewModel: viewModel)
             .navigationBar()
             .withCustomBackButton()
+        
         let viewController = NamedUIHostingController(rootView: view)
         startNavigationController.pushViewController(viewController, animated: true)
     }
     
     private func pushLoginView() {
         let viewModel = LoginViewModel()
+        viewModel.didRequestFinish = { [weak self] result in
+            self?.finish(with: result)
+        }
+        
         let view = LoginView(viewModel: viewModel)
             .navigationBar()
             .withCustomBackButton()
+        
         let viewController = NamedUIHostingController(rootView: view)
         startNavigationController.pushViewController(viewController, animated: true)
     }

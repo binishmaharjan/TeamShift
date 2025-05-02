@@ -1,4 +1,5 @@
 import FeatureAuthentication
+import FeatureMainTab
 import SharedModels
 import SharedUIs
 import SwiftUI
@@ -32,6 +33,13 @@ final class RootCoordinator: CompositionCoordinator {
             }
         }
         
+        if childCoordinator is AuthenticationCoordinator, let authenticationResult = result as? AuthenticationResult {
+            switch authenticationResult {
+            case .showMainTab:
+                startMainTab()
+            }
+        }
+        
         // Clean up
         removeChild(childCoordinator)
     }
@@ -42,6 +50,13 @@ extension RootCoordinator {
         let authenticationCoordinator = AuthenticationCoordinator()
         addChild(authenticationCoordinator)
         authenticationCoordinator.start()
-        startViewController.replace(authenticationCoordinator.startNavigationController, animated: false)
+        startViewController.replace(authenticationCoordinator.startNavigationController, animated: true)
+    }
+    
+    private func startMainTab() {
+        let mainTabCoordinator = MainTabCoordinator()
+        addChild(mainTabCoordinator)
+        mainTabCoordinator.start()
+        startViewController.replace(mainTabCoordinator.startViewController, animated: true)
     }
 }

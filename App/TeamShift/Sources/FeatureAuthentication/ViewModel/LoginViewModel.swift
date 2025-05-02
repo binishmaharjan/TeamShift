@@ -3,6 +3,10 @@ import Observation
 
 @Observable @MainActor
 final class LoginViewModel {
-    func performSomeAction() async {
+    // MARK: Properties
+    var didRequestFinish: ((AuthenticationResult) -> Void)?
+    
+    func loginButtonTapped() {
+        didRequestFinish?(.showMainTab)
     }
 }
