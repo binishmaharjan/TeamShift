@@ -12,6 +12,7 @@ let package = Package(
         .library(name: "SharedModels", targets: ["SharedModels"]),
         .library(name: "SharedUIs", targets: ["SharedUIs"]),
         .library(name: "FeatureAuthentication", targets: ["FeatureAuthentication"]),
+        .library(name: "FeatureMainTab", targets: ["FeatureMainTab"]),
     ],
     dependencies: [
         .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", exact: "0.58.2"),
@@ -22,7 +23,8 @@ let package = Package(
             dependencies: [
                 "SharedModels",
                 "SharedUIs",
-                "FeatureAuthentication"
+                "FeatureAuthentication",
+                "FeatureMainTab"
             ],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
@@ -48,6 +50,16 @@ let package = Package(
         ),
         .target(
             name: "FeatureAuthentication",
+            dependencies: [
+                "SharedUIs",
+                "SharedModels"
+            ],
+            plugins: [
+                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
+            ]
+        ),
+        .target(
+            name: "FeatureMainTab",
             dependencies: [
                 "SharedUIs",
                 "SharedModels"
