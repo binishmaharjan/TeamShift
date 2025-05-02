@@ -42,6 +42,6 @@ extension RootCoordinator {
         let authenticationCoordinator = AuthenticationCoordinator()
         addChild(authenticationCoordinator)
         authenticationCoordinator.start()
-        startViewController.replace(authenticationCoordinator.startViewController, animated: false)
+        startViewController.replace(authenticationCoordinator.startNavigationController, animated: false)
     }
 }

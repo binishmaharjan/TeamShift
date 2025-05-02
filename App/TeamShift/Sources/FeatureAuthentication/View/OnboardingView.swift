@@ -28,9 +28,6 @@ struct OnboardingView: View {
         .frame(maxHeight: .infinity)
         .padding(.horizontal, 24)
         .background(Color.background)
-        .task {
-            await viewModel.performSomeAction()
-        }
     }
 }
 
@@ -66,7 +63,7 @@ extension OnboardingView {
             image: .icnPersonAdd,
             title: l10.createAccount
         ) {
-            print(l10.createAccount)
+            viewModel.createAccountButtonTapped()
         }
     }
     
@@ -76,7 +73,7 @@ extension OnboardingView {
             image: .icnLogin,
             title: l10.login
         ) {
-            print(l10.login)
+            viewModel.loginButtonTapped()
         }
     }
     
