@@ -92,7 +92,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Simplify staff scheduling and shift management in one place.\nKeep your entire team coordinated and informed with ease."
+            "value" : "Simplify staff scheduling and shift management in one place."
           }
         }
       }
@@ -103,7 +103,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Build your team's schedule in minutes with our intuitive interface. \nPublish and instantly share updates with all employees."
+            "value" : "Build your team's schedule in minutes with our intuitive interface. "
           }
         }
       }
@@ -114,7 +114,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "View your upcoming shifts and team schedule at a glance.\nNever miss a shift with timely notifications and calendar integration."
+            "value" : "View your upcoming shifts and team schedule at a glance."
           }
         }
       }
@@ -125,7 +125,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Need to swap a shift? Request exchanges directly in the app.\nManagers receive notifications and can approve with one tap."
+            "value" : "Need to swap a shift? Request exchanges directly in the app."
           }
         }
       }

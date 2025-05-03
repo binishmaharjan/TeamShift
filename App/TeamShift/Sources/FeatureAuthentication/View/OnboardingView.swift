@@ -24,7 +24,7 @@ struct OnboardingView: View {
             
             continueAsGuestLink
         }
-        .padding(.top, 35) // use safe area padding to avoid clipping of scrollview
+        .padding(.top, 34) // use safe area padding to avoid clipping of scrollview
         .frame(maxHeight: .infinity)
         .padding(.horizontal, 24)
         .background(Color.background)
@@ -45,7 +45,6 @@ extension OnboardingView {
                     .foregroundStyle(Color.text)
                     .font(.customTitle)
                     .lineLimit(1)
-                    .multilineTextAlignment(.center)
                 
                 Text(item.subTitle)
                     .foregroundStyle(Color.subText)
