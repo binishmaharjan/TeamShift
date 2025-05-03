@@ -36,8 +36,11 @@ struct CreateAccountView: View {
             separator
                 .padding(.bottom, 12)
             
-            SecondaryButton(image: .icnGoogle, title: "Sign up with Google", isTemplate: false) { }
-            SecondaryButton(image: .icnApple, title: "Sign up with Apple", isTemplate: false) { }
+            signInGoogleButton
+            
+            signInAppleButton
+            
+            createAccountCaution
         }
         .padding(.horizontal, 24)
         .vSpacing(.top)
@@ -47,7 +50,7 @@ struct CreateAccountView: View {
 extension CreateAccountView {
     @ViewBuilder
     private var title: some View {
-        Text("Create Account")
+        Text(l10.createAccount)
             .foregroundStyle(Color.text)
             .font(.customTitle)
     }
@@ -55,7 +58,7 @@ extension CreateAccountView {
     @ViewBuilder
     private var emailTextField: some View {
         PrimaryTextField(
-            "Email",
+            l10.email,
             icon: .icnMail,
             text: $email,
             fieldIdentifier: .email,
@@ -66,7 +69,7 @@ extension CreateAccountView {
     @ViewBuilder
     private var passwordTextField: some View {
         PrimaryTextField(
-            "Password",
+            l10.password,
             icon: .icnLock,
             text: $password,
             fieldIdentifier: .password,
@@ -77,7 +80,7 @@ extension CreateAccountView {
     
     @ViewBuilder
     private var createButton: some View {
-        PrimaryButton(title: "Create") { }
+        PrimaryButton(title: l10.signUp) { }
     }
     
     @ViewBuilder
@@ -93,6 +96,49 @@ extension CreateAccountView {
                 .frame(height: 1)
         }
         .foregroundStyle(Color.text.opacity(0.5))
+    }
+    
+    @ViewBuilder
+    private var signInGoogleButton: some View {
+        SecondaryButton(
+            image: .icnGoogle,
+            title: l10.signUpWithGoogle,
+            isTemplate: false
+        ) {
+            print(l10.signUpWithGoogle)
+        }
+    }
+    
+    @ViewBuilder
+    private var signInAppleButton: some View {
+        SecondaryButton(
+            image: .icnApple,
+            title: l10.signUpWithApple,
+            isTemplate: false
+        ) {
+            print(l10.signUpWithApple)
+        }
+    }
+    
+    @ViewBuilder
+    private var createAccountCaution: some View {
+        Text(createAccountCautionString)
+            .foregroundStyle(Color.subText)
+            .font(.customCaption)
+            .multilineTextAlignment(.center)
+    }
+}
+
+extension CreateAccountView {
+    private var createAccountCautionString: AttributedString {
+        var attributedString = AttributedString(l10.createAccountCaution)
+        if let range = attributedString.range(of: l10.privacyPolicy) {
+            attributedString[range].foregroundColor = Color.appPrimary
+        }
+        if let range = attributedString.range(of: l10.subscriptionAgreement) {
+            attributedString[range].foregroundColor = Color.appPrimary
+        }
+        return attributedString
     }
 }
 

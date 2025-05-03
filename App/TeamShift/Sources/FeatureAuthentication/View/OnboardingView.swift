@@ -70,7 +70,7 @@ extension OnboardingView {
     private var loginButton: some View {
         SecondaryButton(
             image: .icnLogin,
-            title: l10.login
+            title: l10.signIn
         ) {
             viewModel.loginButtonTapped()
         }
