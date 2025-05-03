@@ -68,12 +68,12 @@ extension AuthenticationCoordinator {
     }
     
     private func pushLoginView() {
-        let viewModel = LoginViewModel()
+        let viewModel = SignInViewModel()
         viewModel.didRequestFinish = { [weak self] result in
             self?.finish(with: result)
         }
         
-        let view = LoginView(viewModel: viewModel)
+        let view = SignInView(viewModel: viewModel)
             .navigationBar()
             .withCustomBackButton()
         

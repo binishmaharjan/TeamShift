@@ -2,7 +2,7 @@ import Foundation
 import Observation
 
 @Observable @MainActor
-final class LoginViewModel {
+final class SignInViewModel {
     // MARK: Properties
     var didRequestFinish: ((AuthenticationResult) -> Void)?
     

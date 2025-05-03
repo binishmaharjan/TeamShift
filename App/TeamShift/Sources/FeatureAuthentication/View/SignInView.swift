@@ -1,18 +1,18 @@
 import SharedUIs
 import SwiftUI
 
-struct CreateAccountView: View {
+struct SignInView: View {
     enum FocusableField: Hashable {
         case email
         case password
     }
     
-    init(viewModel: CreateAccountViewModel) {
+    init(viewModel: SignInViewModel) {
         self.viewModel = viewModel
     }
     
     // MARK: Properties
-    @State private var viewModel: CreateAccountViewModel
+    @State private var viewModel: SignInViewModel
     @FocusState private var focusedField: FocusableField?
     @State private var email: String = ""
     @State private var password: String = ""
@@ -26,27 +26,26 @@ struct CreateAccountView: View {
             
             passwordTextField
             
-            createButton
-                .padding(.bottom, 12)
-    
+            signInButton
+            
+           forgotPasswordButton
+
             separator
                 .padding(.bottom, 12)
             
-            signUpGoogleButton
+            signInGoogleButton
             
-            signUpAppleButton
-            
-            createAccountCaution
+            signInAppleButton
         }
         .padding(.horizontal, 24)
         .vSpacing(.top)
     }
 }
 
-extension CreateAccountView {
+extension SignInView {
     @ViewBuilder
     private var title: some View {
-        Text(l10.createAccount)
+        Text(l10.signIn)
             .foregroundStyle(Color.text)
             .font(.customTitle)
     }
@@ -75,8 +74,21 @@ extension CreateAccountView {
     }
     
     @ViewBuilder
-    private var createButton: some View {
-        PrimaryButton(title: l10.signUp) { }
+    private var signInButton: some View {
+        PrimaryButton(title: l10.signIn) { }
+    }
+    
+    @ViewBuilder
+    private var forgotPasswordButton: some View {
+        Button {
+            print(l10.forgotPassword)
+        } label: {
+            Text(l10.forgotPassword)
+                .font(.customFootnote.bold())
+                .foregroundStyle(Color.appPrimary)
+                .hSpacing(.trailing)
+        }
+        .padding(.bottom, 12)
     }
     
     @ViewBuilder
@@ -95,10 +107,10 @@ extension CreateAccountView {
     }
     
     @ViewBuilder
-    private var signUpGoogleButton: some View {
+    private var signInGoogleButton: some View {
         SecondaryButton(
             image: .icnGoogle,
-            title: l10.signUpWithGoogle,
+            title: l10.signInWithGoogle,
             isTemplate: false
         ) {
             print(l10.signUpWithGoogle)
@@ -106,38 +118,17 @@ extension CreateAccountView {
     }
     
     @ViewBuilder
-    private var signUpAppleButton: some View {
+    private var signInAppleButton: some View {
         SecondaryButton(
             image: .icnApple,
-            title: l10.signUpWithApple,
+            title: l10.signInWithApple,
             isTemplate: false
         ) {
             print(l10.signUpWithApple)
         }
     }
-    
-    @ViewBuilder
-    private var createAccountCaution: some View {
-        Text(createAccountCautionString)
-            .foregroundStyle(Color.subText)
-            .font(.customCaption)
-            .multilineTextAlignment(.center)
-    }
-}
-
-extension CreateAccountView {
-    private var createAccountCautionString: AttributedString {
-        var attributedString = AttributedString(l10.createAccountCaution)
-        if let range = attributedString.range(of: l10.privacyPolicy) {
-            attributedString[range].foregroundColor = Color.appPrimary
-        }
-        if let range = attributedString.range(of: l10.subscriptionAgreement) {
-            attributedString[range].foregroundColor = Color.appPrimary
-        }
-        return attributedString
-    }
 }
 
 #Preview {
-    CreateAccountView(viewModel: CreateAccountViewModel())
+    SignInView(viewModel: SignInViewModel())
 }
