@@ -22,24 +22,22 @@ struct CreateAccountView: View {
     @State private var isPasswordVisible: Bool = false
     
     var body: some View {
-        VStack {
+        VStack(spacing: 12) {
             title
-                .padding(.bottom, 24)
+                .padding(.bottom, 48)
             
             emailTextField
             
             passwordTextField
-                .padding(.bottom, 12)
             
             createButton
-                .padding(.bottom, 24)
+                .padding(.bottom, 12)
     
             separator
-                .padding(.bottom, 24)
+                .padding(.bottom, 12)
             
-            SecondaryButton(title: "Sign up with Google") { }
-            SecondaryButton(title: "Sign up with Facebook") { }
-            SecondaryButton(title: "Sign up with Apple") { }
+            SecondaryButton(image: .icnGoogle, title: "Sign up with Google", isTemplate: false) { }
+            SecondaryButton(image: .icnApple, title: "Sign up with Apple", isTemplate: false) { }
         }
         .padding(.horizontal, 24)
         .vSpacing(.top)

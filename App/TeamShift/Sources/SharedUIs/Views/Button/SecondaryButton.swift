@@ -9,22 +9,28 @@ public struct SecondaryButtonStyle: ButtonStyle {
             .label
             .frame(maxWidth: .infinity)
             .frame(height: 44)
-            .background((configuration.isPressed || !isEnabled) ? Color.appSecondaryHighlighted : Color.appSecondary)
-            .foregroundStyle((configuration.isPressed || !isEnabled) ? Color.appPrimaryHighlighted : Color.appPrimary)
-            .font(.customSubHeadline)
-            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+            .background((configuration.isPressed || !isEnabled) ? Color.background : Color.background)
+            .foregroundStyle((configuration.isPressed || !isEnabled) ? Color.appPrimaryHighlighted : Color.text)
+            .clipShape(RoundedRectangle(cornerRadius: 21, style: .continuous))
+            .overlay {
+                RoundedRectangle(cornerRadius: 21, style: .continuous)
+                    .stroke(lineWidth: 1)
+                    .fill(Color.text.opacity(0.3))
+            }
     }
 }
 
 public struct SecondaryButton: View {
-    public init(image: Image? = nil, title: String, action: @escaping () -> Void) {
+    public init(image: Image? = nil, title: String, isTemplate: Bool = true, action: @escaping () -> Void) {
         self.image = image
         self.title = title
+        self.isTemplate = isTemplate
         self.action = action
     }
     
     private let image: Image?
     private let title: String
+    private let isTemplate: Bool
     private let action: () -> Void
     
     public var body: some View {
@@ -32,10 +38,14 @@ public struct SecondaryButton: View {
             HStack {
                 if let image {
                     image
-                        .renderingMode(.template)
+                        .resizable()
+                        .renderingMode(isTemplate ? .template : .original)
+                        .scaledToFit()
+                        .frame(width: 18, height: 18)
                 }
                 
                 Text(title)
+                    .font(.customFootnote.bold())
             }
         }
         .buttonStyle(.secondary)

@@ -11,8 +11,7 @@ public struct PrimaryButtonStyle: ButtonStyle {
             .frame(height: 44)
             .background((configuration.isPressed || !isEnabled) ? Color.appPrimaryHighlighted : Color.appPrimary)
             .foregroundStyle((configuration.isPressed || !isEnabled) ? Color.background.opacity(0.5) : Color.background)
-            .font(.customSubHeadline)
-            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+            .clipShape(RoundedRectangle(cornerRadius: 21, style: .continuous))
     }
 }
 
@@ -32,10 +31,14 @@ public struct PrimaryButton: View {
             HStack {
                 if let image {
                     image
+                        .resizable()
                         .renderingMode(.template)
+                        .scaledToFit()
+                        .frame(width: 18, height: 18)
                 }
                 
                 Text(title)
+                    .font(.customFootnote.bold())
             }
         }
         .buttonStyle(.primary)

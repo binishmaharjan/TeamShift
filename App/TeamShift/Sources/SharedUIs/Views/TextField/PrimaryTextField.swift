@@ -34,7 +34,7 @@ public struct PrimaryTextField<Field: Hashable>: View {
             icon
                 .resizable()
                 .renderingMode(.template)
-                .aspectRatio(contentMode: .fit)
+                .scaledToFit()
                 .frame(width: 18, height: 18)
                 .foregroundStyle(isCurrentlyFocused ? Color.appPrimary : Color.text.opacity(0.3))
             
@@ -52,7 +52,7 @@ public struct PrimaryTextField<Field: Hashable>: View {
                 (isVisibilityOn ? Image.icnVisibilityOff : Image.icnVisibilityOn)
                     .resizable()
                     .renderingMode(.template)
-                    .aspectRatio(contentMode: .fit)
+                    .scaledToFit()
                     .frame(width: 18, height: 18)
                     .foregroundStyle(isCurrentlyFocused ? Color.appPrimary : Color.text.opacity(0.3))
                     .onTapGesture {

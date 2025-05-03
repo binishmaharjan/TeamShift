@@ -59,7 +59,7 @@ extension OnboardingView {
     @ViewBuilder
     private var createAccountButton: some View {
         PrimaryButton(
-            image: .icnPersonAdd,
+            image: .icnPerson,
             title: l10.createAccount
         ) {
             viewModel.createAccountButtonTapped()
