@@ -14,8 +14,6 @@ struct CreateAccountView: View {
     // MARK: Properties
     @State private var viewModel: CreateAccountViewModel
     @FocusState private var focusedField: FocusableField?
-    @State private var email: String = ""
-    @State private var password: String = ""
     
     var body: some View {
         VStack(spacing: 12) {
@@ -56,7 +54,7 @@ extension CreateAccountView {
         PrimaryTextField(
             l10.email,
             icon: .icnMail,
-            text: $email,
+            text: $viewModel.email,
             fieldIdentifier: .email,
             focusedField: $focusedField
         )
@@ -67,7 +65,7 @@ extension CreateAccountView {
         PrimaryTextField(
             l10.password,
             icon: .icnLock,
-            text: $password,
+            text: $viewModel.password,
             fieldIdentifier: .password,
             focusedField: $focusedField,
             isSecure: true
@@ -77,6 +75,7 @@ extension CreateAccountView {
     @ViewBuilder
     private var createButton: some View {
         PrimaryButton(title: l10.signUp) { }
+            .disabled(!viewModel.isCreateButtonEnabled)
     }
     
     @ViewBuilder

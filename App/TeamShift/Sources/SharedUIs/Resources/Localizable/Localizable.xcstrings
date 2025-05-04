@@ -58,7 +58,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "By signing up, you accept the privacy policy and subscription agreement"
+            "value" : "By signing up, you accept the privacy policy and \nsubscription agreement"
           }
         }
       }
@@ -279,7 +279,15 @@
       }
     },
     "subscription agreement" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "subscription agreement"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

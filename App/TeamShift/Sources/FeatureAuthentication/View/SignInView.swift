@@ -14,8 +14,6 @@ struct SignInView: View {
     // MARK: Properties
     @State private var viewModel: SignInViewModel
     @FocusState private var focusedField: FocusableField?
-    @State private var email: String = ""
-    @State private var password: String = ""
     
     var body: some View {
         VStack(spacing: 12) {
@@ -55,7 +53,7 @@ extension SignInView {
         PrimaryTextField(
             l10.email,
             icon: .icnMail,
-            text: $email,
+            text: $viewModel.email,
             fieldIdentifier: .email,
             focusedField: $focusedField
         )
@@ -66,7 +64,7 @@ extension SignInView {
         PrimaryTextField(
             l10.password,
             icon: .icnLock,
-            text: $password,
+            text: $viewModel.password,
             fieldIdentifier: .password,
             focusedField: $focusedField,
             isSecure: true

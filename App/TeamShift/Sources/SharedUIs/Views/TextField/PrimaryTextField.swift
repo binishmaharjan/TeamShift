@@ -39,10 +39,10 @@ public struct PrimaryTextField<Field: Hashable>: View {
                 .foregroundStyle(isCurrentlyFocused ? Color.appPrimary : Color.text.opacity(0.3))
             
             Group {
-                if isVisibilityOn {
-                    TextField(placeholder, text: $text)
-                } else {
+                if (!isVisibilityOn && isSecure) {
                     SecureField(placeholder, text: $text)
+                } else {
+                    TextField(placeholder, text: $text)
                 }
             }
             .font(.customFootnote)
