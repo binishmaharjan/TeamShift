@@ -14,6 +14,7 @@ let package = Package(
         .library(name: "FeatureAuthentication", targets: ["FeatureAuthentication"]),
         .library(name: "FeatureMainTab", targets: ["FeatureMainTab"]),
         .library(name: "ClientAuthentication", targets: ["ClientAuthentication"]),
+        .library(name: "ClientUserStore", targets: ["ClientUserStore"]),
     ],
     dependencies: [
         .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", exact: "0.58.2"),
@@ -57,6 +58,7 @@ let package = Package(
                 "SharedUIs",
                 "SharedModels",
                 "ClientAuthentication",
+                "ClientUserStore",
                 .product(name: "FirebaseAnalytics", package: "firebase-ios-sdk"),
             ],
             plugins: [
@@ -80,6 +82,18 @@ let package = Package(
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "DependenciesMacros", package: "swift-dependencies"),
                 .product(name: "FirebaseAuth", package: "firebase-ios-sdk"),
+            ],
+            plugins: [
+                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
+            ]
+        ),
+        .target(
+            name: "ClientUserStore",
+            dependencies: [
+                "SharedModels",
+                .product(name: "Dependencies", package: "swift-dependencies"),
+                .product(name: "DependenciesMacros", package: "swift-dependencies"),
+                .product(name: "FirebaseFirestore", package: "firebase-ios-sdk"),
             ],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
