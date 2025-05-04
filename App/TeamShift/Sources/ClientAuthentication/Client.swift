@@ -9,7 +9,7 @@ public struct AuthenticationClient: Sendable {
     ///
     /// - Parameter newAccount: User info for the new account
     /// - Returns: UserId
-    public var createUser: @Sendable (_ withEmail: String, _ password: String) async throws -> String
+    public var createUser: @Sendable (_ withEmail: String, _ password: String) async throws -> AppUser
     /// SignIn the user.
     ///
     /// - Parameters:

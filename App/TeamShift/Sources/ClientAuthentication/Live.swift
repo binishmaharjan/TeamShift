@@ -1,6 +1,7 @@
 import Dependencies
 @preconcurrency import FirebaseAuth
 import Foundation
+import SharedModels
 
 // MARK: Dependency (liveValue)
 extension AuthenticationClient: DependencyKey {
@@ -21,17 +22,21 @@ extension AuthenticationClient {
 
 extension AuthenticationClient {
     actor Session {
-        func createUser(withEmail: String, password: String) async throws -> String {
+        func createUser(withEmail email: String, password: String) async throws -> AppUser {
             do {
-                let authDataResult = try await Auth.auth().createUser(withEmail: withEmail, password: password)
+                let authDataResult = try await Auth.auth().createUser(withEmail: email, password: password)
                 
                 let changeRequest = authDataResult.user.createProfileChangeRequest()
-                let tempUsername = String(withEmail.split(separator: "@").first ?? "")
-                changeRequest.displayName = tempUsername
+                changeRequest.displayName = email.toName
                 
                 try await changeRequest.commitChanges()
                 
-                return authDataResult.user.uid
+                return AppUser(
+                    id: authDataResult.user.uid,
+                    username: authDataResult.user.displayName,
+                    email: authDataResult.user.email,
+                    isAnonymous: authDataResult.user.isAnonymous
+                )
             } catch {
                 throw AuthError(from: error)
             }

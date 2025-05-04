@@ -1,4 +1,5 @@
 import ClientAuthentication
+import ClientUserStore
 import Dependencies
 import Foundation
 import Observation
@@ -17,14 +18,16 @@ final class CreateAccountViewModel {
     
     @ObservationIgnored
     @Dependency(\.authenticationClient) var authenticationClient
+    @ObservationIgnored
+    @Dependency(\.userStoreClient) var userStoreClient
     
     // MARK: Methods
     func createButtonTapped() async {
         isLoading = true
         do {
-            let uid = try await authenticationClient.createUser(withEmail: email, password: password)
+            let user = try await authenticationClient.createUser(withEmail: email, password: password)
+            try await userStoreClient.saveUser(user: user)
             isLoading = false
-            print(uid)
         } catch {
             isLoading = false
             print(error)

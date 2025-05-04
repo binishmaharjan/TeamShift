@@ -12,3 +12,12 @@ extension String {
         return self.wholeMatch(of: regex) != nil
     }
 }
+
+// MARK: Helpers
+extension String {
+    public var toName: String {
+        guard isEmail else { return self }
+        // Takes the prefix of the string as long as the character is not '@'
+        return String(prefix { $0 != "@" })
+    }
+}
