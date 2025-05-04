@@ -1,3 +1,5 @@
+import ClientAuthentication
+import Dependencies
 import Foundation
 import Observation
 
@@ -5,14 +7,27 @@ import Observation
 final class CreateAccountViewModel {
     // MARK: Properties
     var didRequestFinish: ((AuthenticationResult) -> Void)?
-    var email: String = ""
-    var password: String = ""
+    var email = ""
+    var password = ""
+    var isLoading = false
     
     var isCreateButtonEnabled: Bool {
-        email.count > 5 && password.count > 5
+        email.isEmail && password.count > 5
     }
     
-    func createButtonTapped() {
-        didRequestFinish?(.showMainTab)
+    @ObservationIgnored
+    @Dependency(\.authenticationClient) var authenticationClient
+    
+    // MARK: Methods
+    func createButtonTapped() async {
+        isLoading = true
+        do {
+            let uid = try await authenticationClient.createUser(withEmail: email, password: password)
+            isLoading = false
+            print(uid)
+        } catch {
+            isLoading = false
+            print(error)
+        }
     }
 }

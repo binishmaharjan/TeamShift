@@ -38,6 +38,7 @@ struct CreateAccountView: View {
         }
         .padding(.horizontal, 24)
         .vSpacing(.top)
+        .loadingView(viewModel.isLoading)
     }
 }
 
@@ -74,8 +75,12 @@ extension CreateAccountView {
     
     @ViewBuilder
     private var createButton: some View {
-        PrimaryButton(title: l10.signUp) { }
-            .disabled(!viewModel.isCreateButtonEnabled)
+        PrimaryButton(title: l10.signUp) {
+            Task {
+                await viewModel.createButtonTapped()
+            }
+        }
+        .disabled(!viewModel.isCreateButtonEnabled)
     }
     
     @ViewBuilder
