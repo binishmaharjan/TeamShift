@@ -5,6 +5,7 @@ import SwiftUI
 
 enum SplashResult {
     case showAuthentication
+    case showMainTab
 }
 
 @MainActor

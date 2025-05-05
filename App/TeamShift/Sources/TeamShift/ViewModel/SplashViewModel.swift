@@ -1,3 +1,4 @@
+import ClientAuthentication
 import Foundation
 import Observation
 
@@ -6,10 +7,17 @@ final class SplashViewModel {
     // MARK: Properties
     var didRequestFinish: ((SplashResult) -> Void)?
     
+    @ObservationIgnored
+    private var userSession = UserSession.shared
+    
     // MARK: Methods
-    func performSomeAction() async {
-        let clock = ContinuousClock()
-        try? await clock.sleep(for: .seconds(1))
-        didRequestFinish?(.showAuthentication)
+    func showNextView() async {
+        if userSession.isLoggedIn {
+            didRequestFinish?(.showMainTab)
+        } else {
+            let clock = ContinuousClock()
+            try? await clock.sleep(for: .seconds(1))
+            didRequestFinish?(.showAuthentication)
+        }
     }
 }

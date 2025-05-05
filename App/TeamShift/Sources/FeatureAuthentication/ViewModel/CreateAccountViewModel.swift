@@ -28,6 +28,7 @@ final class CreateAccountViewModel {
             let user = try await authenticationClient.createUser(withEmail: email, password: password)
             try await userStoreClient.saveUser(user: user)
             isLoading = false
+            didRequestFinish?(.showMainTab)
         } catch {
             isLoading = false
             print(error)

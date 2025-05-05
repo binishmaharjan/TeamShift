@@ -1,3 +1,4 @@
+import FirebaseAuth
 import SharedUIs
 import SwiftUI
 
@@ -39,6 +40,9 @@ struct CreateAccountView: View {
         .padding(.horizontal, 24)
         .vSpacing(.top)
         .loadingView(viewModel.isLoading)
+        .onAppear {
+            print(Auth.auth().currentUser?.email)
+        }
     }
 }
 

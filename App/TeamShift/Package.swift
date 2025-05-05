@@ -29,6 +29,7 @@ let package = Package(
                 "SharedUIs",
                 "FeatureAuthentication",
                 "FeatureMainTab",
+                "ClientAuthentication",
             ],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")

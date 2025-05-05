@@ -30,6 +30,9 @@ final class RootCoordinator: CompositionCoordinator {
             switch splashResult {
             case .showAuthentication:
                 startAuthentication()
+                
+            case .showMainTab:
+                startMainTab()
             }
         }
         
