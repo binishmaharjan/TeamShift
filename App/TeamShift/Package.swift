@@ -70,7 +70,8 @@ let package = Package(
             name: "FeatureMainTab",
             dependencies: [
                 "SharedUIs",
-                "SharedModels"
+                "SharedModels",
+                .product(name: "FirebaseAuth", package: "firebase-ios-sdk"), // TODO: remove once unrequired
             ],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
