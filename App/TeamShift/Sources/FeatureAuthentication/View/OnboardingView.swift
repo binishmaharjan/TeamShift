@@ -13,6 +13,7 @@ struct OnboardingView: View {
         .init(color: .onboardingBackground, title: l10.onboardingTitle3, subTitle: l10.onboardingDescription3),
         .init(color: .onboardingBackground, title: l10.onboardingTitle4, subTitle: l10.onboardingDescription4),
     ]
+    @State private var isPresented = false
     
     var body: some View {
         VStack(spacing: 12) {
@@ -23,6 +24,23 @@ struct OnboardingView: View {
             loginButton
             
             continueAsGuestLink
+        }
+        .alert(isPresented: $isPresented) {
+            AlertDialog(
+                title: "Folder Name",
+                content: "Enter a file name",
+                image: .init(content: "folder.fill.badge.plus", tint: .appPrimary, foregroundColor: .background),
+                primaryButton: .init(content: "Save Folder", tint: .appPrimary, foregroundColor: .background) { folder in
+                    print(folder)
+                    isPresented = false
+                },
+                secondaryButton: .init(content: "Cancel", tint: .appError, foregroundColor: .background) { _ in
+                    isPresented = false
+                },
+                addTextField: true,
+                textFieldHint: "Personal Documents"
+            )
+            .transition(.blurReplace.combined(with: .push(from: .bottom)))
         }
         .padding(.top, 34) // use safe area padding to avoid clipping of scrollview
         .frame(maxHeight: .infinity)
@@ -84,6 +102,7 @@ extension OnboardingView {
             .padding(8)
             .onTapGesture {
                 print("Continue as Guest User")
+                isPresented = true
             }
     }
 }

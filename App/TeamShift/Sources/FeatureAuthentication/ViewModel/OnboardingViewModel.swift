@@ -1,3 +1,5 @@
+import ClientAuthentication
+import Dependencies
 import Foundation
 import Observation
 
@@ -8,6 +10,8 @@ final class OnboardingViewModel {
         case login
     }
     
+    @ObservationIgnored
+    @Dependency(\.authenticationClient) var authenticationClient
     var didRequestNavigation: ((Route) -> Void)?
     
     func createAccountButtonTapped() {
@@ -16,5 +20,8 @@ final class OnboardingViewModel {
     
     func loginButtonTapped() {
         didRequestNavigation?(.login)
+    }
+    
+    func signUpAsGuestTapped() async {
     }
 }

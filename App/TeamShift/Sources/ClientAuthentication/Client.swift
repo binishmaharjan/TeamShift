@@ -17,6 +17,16 @@ public struct AuthenticationClient: Sendable {
     ///   - password: Password for the account
     /// - Returns: UserId
     public var signIn: @Sendable (_ withEmail: String, _ password: String) async throws -> String
+    /// SignIn the user as guest.
+    ///
+    /// - Parameters none
+    /// - Returns: UserId
+    public var signUpAsGuest: @Sendable () async throws -> AppUser
+    /// SignOut User
+    ///
+    /// - Parameter none
+    /// - Returns: Void
+    public var signOut: @Sendable () async throws -> Void
 }
 
 // MARK: DependencyValues
@@ -31,6 +41,8 @@ extension DependencyValues {
 extension AuthenticationClient: TestDependencyKey {
     public static let testValue = AuthenticationClient(
         createUser: unimplemented(),
-        signIn: unimplemented()
+        signIn: unimplemented(),
+        signUpAsGuest: unimplemented(),
+        signOut: unimplemented()
     )
 }
