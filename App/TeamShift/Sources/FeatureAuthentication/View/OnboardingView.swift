@@ -25,22 +25,8 @@ struct OnboardingView: View {
             
             continueAsGuestLink
         }
-        .alert(isPresented: $isPresented) {
-            AlertDialog(
-                title: "Folder Name",
-                content: "Enter a file name",
-                image: .init(content: "folder.fill.badge.plus", tint: .appPrimary, foregroundColor: .background),
-                primaryButton: .init(content: "Save Folder", tint: .appPrimary, foregroundColor: .background) { folder in
-                    print(folder)
-                    isPresented = false
-                },
-                secondaryButton: .init(content: "Cancel", tint: .appError, foregroundColor: .background) { _ in
-                    isPresented = false
-                },
-                addTextField: true,
-                textFieldHint: "Personal Documents"
-            )
-            .transition(.blurReplace.combined(with: .push(from: .bottom)))
+        .alert(isPresented: $isPresented) { // TODO: Save AlertDialogConfig in ViewModel and show
+            AlertDialog.confirm(title: "Are you sure?", message: "Do you want to proceed")
         }
         .padding(.top, 34) // use safe area padding to avoid clipping of scrollview
         .frame(maxHeight: .infinity)

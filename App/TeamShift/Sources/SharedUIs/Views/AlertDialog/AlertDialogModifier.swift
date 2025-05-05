@@ -11,6 +11,12 @@ private struct AlertDialogModifier<AlertContent: View>: ViewModifier {
     @State private var animatedValue: Bool = false
     @State private var allowsInteraction: Bool = false
     
+    @ViewBuilder
+    private var background: some View {
+        Rectangle()
+            .fill(Color.black.opacity(0.35))
+    }
+    
     func body(content: Content) -> some View {
         content
             .fullScreenCover(isPresented: $showFullScreenCover) {
@@ -56,19 +62,13 @@ private struct AlertDialogModifier<AlertContent: View>: ViewModifier {
                 }
             }
     }
-    
-    @ViewBuilder
-    private var background: some View {
-        Rectangle()
-            .fill(Color.black.opacity(0.35))
-    }
 }
 
 extension View {
     @ViewBuilder
-    public func alert<Content: View>(
+    public func alert(
         isPresented: Binding<Bool>,
-        @ViewBuilder content: @escaping () -> Content
+        @ViewBuilder content: @escaping () -> AlertDialog
     ) -> some View {
         self.modifier(
             AlertDialogModifier(

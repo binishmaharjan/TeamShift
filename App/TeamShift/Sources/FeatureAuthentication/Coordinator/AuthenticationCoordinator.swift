@@ -85,3 +85,10 @@ extension AuthenticationCoordinator {
         startNavigationController.popViewController(animated: true)
     }
 }
+
+// MARK: Alert
+extension AuthenticationCoordinator {
+    private func presentAlertDialog(_ type: AlertDialog.Type) {
+        
+    }
+}
