@@ -24,14 +24,12 @@ struct OnboardingView: View {
             
             continueAsGuestLink
         }
-        .appAlert(isPresented: $viewModel.alertConfig.isPresented, alertConfig: viewModel.alertConfig)
-//        .alert(isPresented: $viewModel.isPresented) { // TODO: Save AlertDialogConfig in ViewModel and show
-//            AlertDialog.confirm(title: "Are you sure?", message: "Do you want to proceed")
-//        }
         .padding(.top, 34) // use safe area padding to avoid clipping of scrollview
         .frame(maxHeight: .infinity)
         .padding(.horizontal, 24)
         .background(Color.background)
+        .loadingView(viewModel.isLoading)
+        .appAlert(isPresented: $viewModel.alertConfig.isPresented, alertConfig: viewModel.alertConfig)
     }
 }
 

@@ -13,10 +13,10 @@ public struct AlertDialog: View {
                 return .appPrimary
                 
             case .error:
-                return .activityIndicator
+                return .appError
                 
             case .success:
-                return .appError
+                return .activityIndicator
             }
         }
         
@@ -104,7 +104,7 @@ public struct AlertDialog: View {
     
     // MARK: Properties
     public var body: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 15) {
             Image(systemName: config.image)
                 .font(.title)
                 .foregroundStyle(config.kind.foregroundColor)
@@ -168,12 +168,12 @@ public struct AlertDialog: View {
 }
 
 extension AlertDialog.Config {
-    public static func info(title: String, message: String) -> AlertDialog.Config {
+    public static func info(title: String, message: String, primaryAction: (@Sendable () -> Void)?) -> AlertDialog.Config {
         AlertDialog.Config(
             kind: .info(title: title, message: message),
             image: "folder.fill.badge.plus",
             buttons: [
-                .init(type: .primary(title: "OK")) { _ in }
+                .init(type: .primary(title: "OK")) { _ in primaryAction?() }
             ]
         )
     }
@@ -182,35 +182,35 @@ extension AlertDialog.Config {
         buttonTitle: String,
         title: String,
         message: String,
-        primaryAction: (@Sendable (String?) -> Void)?,
-        secondaryAction: (@Sendable (String?) -> Void)?
+        primaryAction: (@Sendable () -> Void)?,
+        secondaryAction: (@Sendable () -> Void)?
     ) -> AlertDialog.Config {
         AlertDialog.Config(
             kind: .info(title: title, message: message),
             image: "folder.fill.badge.plus",
             buttons: [
-                .init(type: .primary(title: buttonTitle), action: primaryAction) ,
-                .init(type: .secondary(title: "Cancel"), action: secondaryAction)
+                .init(type: .primary(title: buttonTitle)) { _ in primaryAction?() },
+                .init(type: .secondary(title: "Cancel")) { _ in secondaryAction?() }
             ]
         )
     }
     
-    public static func error(message: String) -> AlertDialog.Config {
+    public static func error(message: String, primaryAction: (@Sendable () -> Void)?) -> AlertDialog.Config {
         AlertDialog.Config(
             kind: .error(message: message),
             image: "folder.fill.badge.plus",
             buttons: [
-                .init(type: .primary(title: "OK")) { _ in },
+                .init(type: .primary(title: "OK")) { _ in primaryAction?() },
             ]
         )
     }
     
-    public static func success(message: String) -> AlertDialog.Config {
+    public static func success(message: String, primaryAction: (@Sendable () -> Void)?) -> AlertDialog.Config {
         AlertDialog.Config(
             kind: .success(message: message),
             image: "folder.fill.badge.plus",
             buttons: [
-                .init(type: .primary(title: "OK")) { _ in },
+                .init(type: .primary(title: "OK")) { _ in primaryAction?() },
             ]
         )
     }

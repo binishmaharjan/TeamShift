@@ -50,6 +50,9 @@ extension AuthenticationCoordinator {
             
         case .login:
             pushLoginView()
+            
+        case .finish(let authenticationResult):
+            finish(with: authenticationResult)
         }
     }
     
@@ -83,12 +86,5 @@ extension AuthenticationCoordinator {
     
     func popLast() {
         startNavigationController.popViewController(animated: true)
-    }
-}
-
-// MARK: Alert
-extension AuthenticationCoordinator {
-    private func presentAlertDialog(_ type: AlertDialog.Type) {
-        
     }
 }

@@ -3,6 +3,7 @@ import ClientUserStore
 import Dependencies
 import Foundation
 import Observation
+import SharedUIs
 
 @Observable @MainActor
 final class CreateAccountViewModel {
@@ -10,6 +11,7 @@ final class CreateAccountViewModel {
     var didRequestFinish: ((AuthenticationResult) -> Void)?
     var email = ""
     var password = ""
+    var alertConfig: AlertDialog.Config?
     var isLoading = false
     
     var isCreateButtonEnabled: Bool {
@@ -31,7 +33,17 @@ final class CreateAccountViewModel {
             didRequestFinish?(.showMainTab)
         } catch {
             isLoading = false
-            print(error)
+            showErrorAlert(error)
+        }
+    }
+}
+
+extension CreateAccountViewModel {
+    private func showErrorAlert(_ error: Error) {
+        alertConfig = .error(message: error.localizedDescription) { [weak self] in
+            Task { @MainActor in
+                self?.alertConfig = nil
+            }
         }
     }
 }
