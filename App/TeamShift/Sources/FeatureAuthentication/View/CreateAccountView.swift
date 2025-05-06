@@ -47,7 +47,7 @@ struct CreateAccountView: View {
 extension CreateAccountView {
     @ViewBuilder
     private var title: some View {
-        Text(l10.createAccount)
+        Text(l10.onboardingTitle)
             .foregroundStyle(Color.text)
             .font(.customTitle)
     }
@@ -55,7 +55,7 @@ extension CreateAccountView {
     @ViewBuilder
     private var emailTextField: some View {
         PrimaryTextField(
-            l10.email,
+            l10.commonTextFieldEmail,
             icon: .icnMail,
             text: $viewModel.email,
             fieldIdentifier: .email,
@@ -66,7 +66,7 @@ extension CreateAccountView {
     @ViewBuilder
     private var passwordTextField: some View {
         PrimaryTextField(
-            l10.password,
+            l10.commonTextFieldPassword,
             icon: .icnLock,
             text: $viewModel.password,
             fieldIdentifier: .password,
@@ -77,7 +77,7 @@ extension CreateAccountView {
     
     @ViewBuilder
     private var createButton: some View {
-        PrimaryButton(title: l10.signUp) {
+        PrimaryButton(title: l10.createAccountButtonSignUp) {
             Task {
                 await viewModel.createButtonTapped()
             }
@@ -104,10 +104,12 @@ extension CreateAccountView {
     private var signUpGoogleButton: some View {
         SecondaryButton(
             image: .icnGoogle,
-            title: l10.signUpWithGoogle,
+            title: l10.createAccountButtonWithGoogle,
             isTemplate: false
         ) {
-            print(l10.signUpWithGoogle)
+            Task {
+                await viewModel.signUpWithGoogleButtonTapped()
+            }
         }
     }
     
@@ -115,10 +117,10 @@ extension CreateAccountView {
     private var signUpAppleButton: some View {
         SecondaryButton(
             image: .icnApple,
-            title: l10.signUpWithApple,
+            title: l10.createAccountButtonWithApple,
             isTemplate: false
         ) {
-            print(l10.signUpWithApple)
+            print(l10.createAccountButtonWithApple)
         }
     }
     
@@ -133,11 +135,11 @@ extension CreateAccountView {
 
 extension CreateAccountView {
     private var createAccountCautionString: AttributedString {
-        var attributedString = AttributedString(l10.createAccountCaution)
-        if let range = attributedString.range(of: l10.privacyPolicy) {
+        var attributedString = AttributedString(l10.createAccountWarning)
+        if let range = attributedString.range(of: l10.createAccountWarningSubstring1) {
             attributedString[range].foregroundColor = Color.appPrimary
         }
-        if let range = attributedString.range(of: l10.subscriptionAgreement) {
+        if let range = attributedString.range(of: l10.createAccountWarningSubstring2) {
             attributedString[range].foregroundColor = Color.appPrimary
         }
         return attributedString

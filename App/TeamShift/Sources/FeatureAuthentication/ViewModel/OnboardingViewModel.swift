@@ -31,9 +31,9 @@ final class OnboardingViewModel {
     
     func signUpAsGuestTapped() async {
         alertConfig = .confirm(
-            buttonTitle: "Continue as Guest",
-            title: "Continue as Guest?",
-            message: "You'll get immediate access to view team schedules without creating an account. Your data won't be saved between sessions and some features may be limited.",
+            buttonTitle: l10.onboardingAlertGuestUserButton,
+            title: l10.onboardingAlertGuestUserTitle,
+            message: l10.onboardingAlertGuestUserDescription,
             primaryAction: { [weak self] in
                 Task { @MainActor in await self?.handleContinueAsGuestAction() }
             },
@@ -44,7 +44,6 @@ final class OnboardingViewModel {
     }
     
     private func handleContinueAsGuestAction() async {
-        print("Handle this action")
         alertConfig = nil
         
         isLoading = true

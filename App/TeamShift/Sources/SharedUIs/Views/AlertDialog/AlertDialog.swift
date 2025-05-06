@@ -30,10 +30,10 @@ public struct AlertDialog: View {
                 return title
                 
             case .error:
-                return "Error"
+                return l10.commonAlertError
                 
             case .success:
-                return "Success"
+                return l10.commonAlertSuccess
             }
         }
         
@@ -175,7 +175,7 @@ extension AlertDialog.Config {
             kind: .info(title: title, message: message),
             icnImage: .icnInfo,
             buttons: [
-                .init(type: .primary(title: "OK")) { _ in primaryAction?() }
+                .init(type: .primary(title: l10.commonButtonOK)) { _ in primaryAction?() }
             ]
         )
     }
@@ -192,7 +192,7 @@ extension AlertDialog.Config {
             icnImage: .icnInfo,
             buttons: [
                 .init(type: .primary(title: buttonTitle)) { _ in primaryAction?() },
-                .init(type: .secondary(title: "Cancel")) { _ in secondaryAction?() }
+                .init(type: .secondary(title: l10.commonButtonCancel)) { _ in secondaryAction?() }
             ]
         )
     }
@@ -202,7 +202,7 @@ extension AlertDialog.Config {
             kind: .error(message: message),
             icnImage: .icnError,
             buttons: [
-                .init(type: .primary(title: "OK")) { _ in primaryAction?() },
+                .init(type: .primary(title: l10.commonButtonOK)) { _ in primaryAction?() },
             ]
         )
     }
@@ -212,7 +212,7 @@ extension AlertDialog.Config {
             kind: .success(message: message),
             icnImage: .icnSuccess,
             buttons: [
-                .init(type: .primary(title: "OK")) { _ in primaryAction?() },
+                .init(type: .primary(title: l10.commonButtonOK)) { _ in primaryAction?() },
             ]
         )
     }

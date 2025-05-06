@@ -4,41 +4,183 @@
     "" : {
 
     },
-    "Continue as" : {
+    "Common_Alert_Error" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Continue as"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "として続ける"
+            "value" : "Error"
           }
         }
       }
     },
-    "Continue as Guest User" : {
+    "Common_Alert_Success" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Continue as Guest User"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ゲストユーザーとして続ける"
+            "value" : "Success"
           }
         }
       }
     },
-    "Create Account" : {
+    "Common_Button_Cancel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "Common_Button_OK" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
+    },
+    "Common_TextField_Email" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email"
+          }
+        }
+      }
+    },
+    "Common_TextField_Password" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Password"
+          }
+        }
+      }
+    },
+    "CreateAccount_Button_SignUp" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign up"
+          }
+        }
+      }
+    },
+    "CreateAccount_Button_With_Apple" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign up with Apple"
+          }
+        }
+      }
+    },
+    "CreateAccount_Button_With_Google" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign up with Google"
+          }
+        }
+      }
+    },
+    "CreateAccount_Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create Account"
+          }
+        }
+      }
+    },
+    "CreateAccount_Warning" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "By signing up, you accept the privacy policy and \nsubscription agreement"
+          }
+        }
+      }
+    },
+    "CreateAccount_Warning_Substring_1" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "subscription agreement"
+          }
+        }
+      }
+    },
+    "CreateAccount_Warning_Substring_2" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "privacy policy"
+          }
+        }
+      }
+    },
+    "Onboarding_Alert_Guest_User_Button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue as Guest"
+          }
+        }
+      }
+    },
+    "Onboarding_Alert_Guest_User_Description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You'll get immediate access to view team schedules without creating an account. Your data won't be saved between sessions and some features may be limited."
+          }
+        }
+      }
+    },
+    "Onboarding_Alert_Guest_User_Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue as Guest?"
+          }
+        }
+      }
+    },
+    "Onboarding_Button_Create" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -55,40 +197,24 @@
         }
       }
     },
-    "Create Account Caution" : {
+    "Onboarding_Button_Guest_User" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "By signing up, you accept the privacy policy and \nsubscription agreement"
+            "value" : "Continue as Guest User"
           }
-        }
-      }
-    },
-    "Email" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
+        },
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Email"
+            "value" : "ゲストユーザーとして続ける"
           }
         }
       }
     },
-    "Forgot Password" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Forgot Password"
-          }
-        }
-      }
-    },
-    "Guest User" : {
+    "Onboarding_Button_Guest_User_SubString" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -105,117 +231,7 @@
         }
       }
     },
-    "Onboarding Description 1" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Simplify staff scheduling and shift management in one place."
-          }
-        }
-      }
-    },
-    "Onboarding Description 2" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Build your team's schedule in minutes with our intuitive interface. "
-          }
-        }
-      }
-    },
-    "Onboarding Description 3" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "View your upcoming shifts and team schedule at a glance."
-          }
-        }
-      }
-    },
-    "Onboarding Description 4" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Need to swap a shift? Request exchanges directly in the app."
-          }
-        }
-      }
-    },
-    "Onboarding Title 1" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Welcome to TeamShift"
-          }
-        }
-      }
-    },
-    "Onboarding Title 2" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Create Schedules"
-          }
-        }
-      }
-    },
-    "Onboarding Title 3" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Check Your Schedule"
-          }
-        }
-      }
-    },
-    "Onboarding Title 4" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Exchange Shifts"
-          }
-        }
-      }
-    },
-    "Password" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Password"
-          }
-        }
-      }
-    },
-    "privacy policy" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "privacy policy"
-          }
-        }
-      }
-    },
-    "Sign in" : {
+    "Onboarding_Button_SignIn" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -226,7 +242,128 @@
         }
       }
     },
-    "Sign in with Apple" : {
+    "Onboarding_Description_1" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Simplify staff scheduling and shift management in one place."
+          }
+        }
+      }
+    },
+    "Onboarding_Description_2" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Build your team's schedule in minutes with our intuitive interface. "
+          }
+        }
+      }
+    },
+    "Onboarding_Description_3" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View your upcoming shifts and team schedule at a glance."
+          }
+        }
+      }
+    },
+    "Onboarding_Description_4" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Need to swap a shift? Request exchanges directly in the app."
+          }
+        }
+      }
+    },
+    "Onboarding_Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create Account"
+          }
+        }
+      }
+    },
+    "Onboarding_Title_1" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Welcome to TeamShift"
+          }
+        }
+      }
+    },
+    "Onboarding_Title_2" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create Schedules"
+          }
+        }
+      }
+    },
+    "Onboarding_Title_3" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check Your Schedule"
+          }
+        }
+      }
+    },
+    "Onboarding_Title_4" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exchange Shifts"
+          }
+        }
+      }
+    },
+    "SignIn_Button_Forgot_Password" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forgot Password"
+          }
+        }
+      }
+    },
+    "SignIn_Button_SignIn" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign in"
+          }
+        }
+      }
+    },
+    "SignIn_Button_With_Apple" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -237,7 +374,7 @@
         }
       }
     },
-    "Sign in with Google" : {
+    "SignIn_Button_With_Google" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -248,46 +385,13 @@
         }
       }
     },
-    "Sign up" : {
+    "SignIn_Title" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sign up"
-          }
-        }
-      }
-    },
-    "Sign up with Apple" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sign up with Apple"
-          }
-        }
-      }
-    },
-    "Sign up with Google" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sign up with Google"
-          }
-        }
-      }
-    },
-    "subscription agreement" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "subscription agreement"
+            "value" : "Sign in"
           }
         }
       }

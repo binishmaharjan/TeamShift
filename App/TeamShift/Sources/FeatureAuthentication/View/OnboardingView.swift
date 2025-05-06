@@ -62,7 +62,7 @@ extension OnboardingView {
     private var createAccountButton: some View {
         PrimaryButton(
             image: .icnPerson,
-            title: l10.createAccount
+            title: l10.onboardingButtonCreate
         ) {
             viewModel.createAccountButtonTapped()
         }
@@ -72,7 +72,7 @@ extension OnboardingView {
     private var loginButton: some View {
         SecondaryButton(
             image: .icnLogin,
-            title: l10.signIn
+            title: l10.onboardingButtonSignIn
         ) {
             viewModel.loginButtonTapped()
         }
@@ -81,6 +81,7 @@ extension OnboardingView {
     @ViewBuilder
     private var continueAsGuestLink: some View {
         Text(continueAsGuestUserString)
+            .foregroundStyle(Color.subText)
             .font(.customCaption)
             .bold()
             .padding(8)
@@ -94,11 +95,8 @@ extension OnboardingView {
 
 extension OnboardingView {
     private var continueAsGuestUserString: AttributedString {
-        var attributedString = AttributedString(l10.continueAsGuestUser)
-        if let range = attributedString.range(of: l10.continueAs) {
-            attributedString[range].foregroundColor = Color.subText
-        }
-        if let range = attributedString.range(of: l10.guestUser) {
+        var attributedString = AttributedString(l10.onboardingButtonGuestUser)
+        if let range = attributedString.range(of: l10.onboardingButtonGuestUserSubString) {
             attributedString[range].foregroundColor = Color.appPrimary
         }
         return attributedString

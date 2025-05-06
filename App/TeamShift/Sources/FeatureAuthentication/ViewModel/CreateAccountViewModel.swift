@@ -36,6 +36,10 @@ final class CreateAccountViewModel {
             showErrorAlert(error)
         }
     }
+    
+    func signUpWithGoogleButtonTapped() async {
+        print(l10.createAccountButtonWithGoogle)
+    }
 }
 
 extension CreateAccountViewModel {

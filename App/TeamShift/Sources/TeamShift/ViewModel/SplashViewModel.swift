@@ -10,6 +10,8 @@ final class SplashViewModel {
     @ObservationIgnored
     private var userSession = UserSession.shared
     
+    // TODO: Fetch Maintenance Info
+    // TODO: Add: AppCheck
     // MARK: Methods
     func showNextView() async {
         if userSession.isLoggedIn {

@@ -1,3 +1,4 @@
+import FirebaseAuth
 import SwiftUI
 
 struct MainTabView: View {
@@ -12,6 +13,9 @@ struct MainTabView: View {
             viewModel.doneButtonTapped()
         } label: {
             Text("Done")
+        }
+        .onAppear {
+            print(Auth.auth().currentUser?.uid)
         }
     }
 }

@@ -43,7 +43,7 @@ struct SignInView: View {
 extension SignInView {
     @ViewBuilder
     private var title: some View {
-        Text(l10.signIn)
+        Text(l10.signInTitle)
             .foregroundStyle(Color.text)
             .font(.customTitle)
     }
@@ -51,7 +51,7 @@ extension SignInView {
     @ViewBuilder
     private var emailTextField: some View {
         PrimaryTextField(
-            l10.email,
+            l10.commonTextFieldEmail,
             icon: .icnMail,
             text: $viewModel.email,
             fieldIdentifier: .email,
@@ -62,7 +62,7 @@ extension SignInView {
     @ViewBuilder
     private var passwordTextField: some View {
         PrimaryTextField(
-            l10.password,
+            l10.commonTextFieldPassword,
             icon: .icnLock,
             text: $viewModel.password,
             fieldIdentifier: .password,
@@ -73,15 +73,15 @@ extension SignInView {
     
     @ViewBuilder
     private var signInButton: some View {
-        PrimaryButton(title: l10.signIn) { }
+        PrimaryButton(title: l10.signInButtonSignIn) { }
     }
     
     @ViewBuilder
     private var forgotPasswordButton: some View {
         Button {
-            print(l10.forgotPassword)
+            print(l10.signInButtonForgotPassword)
         } label: {
-            Text(l10.forgotPassword)
+            Text(l10.signInButtonForgotPassword)
                 .font(.customFootnote.bold())
                 .foregroundStyle(Color.appPrimary)
                 .hSpacing(.trailing)
@@ -108,10 +108,10 @@ extension SignInView {
     private var signInGoogleButton: some View {
         SecondaryButton(
             image: .icnGoogle,
-            title: l10.signInWithGoogle,
+            title: l10.signInButtonWithGoogle,
             isTemplate: false
         ) {
-            print(l10.signUpWithGoogle)
+            print(l10.signInButtonWithGoogle)
         }
     }
     
@@ -119,10 +119,10 @@ extension SignInView {
     private var signInAppleButton: some View {
         SecondaryButton(
             image: .icnApple,
-            title: l10.signInWithApple,
+            title: l10.signInButtonWithApple,
             isTemplate: false
         ) {
-            print(l10.signUpWithApple)
+            print(l10.signInButtonWithApple)
         }
     }
 }
