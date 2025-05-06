@@ -83,16 +83,16 @@ public struct AlertDialog: View {
     }
     
     public struct Config: Sendable {
-        public init(kind: Kind, image: String, buttons: [ButtonConfig], addTextField: Bool = false, textFieldHint: String = "") {
+        public init(kind: Kind, icnImage: Image, buttons: [ButtonConfig], addTextField: Bool = false, textFieldHint: String = "") {
             self.kind = kind
-            self.image = image
+            self.icnImage = icnImage
             self.buttons = buttons
             self.addTextField = addTextField
             self.textFieldHint = textFieldHint
         }
         
         var kind: Kind
-        var image: String
+        var icnImage: Image
         var buttons: [ButtonConfig]
         var addTextField: Bool
         var textFieldHint: String
@@ -105,8 +105,10 @@ public struct AlertDialog: View {
     // MARK: Properties
     public var body: some View {
         VStack(spacing: 15) {
-            Image(systemName: config.image)
-                .font(.title)
+            config.icnImage
+                .resizable()
+                .scaledToFit()
+                .padding(12)
                 .foregroundStyle(config.kind.foregroundColor)
                 .frame(width: 65, height: 65)
                 .background(config.kind.tint.gradient, in: .circle)
@@ -171,7 +173,7 @@ extension AlertDialog.Config {
     public static func info(title: String, message: String, primaryAction: (@Sendable () -> Void)?) -> AlertDialog.Config {
         AlertDialog.Config(
             kind: .info(title: title, message: message),
-            image: "folder.fill.badge.plus",
+            icnImage: .icnInfo,
             buttons: [
                 .init(type: .primary(title: "OK")) { _ in primaryAction?() }
             ]
@@ -187,7 +189,7 @@ extension AlertDialog.Config {
     ) -> AlertDialog.Config {
         AlertDialog.Config(
             kind: .info(title: title, message: message),
-            image: "folder.fill.badge.plus",
+            icnImage: .icnInfo,
             buttons: [
                 .init(type: .primary(title: buttonTitle)) { _ in primaryAction?() },
                 .init(type: .secondary(title: "Cancel")) { _ in secondaryAction?() }
@@ -198,7 +200,7 @@ extension AlertDialog.Config {
     public static func error(message: String, primaryAction: (@Sendable () -> Void)?) -> AlertDialog.Config {
         AlertDialog.Config(
             kind: .error(message: message),
-            image: "folder.fill.badge.plus",
+            icnImage: .icnError,
             buttons: [
                 .init(type: .primary(title: "OK")) { _ in primaryAction?() },
             ]
@@ -208,7 +210,7 @@ extension AlertDialog.Config {
     public static func success(message: String, primaryAction: (@Sendable () -> Void)?) -> AlertDialog.Config {
         AlertDialog.Config(
             kind: .success(message: message),
-            image: "folder.fill.badge.plus",
+            icnImage: .icnSuccess,
             buttons: [
                 .init(type: .primary(title: "OK")) { _ in primaryAction?() },
             ]
