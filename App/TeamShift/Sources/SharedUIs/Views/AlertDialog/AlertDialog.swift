@@ -1,7 +1,7 @@
 import SwiftUI
 
 public struct AlertDialog: View {
-    public enum `Type` {
+    public enum Kind: Sendable {
         case info(title: String, message: String?)
         case confirm(title: String, message: String?)
         case error(message: String?)
@@ -45,7 +45,7 @@ public struct AlertDialog: View {
         }
     }
     
-    public enum ButtonType {
+    public enum ButtonType: Sendable {
         case primary(title: String)
         case secondary(title: String)
         
@@ -71,74 +71,32 @@ public struct AlertDialog: View {
         }
     }
     
-    public struct ButtonConfig: Identifiable {
-        public init(type: ButtonType, action: ((String?) -> Void)? = nil) {
+    public struct ButtonConfig: Identifiable, Sendable {
+        public init(type: ButtonType, action: (@Sendable (String?) -> Void)? = nil) {
             self.type = type
             self.action = action
         }
         
-        public let id: UUID = UUID()
+        public let id = UUID()
         var type: ButtonType
-        var action: ((String?) -> Void)?
+        var action: (@Sendable (String?) -> Void)?
     }
     
-    public struct Config {
-        public init(type: Type, image: String, buttons: [ButtonConfig], addTextField: Bool = false, textFieldHint: String = "") {
-            self.type = type
+    public struct Config: Sendable {
+        public init(kind: Kind, image: String, buttons: [ButtonConfig], addTextField: Bool = false, textFieldHint: String = "") {
+            self.kind = kind
             self.image = image
             self.buttons = buttons
             self.addTextField = addTextField
             self.textFieldHint = textFieldHint
         }
         
-        var type: Type
+        var kind: Kind
         var image: String
         var buttons: [ButtonConfig]
         var addTextField: Bool
         var textFieldHint: String
     }
-    
-    public struct ContentConfig {
-        public init(content: String, tint: Color, foregroundColor: Color, action: @escaping (String) -> Void = { _ in }) {
-            self.content = content
-            self.tint = tint
-            self.foregroundColor = foregroundColor
-            self.action = action
-        }
-        
-        var content: String
-        var tint: Color
-        var foregroundColor: Color
-        var action: (String) -> Void
-    }
-    
-    // MARK: Init
-//    public init(
-//        title: String,
-//        content: String? = nil,
-//        image: ContentConfig,
-//        primaryButton: ContentConfig,
-//        secondaryButton: ContentConfig? = nil,
-//        addTextField: Bool = false,
-//        textFieldHint: String = ""
-//    ) {
-//        self.title = title
-//        self.content = content
-//        self.image = image
-//        self.primaryButton = primaryButton
-//        self.secondaryButton = secondaryButton
-//        self.addTextField = addTextField
-//        self.textFieldHint = textFieldHint
-//    }
-//    
-//    // MARK: Properties
-//    var title: String
-//    var content: String?
-//    var image: ContentConfig
-//    var primaryButton: ContentConfig
-//    var secondaryButton: ContentConfig?
-//    var addTextField: Bool
-//    var textFieldHint: String
     
     var config: Config
     
@@ -149,22 +107,21 @@ public struct AlertDialog: View {
         VStack(spacing: 8) {
             Image(systemName: config.image)
                 .font(.title)
-                .foregroundStyle(config.type.foregroundColor)
+                .foregroundStyle(config.kind.foregroundColor)
                 .frame(width: 65, height: 65)
-                .background(config.type.tint.gradient, in: .circle)
+                .background(config.kind.tint.gradient, in: .circle)
                 .background {
                     Circle()
                         .stroke(.background, lineWidth: 8)
                 }
             
-            Text(config.type.title)
+            Text(config.kind.title)
                 .font(.customSubHeadline)
             
-            if let message = config.type.message {
+            if let message = config.kind.message {
                 Text(message)
                     .font(.customCaption)
                     .multilineTextAlignment(.center)
-                    .lineLimit(2)
                     .foregroundStyle(Color.subText)
                     .padding(.bottom, 4)
             }
@@ -210,42 +167,51 @@ public struct AlertDialog: View {
     }
 }
 
-extension AlertDialog {
-    public static func info(title: String, message: String) -> AlertDialog {
-        let primaryButton = ButtonConfig(type: .primary(title: "OK")) { _ in
-        }
-        let type = Type.info(title: title, message: message)
-        let config = Config(type: type, image: "folder.fill.badge.plus", buttons: [primaryButton])
-       
-        return AlertDialog(config: config)
+extension AlertDialog.Config {
+    public static func info(title: String, message: String) -> AlertDialog.Config {
+        AlertDialog.Config(
+            kind: .info(title: title, message: message),
+            image: "folder.fill.badge.plus",
+            buttons: [
+                .init(type: .primary(title: "OK")) { _ in }
+            ]
+        )
     }
     
-    public static func confirm(title: String, message: String) -> AlertDialog {
-        let primaryButton = ButtonConfig(type: .primary(title: "OK")) { _ in
-        }
-        let secondaryButton = ButtonConfig(type: .secondary(title: "Cancel")) { _ in
-        }
-        let type = Type.info(title: title, message: message)
-        let config = Config(type: type, image: "folder.fill.badge.plus", buttons: [primaryButton, secondaryButton])
-       
-        return AlertDialog(config: config)
+    public static func confirm(
+        buttonTitle: String,
+        title: String,
+        message: String,
+        primaryAction: (@Sendable (String?) -> Void)?,
+        secondaryAction: (@Sendable (String?) -> Void)?
+    ) -> AlertDialog.Config {
+        AlertDialog.Config(
+            kind: .info(title: title, message: message),
+            image: "folder.fill.badge.plus",
+            buttons: [
+                .init(type: .primary(title: buttonTitle), action: primaryAction) ,
+                .init(type: .secondary(title: "Cancel"), action: secondaryAction)
+            ]
+        )
     }
     
-    public static func error(message: String) -> AlertDialog {
-        let primaryButton = ButtonConfig(type: .primary(title: "OK")) { _ in
-        }
-        let type = Type.error(message: message)
-        let config = Config(type: type, image: "folder.fill.badge.plus", buttons: [primaryButton])
-       
-        return AlertDialog(config: config)
+    public static func error(message: String) -> AlertDialog.Config {
+        AlertDialog.Config(
+            kind: .error(message: message),
+            image: "folder.fill.badge.plus",
+            buttons: [
+                .init(type: .primary(title: "OK")) { _ in },
+            ]
+        )
     }
     
-    public static func success(message: String) -> AlertDialog {
-        let primaryButton = ButtonConfig(type: .primary(title: "OK")) { _ in
-        }
-        let type = Type.success(message: message)
-        let config = Config(type: type, image: "folder.fill.badge.plus", buttons: [primaryButton])
-       
-        return AlertDialog(config: config)
+    public static func success(message: String) -> AlertDialog.Config {
+        AlertDialog.Config(
+            kind: .success(message: message),
+            image: "folder.fill.badge.plus",
+            buttons: [
+                .init(type: .primary(title: "OK")) { _ in },
+            ]
+        )
     }
 }

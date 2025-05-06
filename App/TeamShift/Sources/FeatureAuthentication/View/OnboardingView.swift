@@ -13,7 +13,6 @@ struct OnboardingView: View {
         .init(color: .onboardingBackground, title: l10.onboardingTitle3, subTitle: l10.onboardingDescription3),
         .init(color: .onboardingBackground, title: l10.onboardingTitle4, subTitle: l10.onboardingDescription4),
     ]
-    @State private var isPresented = false
     
     var body: some View {
         VStack(spacing: 12) {
@@ -25,9 +24,10 @@ struct OnboardingView: View {
             
             continueAsGuestLink
         }
-        .alert(isPresented: $isPresented) { // TODO: Save AlertDialogConfig in ViewModel and show
-            AlertDialog.confirm(title: "Are you sure?", message: "Do you want to proceed")
-        }
+        .appAlert(isPresented: $viewModel.alertConfig.isPresented, alertConfig: viewModel.alertConfig)
+//        .alert(isPresented: $viewModel.isPresented) { // TODO: Save AlertDialogConfig in ViewModel and show
+//            AlertDialog.confirm(title: "Are you sure?", message: "Do you want to proceed")
+//        }
         .padding(.top, 34) // use safe area padding to avoid clipping of scrollview
         .frame(maxHeight: .infinity)
         .padding(.horizontal, 24)
@@ -87,8 +87,9 @@ extension OnboardingView {
             .bold()
             .padding(8)
             .onTapGesture {
-                print("Continue as Guest User")
-                isPresented = true
+                Task {
+                    await viewModel.signUpAsGuestTapped()
+                }
             }
     }
 }

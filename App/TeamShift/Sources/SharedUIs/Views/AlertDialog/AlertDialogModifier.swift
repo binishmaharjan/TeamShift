@@ -2,9 +2,9 @@ import SwiftUI
 
 // Link: https://www.youtube.com/watch?v=Fa_d661SBrA
 // MARK: Modifier
-private struct AlertDialogModifier<AlertContent: View>: ViewModifier {
+private struct AlertDialogModifier: ViewModifier {
     @Binding var isPresented: Bool
-    @ViewBuilder var alertContent: AlertContent
+    var alertConfig: AlertDialog.Config?
 
     // View Properties
     @State private var showFullScreenCover: Bool = false
@@ -15,6 +15,13 @@ private struct AlertDialogModifier<AlertContent: View>: ViewModifier {
     private var background: some View {
         Rectangle()
             .fill(Color.black.opacity(0.35))
+    }
+    
+    @ViewBuilder
+    private var alertContent: some View {
+        if let alertConfig {
+            AlertDialog(config: alertConfig)
+        }
     }
     
     func body(content: Content) -> some View {
@@ -65,16 +72,25 @@ private struct AlertDialogModifier<AlertContent: View>: ViewModifier {
 }
 
 extension View {
+//    @ViewBuilder
+//    public func alert(isPresented: Binding<Bool>, @ViewBuilder content: @escaping () -> AlertDialog) -> some View {
+//        self.modifier(AlertDialogModifier(isPresented: isPresented, alertContent: content))
+//    }
     @ViewBuilder
-    public func alert(
-        isPresented: Binding<Bool>,
-        @ViewBuilder content: @escaping () -> AlertDialog
-    ) -> some View {
-        self.modifier(
-            AlertDialogModifier(
-                isPresented: isPresented,
-                alertContent: content
-            )
-        )
+    public func appAlert(isPresented: Binding<Bool>, alertConfig: AlertDialog.Config?) -> some View {
+        modifier(AlertDialogModifier(isPresented: isPresented, alertConfig: alertConfig))
+    }
+}
+
+extension Binding where Value == AlertDialog.Config? {
+    public var isPresented: Binding<Bool> {
+        .init {
+            wrappedValue != nil
+        } set: { isPresented, transaction in
+            guard !isPresented else { return }
+            if wrappedValue != nil {
+                self.transaction(transaction).wrappedValue = nil
+            }
+        }
     }
 }
