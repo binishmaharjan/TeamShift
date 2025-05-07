@@ -10,6 +10,6 @@ struct ForgotPasswordView: View {
     @State private var viewModel: ForgotPasswordViewModel
     
     var body: some View {
-        Text("")
+        Text("Forgot Password")
     }
 }

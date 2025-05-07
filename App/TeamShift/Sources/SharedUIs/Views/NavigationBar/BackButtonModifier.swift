@@ -2,15 +2,17 @@ import SwiftUI
 
 // MARK: Back Button
 private  struct BackButton: View {
-    init(action: @escaping () -> Void) {
+    init(backButtonImage: Image, action: @escaping () -> Void) {
+        self.backButtonImage = backButtonImage
         self.action = action
     }
     
+    private let backButtonImage: Image
     private let action: () -> Void
     
     var body: some View {
         Button(action: action) {
-            Image.icnBack
+            backButtonImage
                 .renderingMode(.template)
         }
         .foregroundStyle(Color.appPrimary)
@@ -21,12 +23,14 @@ private  struct BackButton: View {
 private struct BackButtonModifier: ViewModifier {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
+    var backButtonImage: Image
+    
     func body(content: Content) -> some View {
         content
             .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    BackButton {
+                    BackButton(backButtonImage: backButtonImage) {
                         presentationMode.wrappedValue.dismiss()
                     }
                 }
@@ -35,7 +39,7 @@ private struct BackButtonModifier: ViewModifier {
 }
 
 extension View {
-    public func withCustomBackButton() -> some View {
-        modifier(BackButtonModifier())
+    public func withCustomBackButton(image: Image = .icnBack) -> some View {
+        modifier(BackButtonModifier(backButtonImage: image))
     }
 }

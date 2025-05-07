@@ -6,6 +6,10 @@ import SharedUIs
 
 @Observable @MainActor
 final class SignInViewModel {
+    enum Route {
+        case forgotPassword
+    }
+    
     init(coordinator: AuthenticationCoordinator) {
         self.coordinator = coordinator
     }
@@ -45,6 +49,10 @@ final class SignInViewModel {
             isLoading = false
             showErrorAlert(error)
         }
+    }
+    
+    func forgotPasswordButtonTapped() {
+        coordinator?.signInRequestNavigation(for: .forgotPassword)
     }
 }
 

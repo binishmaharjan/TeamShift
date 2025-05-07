@@ -86,7 +86,7 @@ extension SignInView {
     @ViewBuilder
     private var forgotPasswordButton: some View {
         Button {
-            print(l10.signInButtonForgotPassword)
+            viewModel.forgotPasswordButtonTapped()
         } label: {
             Text(l10.signInButtonForgotPassword)
                 .font(.customFootnote.bold())

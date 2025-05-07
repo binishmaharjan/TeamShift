@@ -2,6 +2,7 @@ import Foundation
 import SharedModels
 import SharedUIs
 import SwiftUI
+import UIKit
 
 public enum AuthenticationResult {
     case showMainTab
@@ -28,6 +29,15 @@ public final class AuthenticationCoordinator: FlowCoordinator {
         return navigationController
     }()
     
+    private var navigationControllers = [UINavigationController]()
+    private var topNavigationController: UINavigationController {
+        navigationControllers.last ?? startNavigationController
+    }
+    private var rootNavigationController: UINavigationController {
+        navigationControllers.first ?? startNavigationController
+    }
+    private var routePresentationDelegates: [PresentationDelegate] = []
+    
     // MARK: Methods
     public func start() {
         let viewModel = OnboardingViewModel(coordinator: self)
@@ -35,11 +45,12 @@ public final class AuthenticationCoordinator: FlowCoordinator {
         let view = OnboardingView(viewModel: viewModel)
             .toolbar(.hidden)
         let viewController = NamedUIHostingController(rootView: view)
+        navigationControllers.append(startNavigationController)
         startNavigationController.setViewControllers([viewController], animated: false)
     }
 }
 
-// MARK: Navigation
+// MARK: Onboarding Navigation
 extension AuthenticationCoordinator {
     func onboardingRequestNavigation(for route: OnboardingViewModel.Route) {
         switch route {
@@ -78,15 +89,32 @@ extension AuthenticationCoordinator {
     }
 }
 
-// MARK: Presentation
+// MARK: SignIn Navigvation
 extension AuthenticationCoordinator {
+    func signInRequestNavigation(for route: SignInViewModel.Route) {
+        switch route {
+        case .forgotPassword:
+            presentForgotPasswordView()
+        }
+    }
+    
     private func presentForgotPasswordView() {
         let viewModel = ForgotPasswordViewModel()
         let view = ForgotPasswordView(viewModel: viewModel)
             .navigationBar()
-            .withCustomBackButton()
+            .withCustomBackButton(image: .icnClose)
         
         let viewController = NamedUIHostingController(rootView: view)
-        startNavigationController.present(viewController, animated: true)
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationControllers.append(navigationController)
+        
+        let presentationDelegate = PresentationDelegate { [weak self] in
+            self?.navigationControllers.removeLast()
+            self?.routePresentationDelegates.removeLast()
+        }
+        navigationController.presentationController?.delegate = presentationDelegate
+        
+        routePresentationDelegates.append(presentationDelegate)
+        startNavigationController.present(navigationController, animated: true)
     }
 }
