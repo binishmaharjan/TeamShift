@@ -21,6 +21,7 @@ extension AuthenticationClient {
             signUpAsGuest: { try await session.signUpAsGuest() },
             signUpWithGoogle: { try await session.signUpWithGoogle() },
             signInWithGoogle: { try await session.signInWithGoogle() },
+            sendPasswordReset: { try await session.sendPasswordReset(withEmail: $0) },
             signOut: { try await session.signout() }
         )
     }
@@ -123,6 +124,14 @@ extension AuthenticationClient {
                 
                 let authDataResult = try await Auth.auth().signIn(with: credentials)
                 return authDataResult.user.uid
+            } catch {
+                throw AuthError(from: error)
+            }
+        }
+        
+        func sendPasswordReset(withEmail email: String) async throws {
+            do {
+                try await Auth.auth().sendPasswordReset(withEmail: email)
             } catch {
                 throw AuthError(from: error)
             }

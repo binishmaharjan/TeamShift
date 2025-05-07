@@ -15,7 +15,6 @@ final class SignInViewModel {
     }
     
     // MARK: Properties
-    weak var coordinator: AuthenticationCoordinator?
     var email: String = ""
     var password: String = ""
     var alertConfig: AlertDialog.Config?
@@ -24,6 +23,8 @@ final class SignInViewModel {
         email.isEmail && password.count > 5
     }
     
+    @ObservationIgnored
+    weak var coordinator: AuthenticationCoordinator?
     @ObservationIgnored
     @Dependency(\.authenticationClient) var authenticationClient
     

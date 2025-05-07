@@ -147,6 +147,50 @@
         }
       }
     },
+    "ForgotPassword_Alert_Sent_Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Password reset email sent to your email"
+          }
+        }
+      }
+    },
+    "ForgotPassword_Button_Send_Email" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send Email"
+          }
+        }
+      }
+    },
+    "ForgotPassword_Description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter your email address below and we'll send you a link to reset your password."
+          }
+        }
+      }
+    },
+    "ForgotPassword_Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forgot Password"
+          }
+        }
+      }
+    },
     "Onboarding_Alert_Guest_User_Button" : {
       "extractionState" : "manual",
       "localizations" : {

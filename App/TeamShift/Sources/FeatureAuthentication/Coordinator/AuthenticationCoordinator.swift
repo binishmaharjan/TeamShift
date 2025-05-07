@@ -99,22 +99,32 @@ extension AuthenticationCoordinator {
     }
     
     private func presentForgotPasswordView() {
+        let navigationController = UINavigationController()
+        
         let viewModel = ForgotPasswordViewModel()
         let view = ForgotPasswordView(viewModel: viewModel)
             .navigationBar()
-            .withCustomBackButton(image: .icnClose)
+            .withCustomCloseButton { [weak navigationController, weak self] in
+                // For Close Button Tapped
+                navigationController?.dismiss(animated: true)
+                if let presentedNavigationController = navigationController {
+                    self?.navigationControllers.removeAll { $0 === presentedNavigationController }
+                    self?.routePresentationDelegates.removeLast()
+                }
+            }
         
         let viewController = NamedUIHostingController(rootView: view)
-        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.setViewControllers([viewController], animated: false)
         navigationControllers.append(navigationController)
         
+        // For Swipe Down
         let presentationDelegate = PresentationDelegate { [weak self] in
             self?.navigationControllers.removeLast()
             self?.routePresentationDelegates.removeLast()
         }
         navigationController.presentationController?.delegate = presentationDelegate
-        
         routePresentationDelegates.append(presentationDelegate)
+        
         startNavigationController.present(navigationController, animated: true)
     }
 }
