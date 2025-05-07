@@ -88,3 +88,16 @@ extension AuthenticationCoordinator {
         startNavigationController.popViewController(animated: true)
     }
 }
+
+// MARK: Presentation
+extension AuthenticationCoordinator {
+    private func presentForgotPasswordView() {
+        let viewModel = ForgotPasswordViewModel()
+        let view = ForgotPasswordView(viewModel: viewModel)
+            .navigationBar()
+            .withCustomBackButton()
+        
+        let viewController = NamedUIHostingController(rootView: view)
+        startNavigationController.present(viewController, animated: true)
+    }
+}
