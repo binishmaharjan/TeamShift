@@ -37,6 +37,8 @@ struct SignInView: View {
         }
         .padding(.horizontal, 24)
         .vSpacing(.top)
+        .loadingView(viewModel.isLoading)
+        .appAlert(isPresented: $viewModel.alertConfig.isPresented, alertConfig: viewModel.alertConfig)
     }
 }
 
@@ -73,7 +75,12 @@ extension SignInView {
     
     @ViewBuilder
     private var signInButton: some View {
-        PrimaryButton(title: l10.signInButtonSignIn) { }
+        PrimaryButton(title: l10.signInButtonSignIn) {
+            Task {
+                await viewModel.signInButtonTapped()
+            }
+        }
+        .disabled(!viewModel.isSignInButtonEnabled)
     }
     
     @ViewBuilder
@@ -111,7 +118,9 @@ extension SignInView {
             title: l10.signInButtonWithGoogle,
             isTemplate: false
         ) {
-            print(l10.signInButtonWithGoogle)
+            Task {
+                await viewModel.signInWithGoogleButtonTapped()
+            }
         }
     }
     

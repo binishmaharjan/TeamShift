@@ -20,6 +20,7 @@ extension AuthenticationClient {
             signIn: { try await session.signIn(with: $0, password: $1) },
             signUpAsGuest: { try await session.signUpAsGuest() },
             signUpWithGoogle: { try await session.signUpWithGoogle() },
+            signInWithGoogle: { try await session.signInWithGoogle() },
             signOut: { try await session.signout() }
         )
     }
@@ -77,22 +78,8 @@ extension AuthenticationClient {
         }
         
         func signUpWithGoogle() async throws -> AppUser {
-            guard let clientID = FirebaseApp.app()?.options.clientID else {
-                throw AuthError.gid(message: "Google Client ID Missing")
-            }
-            
-            let config = GIDConfiguration(clientID: clientID)
-            GIDSignIn.sharedInstance.configuration = config
-            
-            guard let windowScene = await UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                  let window = await windowScene.windows.first,
-                  let rootViewController = await window.rootViewController else {
-                throw AuthError.gid(message: "Failed to get Root")
-            }
-            
             do {
-                let gIDSignInResult = try await GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController)
-                let gidGoogleUser = gIDSignInResult.user
+                let gidGoogleUser = try await oAuthGoogleSignIn()
                 
                 guard let idToken = gidGoogleUser.idToken else {
                     throw AuthError.gid(message: "ID Token Missing")
@@ -121,12 +108,51 @@ extension AuthenticationClient {
             }
         }
         
+        func signInWithGoogle() async throws -> String {
+            do {
+                let gidGoogleUser = try await oAuthGoogleSignIn()
+                guard let idToken = gidGoogleUser.idToken else {
+                    throw AuthError.gid(message: "ID Token Missing")
+                }
+                
+                let accessToken = gidGoogleUser.accessToken
+                let credentials = GoogleAuthProvider.credential(
+                    withIDToken: idToken.tokenString,
+                    accessToken: accessToken.tokenString
+                )
+                
+                let authDataResult = try await Auth.auth().signIn(with: credentials)
+                return authDataResult.user.uid
+            } catch {
+                throw AuthError(from: error)
+            }
+        }
+        
         func signout() async throws {
             do {
                 try Auth.auth().signOut()
             } catch {
                 throw AuthError(from: error)
             }
+        }
+        
+        private func oAuthGoogleSignIn() async throws -> GIDGoogleUser {
+            guard let clientID = FirebaseApp.app()?.options.clientID else {
+                throw AuthError.gid(message: "Google Client ID Missing")
+            }
+            
+            let config = GIDConfiguration(clientID: clientID)
+            GIDSignIn.sharedInstance.configuration = config
+            
+            guard let windowScene = await UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                  let window = await windowScene.windows.first,
+                  let rootViewController = await window.rootViewController else {
+                throw AuthError.gid(message: "Failed to get Root")
+            }
+            
+            let gIDSignInResult = try await GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController)
+            let gidGoogleUser = gIDSignInResult.user
+            return gidGoogleUser
         }
         
         private func generateRandomUsername() -> String {
