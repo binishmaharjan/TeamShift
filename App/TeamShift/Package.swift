@@ -19,6 +19,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", exact: "0.58.2"),
         .package(url: "https://github.com/firebase/firebase-ios-sdk", exact: "11.12.0"),
+        .package(url: "https://github.com/google/GoogleSignIn-iOS.git", exact: "8.0.0"),
         .package(url: "https://github.com/pointfreeco/swift-dependencies.git", exact: "1.9.2"),
     ],
     targets: [
@@ -84,6 +85,8 @@ let package = Package(
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "DependenciesMacros", package: "swift-dependencies"),
                 .product(name: "FirebaseAuth", package: "firebase-ios-sdk"),
+                .product(name: "GoogleSignIn", package: "GoogleSignIn-iOS"),
+                .product(name: "GoogleSignInSwift", package: "GoogleSignIn-iOS"),
             ],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),

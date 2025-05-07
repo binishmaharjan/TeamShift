@@ -1,6 +1,9 @@
 import Dependencies
+import Firebase
 @preconcurrency import FirebaseAuth
 import Foundation
+@preconcurrency import GoogleSignIn
+@preconcurrency import GoogleSignInSwift
 import SharedModels
 
 // MARK: Dependency (liveValue)
@@ -16,6 +19,7 @@ extension AuthenticationClient {
             createUser: { try await session.createUser(withEmail: $0, password: $1) },
             signIn: { try await session.signIn(with: $0, password: $1) },
             signUpAsGuest: { try await session.signUpAsGuest() },
+            signUpWithGoogle: { try await session.signUpWithGoogle() },
             signOut: { try await session.signout() }
         )
     }
@@ -35,7 +39,8 @@ extension AuthenticationClient {
                     id: authDataResult.user.uid,
                     username: authDataResult.user.displayName,
                     email: authDataResult.user.email,
-                    isAnonymous: authDataResult.user.isAnonymous
+                    signInMethod: .email,
+                    createdDate: .now
                 )
             } catch {
                 throw AuthError(from: error)
@@ -63,7 +68,53 @@ extension AuthenticationClient {
                     id: authDataResult.user.uid,
                     username: authDataResult.user.displayName,
                     email: authDataResult.user.email,
-                    isAnonymous: authDataResult.user.isAnonymous
+                    signInMethod: .guest,
+                    createdDate: .now
+                )
+            } catch {
+                throw AuthError(from: error)
+            }
+        }
+        
+        func signUpWithGoogle() async throws -> AppUser {
+            guard let clientID = FirebaseApp.app()?.options.clientID else {
+                throw AuthError.gid(message: "Google Client ID Missing")
+            }
+            
+            let config = GIDConfiguration(clientID: clientID)
+            GIDSignIn.sharedInstance.configuration = config
+            
+            guard let windowScene = await UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                  let window = await windowScene.windows.first,
+                  let rootViewController = await window.rootViewController else {
+                throw AuthError.gid(message: "Failed to get Root")
+            }
+            
+            do {
+                let gIDSignInResult = try await GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController)
+                let gidGoogleUser = gIDSignInResult.user
+                
+                guard let idToken = gidGoogleUser.idToken else {
+                    throw AuthError.gid(message: "ID Token Missing")
+                }
+                
+                let accessToken = gidGoogleUser.accessToken
+                let credentials = GoogleAuthProvider.credential(
+                    withIDToken: idToken.tokenString,
+                    accessToken: accessToken.tokenString
+                )
+                
+                let authDataResult = try await Auth.auth().signIn(with: credentials)
+                let changeRequest = authDataResult.user.createProfileChangeRequest()
+                changeRequest.displayName = gidGoogleUser.profile?.name
+                try await changeRequest.commitChanges()
+                
+                return AppUser(
+                    id: authDataResult.user.uid,
+                    username: authDataResult.user.displayName,
+                    email: authDataResult.user.email,
+                    signInMethod: .google,
+                    createdDate: .now
                 )
             } catch {
                 throw AuthError(from: error)
@@ -86,7 +137,7 @@ extension AuthenticationClient {
                 // Force unwrap is safe here because 'characters' is guaranteed non-empty
                 characters.randomElement()!
             }
-            return String(randomCharacters)
+            return "user_" + String(randomCharacters)
         }
     }
 }

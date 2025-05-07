@@ -22,6 +22,11 @@ public struct AuthenticationClient: Sendable {
     /// - Parameters none
     /// - Returns: UserId
     public var signUpAsGuest: @Sendable () async throws -> AppUser
+    /// SignIn the with OAuth(Google).
+    ///
+    /// - Parameters none
+    /// - Returns: UserId
+    public var signUpWithGoogle: @Sendable () async throws -> AppUser
     /// SignOut User
     ///
     /// - Parameter none
@@ -43,6 +48,7 @@ extension AuthenticationClient: TestDependencyKey {
         createUser: unimplemented(),
         signIn: unimplemented(),
         signUpAsGuest: unimplemented(),
+        signUpWithGoogle: unimplemented(),
         signOut: unimplemented()
     )
 }

@@ -38,7 +38,16 @@ final class CreateAccountViewModel {
     }
     
     func signUpWithGoogleButtonTapped() async {
-        print(l10.createAccountButtonWithGoogle)
+        isLoading = true
+        do {
+            let user = try await authenticationClient.signUpWithGoogle()
+            try await userStoreClient.saveUser(user: user)
+            isLoading = false
+            didRequestFinish?(.showMainTab)
+        } catch {
+            isLoading = false
+            showErrorAlert(error)
+        }
     }
 }
 
