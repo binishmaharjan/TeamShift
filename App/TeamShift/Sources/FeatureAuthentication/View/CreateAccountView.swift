@@ -1,4 +1,3 @@
-import FirebaseAuth
 import SharedUIs
 import SwiftUI
 
@@ -147,5 +146,5 @@ extension CreateAccountView {
 }
 
 #Preview {
-    CreateAccountView(viewModel: CreateAccountViewModel())
+    CreateAccountView(viewModel: CreateAccountViewModel(coordinator: .init()))
 }

@@ -137,5 +137,5 @@ extension SignInView {
 }
 
 #Preview {
-    SignInView(viewModel: SignInViewModel())
+    SignInView(viewModel: SignInViewModel(coordinator: .init()))
 }

@@ -4,8 +4,12 @@ import Observation
 
 @Observable @MainActor
 final class SplashViewModel {
+    init(coordinator: SplashCoordinator) {
+        self.coordinator = coordinator
+    }
+    
     // MARK: Properties
-    var didRequestFinish: ((SplashResult) -> Void)?
+    weak var coordinator: SplashCoordinator?
     
     @ObservationIgnored
     private var userSession = UserSession.shared
@@ -15,11 +19,13 @@ final class SplashViewModel {
     // MARK: Methods
     func showNextView() async {
         if userSession.isLoggedIn {
-            didRequestFinish?(.showMainTab)
+            let clock = ContinuousClock()
+            try? await clock.sleep(for: .seconds(1))
+            coordinator?.finish(with: .showMainTab)
         } else {
             let clock = ContinuousClock()
             try? await clock.sleep(for: .seconds(1))
-            didRequestFinish?(.showAuthentication)
+            coordinator?.finish(with: .showAuthentication)
         }
     }
 }

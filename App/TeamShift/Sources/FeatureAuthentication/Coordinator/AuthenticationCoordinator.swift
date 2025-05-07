@@ -30,10 +30,8 @@ public final class AuthenticationCoordinator: FlowCoordinator {
     
     // MARK: Methods
     public func start() {
-        let viewModel = OnboardingViewModel()
-        viewModel.didRequestNavigation = { [weak self] route in
-            self?.onboardingDidRequestNavigation(for: route)
-        }
+        let viewModel = OnboardingViewModel(coordinator: self)
+
         let view = OnboardingView(viewModel: viewModel)
             .toolbar(.hidden)
         let viewController = NamedUIHostingController(rootView: view)
@@ -43,24 +41,18 @@ public final class AuthenticationCoordinator: FlowCoordinator {
 
 // MARK: Navigation
 extension AuthenticationCoordinator {
-    func onboardingDidRequestNavigation(for route: OnboardingViewModel.Route) {
+    func onboardingRequestNavigation(for route: OnboardingViewModel.Route) {
         switch route {
         case .createAccount:
             pushCreateAccountView()
             
         case .login:
             pushLoginView()
-            
-        case .finish(let authenticationResult):
-            finish(with: authenticationResult)
         }
     }
     
     private func pushCreateAccountView() {
-        let viewModel = CreateAccountViewModel()
-        viewModel.didRequestFinish = { [weak self] result in
-            self?.finish(with: result)
-        }
+        let viewModel = CreateAccountViewModel(coordinator: self)
         
         let view = CreateAccountView(viewModel: viewModel)
             .navigationBar()
@@ -71,10 +63,7 @@ extension AuthenticationCoordinator {
     }
     
     private func pushLoginView() {
-        let viewModel = SignInViewModel()
-        viewModel.didRequestFinish = { [weak self] result in
-            self?.finish(with: result)
-        }
+        let viewModel = SignInViewModel(coordinator: self)
         
         let view = SignInView(viewModel: viewModel)
             .navigationBar()

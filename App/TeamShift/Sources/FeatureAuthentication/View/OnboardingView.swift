@@ -104,5 +104,5 @@ extension OnboardingView {
 }
 
 #Preview {
-    OnboardingView(viewModel: OnboardingViewModel())
+    OnboardingView(viewModel: OnboardingViewModel(coordinator: .init()))
 }

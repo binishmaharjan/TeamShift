@@ -6,8 +6,12 @@ import SharedUIs
 
 @Observable @MainActor
 final class SignInViewModel {
+    init(coordinator: AuthenticationCoordinator) {
+        self.coordinator = coordinator
+    }
+    
     // MARK: Properties
-    var didRequestFinish: ((AuthenticationResult) -> Void)?
+    weak var coordinator: AuthenticationCoordinator?
     var email: String = ""
     var password: String = ""
     var alertConfig: AlertDialog.Config?
@@ -24,7 +28,7 @@ final class SignInViewModel {
         do {
             _ = try await authenticationClient.signIn(withEmail: email, password: password)
             isLoading = false
-            didRequestFinish?(.showMainTab)
+            coordinator?.finish(with: .showMainTab)
         } catch {
             isLoading = false
             showErrorAlert(error)
@@ -36,7 +40,7 @@ final class SignInViewModel {
         do {
             _ = try await authenticationClient.signInWithGoogle()
             isLoading = false
-            didRequestFinish?(.showMainTab)
+            coordinator?.finish(with: .showMainTab)
         } catch {
             isLoading = false
             showErrorAlert(error)

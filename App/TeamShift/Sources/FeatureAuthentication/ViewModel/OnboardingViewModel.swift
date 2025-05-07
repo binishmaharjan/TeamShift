@@ -9,10 +9,14 @@ final class OnboardingViewModel {
     enum Route {
         case createAccount
         case login
-        case finish(AuthenticationResult)
     }
     
-    var didRequestNavigation: ((Route) -> Void)?
+    init(coordinator: AuthenticationCoordinator) {
+        self.coordinator = coordinator
+    }
+    
+    // MARK: Properties
+    weak var coordinator: AuthenticationCoordinator?
     var alertConfig: AlertDialog.Config?
     var isLoading = false
     
@@ -22,11 +26,11 @@ final class OnboardingViewModel {
     @Dependency(\.userStoreClient) var userStoreClient
     
     func createAccountButtonTapped() {
-        didRequestNavigation?(.createAccount)
+        coordinator?.onboardingRequestNavigation(for: .createAccount)
     }
     
     func loginButtonTapped() {
-        didRequestNavigation?(.login)
+        coordinator?.onboardingRequestNavigation(for: .login)
     }
     
     func signUpAsGuestTapped() async {
@@ -51,7 +55,7 @@ final class OnboardingViewModel {
             let user = try await authenticationClient.signUpAsGuest()
             try await userStoreClient.saveUser(user: user)
             isLoading = false
-            didRequestNavigation?(.finish(.showMainTab))
+            coordinator?.finish(with: .showMainTab)
         } catch {
             isLoading = false
             showErrorAlert(error)

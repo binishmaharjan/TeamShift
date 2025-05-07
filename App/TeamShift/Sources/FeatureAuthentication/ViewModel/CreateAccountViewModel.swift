@@ -7,8 +7,12 @@ import SharedUIs
 
 @Observable @MainActor
 final class CreateAccountViewModel {
+    init(coordinator: AuthenticationCoordinator) {
+        self.coordinator = coordinator
+    }
+    
     // MARK: Properties
-    var didRequestFinish: ((AuthenticationResult) -> Void)?
+    weak var coordinator: AuthenticationCoordinator?
     var email = ""
     var password = ""
     var alertConfig: AlertDialog.Config?
@@ -30,7 +34,7 @@ final class CreateAccountViewModel {
             let user = try await authenticationClient.createUser(withEmail: email, password: password)
             try await userStoreClient.saveUser(user: user)
             isLoading = false
-            didRequestFinish?(.showMainTab)
+            coordinator?.finish(with: .showMainTab)
         } catch {
             isLoading = false
             showErrorAlert(error)
@@ -43,7 +47,7 @@ final class CreateAccountViewModel {
             let user = try await authenticationClient.signUpWithGoogle()
             try await userStoreClient.saveUser(user: user)
             isLoading = false
-            didRequestFinish?(.showMainTab)
+            coordinator?.finish(with: .showMainTab)
         } catch {
             isLoading = false
             showErrorAlert(error)
