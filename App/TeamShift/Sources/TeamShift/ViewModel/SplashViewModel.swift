@@ -2,6 +2,9 @@ import ClientAuthentication
 import Foundation
 import Observation
 
+// TODO: Fetch Maintenance Info
+// TODO: Add: AppCheck
+// TODO: layout for forgot password email
 @Observable @MainActor
 final class SplashViewModel {
     init(coordinator: SplashCoordinator) {
@@ -14,8 +17,6 @@ final class SplashViewModel {
     @ObservationIgnored
     private var userSession = UserSession.shared
     
-    // TODO: Fetch Maintenance Info
-    // TODO: Add: AppCheck
     // MARK: Methods
     func showNextView() async {
         if userSession.isLoggedIn {

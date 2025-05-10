@@ -22,6 +22,8 @@ extension AuthenticationClient {
             signUpWithGoogle: { try await session.signUpWithGoogle() },
             signInWithGoogle: { try await session.signInWithGoogle() },
             sendPasswordReset: { try await session.sendPasswordReset(withEmail: $0) },
+            linkAccount: { try await session.linkAccount(withEmail: $0, password: $1) },
+            linkAccountWithGmail:  { try await session.linkAccountWithGmail() },
             signOut: { try await session.signout() }
         )
     }
@@ -113,7 +115,7 @@ extension AuthenticationClient {
             do {
                 let gidGoogleUser = try await oAuthGoogleSignIn()
                 guard let idToken = gidGoogleUser.idToken else {
-                    throw AuthError.gid(message: "ID Token Missing")
+                    throw AuthError.gid(message: "Failed to get Google authentication token")
                 }
                 
                 let accessToken = gidGoogleUser.accessToken
@@ -137,6 +139,43 @@ extension AuthenticationClient {
             }
         }
         
+        func linkAccount(withEmail email: String, password: String) async throws {
+            do {
+                guard let currentUser = Auth.auth().currentUser, currentUser.isAnonymous else {
+                    throw AuthError.auth(message: "User is not anonymous")
+                }
+                
+                let credentials = EmailAuthProvider.credential(withEmail: email, password: password)
+                
+                _ = try await currentUser.link(with: credentials)
+            } catch {
+                throw AuthError(from: error)
+            }
+        }
+        
+        func linkAccountWithGmail() async throws {
+            do {
+                guard let currentUser = Auth.auth().currentUser, currentUser.isAnonymous else {
+                    throw AuthError.auth(message: "User is not anonymous")
+                }
+                
+                let gidGoogleUser = try await oAuthGoogleSignIn()
+                guard let idToken = gidGoogleUser.idToken else {
+                    throw AuthError.gid(message: "Failed to get Google authentication token")
+                }
+                
+                let accessToken = gidGoogleUser.accessToken
+                let credentials = GoogleAuthProvider.credential(
+                    withIDToken: idToken.tokenString,
+                    accessToken: accessToken.tokenString
+                )
+                
+                _ = try await currentUser.link(with: credentials)
+            } catch {
+               throw  AuthError(from: error)
+            }
+        }
+        
         func signout() async throws {
             do {
                 try Auth.auth().signOut()
@@ -147,7 +186,7 @@ extension AuthenticationClient {
         
         private func oAuthGoogleSignIn() async throws -> GIDGoogleUser {
             guard let clientID = FirebaseApp.app()?.options.clientID else {
-                throw AuthError.gid(message: "Google Client ID Missing")
+                throw AuthError.gid(message: "Google Sign In not configured")
             }
             
             let config = GIDConfiguration(clientID: clientID)
