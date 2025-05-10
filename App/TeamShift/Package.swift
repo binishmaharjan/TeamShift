@@ -2,6 +2,7 @@
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
+import CompilerPluginSupport
 
 let package = Package(
     name: "TeamShift",
@@ -21,6 +22,7 @@ let package = Package(
         .package(url: "https://github.com/firebase/firebase-ios-sdk", exact: "11.12.0"),
         .package(url: "https://github.com/google/GoogleSignIn-iOS.git", exact: "8.0.0"),
         .package(url: "https://github.com/pointfreeco/swift-dependencies.git", exact: "1.9.2"),
+        .package(url: "https://github.com/swiftlang/swift-syntax.git", from: "601.0.1"),
     ],
     targets: [
         .target(
@@ -36,9 +38,21 @@ let package = Package(
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
             ]
         ),
+        .macro(
+            name: "SharedMacros",
+            dependencies: [
+                .product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
+                .product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
+            ],
+            plugins: [
+                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
+            ]
+        ),
         .target(
             name: "SharedModels",
-            dependencies: [],
+            dependencies: [
+                "SharedMacros",
+            ],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
             ]

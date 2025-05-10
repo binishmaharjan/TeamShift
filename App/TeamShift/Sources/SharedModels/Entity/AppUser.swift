@@ -7,6 +7,7 @@ public enum SignInMethod: String, Codable, Sendable {
     case guest
 }
 
+@DictionaryBuilder
 public struct AppUser: Equatable, Identifiable, Codable, Sendable {
     enum CodingKeys: String, CodingKey {
         case id
