@@ -1,0 +1,41 @@
+default_platform :ios
+
+WORKSPACE_PATH = "App/TeamShift.xcworkspace"
+SCHEME_NAME = "Development"
+APP_IDENTIFIER = "com.binish.teamshift.dev" # <--- 👈 Often better in Appfile
+APPLE_ID = "legendbinish124@gmail.com"      # <--- 👈 Often better in Appfile
+
+# configuration to build
+DEBUG_CONFIGURATION = "Debug"
+RELEASE_CONFIGURATION = "Release"
+
+
+before_all do
+  # This block is run before all lanes
+end
+
+# Run example: rbenv exec bundle exec fastlane build configuration:Debug
+desc "Builds the app for a specific configuration (e.g., Debug or Release)"
+lane :build do |options|
+  configuration = options[:configuration] || DEBUG_CONFIGURATION # Default to Debug
+
+  export_method = configuration == DEBUG_CONFIGURATION ? "development" : "app-store-connect"
+
+  build_app(
+    workspace: WORKSPACE_PATH, # or project: YOUR_PROJECT_PATH
+    scheme: SCHEME_NAME,
+    configuration: configuration,
+    clean: true, # Optional: clean before building
+    export_method: export_method
+  )
+  UI.success "App built successfully for #{configuration} configuration! 🚀"
+end
+
+# This block is run on error
+error do |lane, exception, options|
+  UI.error "Oh no, an error occurred in Fastlane! 😭"
+  UI.error "Lane: #{lane}"
+  UI.error "Exception: #{exception}"
+  
+  # Example: Send a Slack notification on error
+end
