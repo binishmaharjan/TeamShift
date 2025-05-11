@@ -12,4 +12,3 @@ import Swift
 @attached(member, names: named(DictionaryBuilder), named(dictionaryBuilder))
 public macro DictionaryBuilder() = #externalMacro(module: "SharedMacros", type: "DictionaryBuilder")
 
-public struct StoreRawValue {}
