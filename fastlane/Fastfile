@@ -14,21 +14,56 @@ before_all do
   # This block is run before all lanes
 end
 
-# Run example: rbenv exec bundle exec fastlane build configuration:Debug
-desc "Builds the app for a specific configuration (e.g., Debug or Release)"
-lane :build do |options|
-  configuration = options[:configuration] || DEBUG_CONFIGURATION # Default to Debug
+desc "Builds, archives, and exports the Release version for testing App Store distribution process"
+lane :build_and_export_debug do
 
-  export_method = configuration == DEBUG_CONFIGURATION ? "development" : "app-store-connect"
-
-  build_app(
-    workspace: WORKSPACE_PATH, # or project: YOUR_PROJECT_PATH
-    scheme: SCHEME_NAME,
-    configuration: configuration,
-    clean: true, # Optional: clean before building
-    export_method: export_method
+  gym(
+    workspace: WORKSPACE_PATH,      
+    scheme: SCHEME_NAME,     
+    configuration: "Debug",             
+    clean: true,                          
+    output_directory: "./build", 
+    output_name: "TeamShift-Debug.ipa", 
+    export_method: "development", 
+    export_options: {
+      method: "development", # Corresponds to "app-store-connect"
+      provisioningProfiles: {
+        "com.binish.teamshift.dev" => "TeamShift[DEV]"
+      },
+      signingCertificate: "Apple Development",
+      signingStyle: "manual",                   
+      teamID: "2QZXZME53M",                    
+      uploadSymbols: true                     
+    }
   )
-  UI.success "App built successfully for #{configuration} configuration! 🚀"
+
+  UI.success "Successfully built, archived, and exported the Release test build!"
+end
+
+desc "Builds, archives, and exports the Release version for testing App Store distribution process"
+lane :build_and_export_release do
+
+  gym(
+    workspace: WORKSPACE_PATH,      
+    scheme: SCHEME_NAME,     
+    configuration: "Release",             
+    clean: true,                          
+    output_directory: "./build", 
+    output_name: "TeamShift-Release.ipa", 
+    export_method: "app-store", 
+    export_options: {
+      method: "app-store", # Corresponds to "app-store-connect"
+      provisioningProfiles: {
+        "com.binish.teamshift.dev" => "TeamShift[DEV]_AppStore"
+      },
+      signingCertificate: "Apple Distribution",
+      signingStyle: "manual",                   
+      teamID: "2QZXZME53M",                    
+      uploadSymbols: true                     
+    }
+  )
+
+  UI.success "Successfully built, archived, and exported the Release test build!"
 end
 
 # This block is run on error
@@ -36,6 +71,6 @@ error do |lane, exception, options|
   UI.error "Oh no, an error occurred in Fastlane! 😭"
   UI.error "Lane: #{lane}"
   UI.error "Exception: #{exception}"
-  
+  UI.error "Options: #{options}"
   # Example: Send a Slack notification on error
 end

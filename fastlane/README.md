@@ -13,13 +13,21 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 # Available Actions
 
-### build
+### build_and_export_debug
 
 ```sh
-[bundle exec] fastlane build
+[bundle exec] fastlane build_and_export_debug
 ```
 
-Builds the app for a specific configuration (e.g., Debug or Release)
+Builds, archives, and exports the Release version for testing App Store distribution process
+
+### build_and_export_release
+
+```sh
+[bundle exec] fastlane build_and_export_release
+```
+
+Builds, archives, and exports the Release version for testing App Store distribution process
 
 ----
 
