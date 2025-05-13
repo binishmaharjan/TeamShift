@@ -88,7 +88,10 @@ let package = Package(
             name: "FeatureMainTab",
             dependencies: [
                 "SharedUIs",
-                "SharedModels"
+                "SharedModels",
+                "FeatureProfile",
+                "FeatureSchedule",
+                "FeatureWorkplace"
             ],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),

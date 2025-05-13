@@ -67,6 +67,6 @@ extension RootCoordinator {
         let mainTabCoordinator = MainTabCoordinator()
         addChild(mainTabCoordinator)
         mainTabCoordinator.start()
-        startViewController.replace(mainTabCoordinator.startViewController, animated: true)
+        startViewController.replace(mainTabCoordinator.tabViewController, animated: true)
     }
 }

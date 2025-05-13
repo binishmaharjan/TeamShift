@@ -11,10 +11,11 @@ struct ProfilView: View {
     @State private var viewModel: ProfileViewModel
     
     var body: some View {
-        Text("")
+        Text("Profile View")
+            .font(.customHeadline)
     }
 }
 
 #Preview {
-    ProfilViewView(viewModel: .init(coordinator: .init()))
+    ProfilView(viewModel: .init(coordinator: .init(navigationController: .init())))
 }

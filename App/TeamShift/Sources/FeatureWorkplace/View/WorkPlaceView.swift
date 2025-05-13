@@ -11,10 +11,11 @@ struct WorkPlaceView: View {
     @State private var viewModel: WorkplaceViewModel
     
     var body: some View {
-        Text("")
+        Text("WorkPlace View")
+            .font(.customHeadline)
     }
 }
 
 #Preview {
-    WorkPlaceView(viewModel: .init(coordinator: .init()))
+    WorkPlaceView(viewModel: .init(coordinator: .init(navigationController: .init())))
 }

@@ -11,10 +11,11 @@ struct ScheduleView: View {
     @State private var viewModel: ScheduleViewModel
     
     var body: some View {
-        Text("")
+        Text("Schedule View")
+            .font(.customHeadline)
     }
 }
 
 #Preview {
-    ScheduleView(viewModel: .init(coordinator: .init()))
+    ScheduleView(viewModel: .init(coordinator: .init(navigationController: .init())))
 }
