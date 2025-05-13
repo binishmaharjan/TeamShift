@@ -14,6 +14,9 @@ let package = Package(
         .library(name: "SharedUIs", targets: ["SharedUIs"]),
         .library(name: "FeatureAuthentication", targets: ["FeatureAuthentication"]),
         .library(name: "FeatureMainTab", targets: ["FeatureMainTab"]),
+        .library(name: "FeatureProfile", targets: ["FeatureProfile"]),
+        .library(name: "FeatureSchedule", targets: ["FeatureSchedule"]),
+        .library(name: "FeatureWorkplace", targets: ["FeatureWorkplace"]),
         .library(name: "ClientAuthentication", targets: ["ClientAuthentication"]),
         .library(name: "ClientUserStore", targets: ["ClientUserStore"]),
     ],
@@ -85,8 +88,37 @@ let package = Package(
             name: "FeatureMainTab",
             dependencies: [
                 "SharedUIs",
-                "SharedModels",
-                .product(name: "FirebaseAuth", package: "firebase-ios-sdk"), // TODO: remove once unrequired
+                "SharedModels"
+            ],
+            plugins: [
+                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
+            ]
+        ),
+        .target(
+            name: "FeatureProfile",
+            dependencies: [
+                "SharedUIs",
+                "SharedModels"
+            ],
+            plugins: [
+                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
+            ]
+        ),
+        .target(
+            name: "FeatureSchedule",
+            dependencies: [
+                "SharedUIs",
+                "SharedModels"
+            ],
+            plugins: [
+                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
+            ]
+        ),
+        .target(
+            name: "FeatureWorkplace",
+            dependencies: [
+                "SharedUIs",
+                "SharedModels"
             ],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),

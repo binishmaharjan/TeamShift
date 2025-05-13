@@ -1,4 +1,3 @@
-import FirebaseAuth
 import Foundation
 import Observation
 
@@ -8,11 +7,5 @@ final class MainTabViewModel {
     var didRequestFinish: ((MainTabResult) -> Void)?
     
     func doneButtonTapped() {
-        do {
-            try Auth.auth().signOut()
-            didRequestFinish?(.showAuthentication)
-        } catch {
-            print("Error Sign Out")
-        }
     }
 }
