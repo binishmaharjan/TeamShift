@@ -23,7 +23,7 @@ extension AuthenticationClient {
             signInWithGoogle: { try await session.signInWithGoogle() },
             sendPasswordReset: { try await session.sendPasswordReset(withEmail: $0) },
             linkAccount: { try await session.linkAccount(withEmail: $0, password: $1) },
-            linkAccountWithGmail:  { try await session.linkAccountWithGmail() },
+            linkAccountWithGmail: { try await session.linkAccountWithGmail() },
             signOut: { try await session.signout() }
         )
     }
@@ -184,6 +184,7 @@ extension AuthenticationClient {
             }
         }
         
+        @MainActor
         private func oAuthGoogleSignIn() async throws -> GIDGoogleUser {
             guard let clientID = FirebaseApp.app()?.options.clientID else {
                 throw AuthError.gid(message: "Google Sign In not configured")
@@ -192,9 +193,9 @@ extension AuthenticationClient {
             let config = GIDConfiguration(clientID: clientID)
             GIDSignIn.sharedInstance.configuration = config
             
-            guard let windowScene = await UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                  let window = await windowScene.windows.first,
-                  let rootViewController = await window.rootViewController else {
+            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                  let window = windowScene.windows.first,
+                  let rootViewController = window.rootViewController else {
                 throw AuthError.gid(message: "Failed to get Root")
             }
             

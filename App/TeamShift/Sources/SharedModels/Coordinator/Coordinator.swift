@@ -1,5 +1,6 @@
 import Foundation
 
+// https://vbat.dev/coordinators-swiftui
 // MARK: - Coordinator Protocol
 /// A protocol that defines the basic responsibilities of a coordinator.
 /// Coordinators manage the flow and navigation of view controllers.
