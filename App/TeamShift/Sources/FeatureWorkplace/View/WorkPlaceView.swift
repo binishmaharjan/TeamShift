@@ -11,8 +11,11 @@ struct WorkPlaceView: View {
     @State private var viewModel: WorkplaceViewModel
     
     var body: some View {
-        Text("WorkPlace View")
-            .font(.customHeadline)
+        VStack {
+            Text("WorkPlace View")
+                .font(.customHeadline)
+        }
+        .background(Color.background)
     }
 }
 

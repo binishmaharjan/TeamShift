@@ -11,4 +11,3 @@ import Swift
 /// `instance.dictionaryBuilder().propertyName(value).anotherProperty(value).dictionary`
 @attached(member, names: named(DictionaryBuilder), named(dictionaryBuilder))
 public macro DictionaryBuilder() = #externalMacro(module: "SharedMacros", type: "DictionaryBuilder")
-

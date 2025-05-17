@@ -44,6 +44,7 @@ public final class MainTabCoordinator: CompositionCoordinator {
             workplaceTabView,
             profileTabView
         ]
+        tabViewController.selectedIndex = 2
     }
 }
 
