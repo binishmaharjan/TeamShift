@@ -3,6 +3,7 @@ import SharedUIs
 import SwiftUI
 
 public enum ProfileResult {
+    case showOnboarding
 }
 
 @MainActor
@@ -40,5 +41,14 @@ public final class ProfileCoordinator: FlowCoordinator {
         
         let viewController = UIHostingController(rootView: view)
         startNavigationController.setViewControllers([viewController], animated: false)
+    }
+}
+
+extension ProfileCoordinator {
+    func profileRequestNavigation(for route: ProfileViewModel.Route) {
+        switch route {
+        case .showOnboarding:
+            finish(with: .showOnboarding)
+        }
     }
 }

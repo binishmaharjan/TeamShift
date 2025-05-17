@@ -31,6 +31,8 @@ struct ProfileView: View {
             .padding(.bottom, 10)
             .background(Color.listBackground)
         }
+        .loadingView(viewModel.isLoading)
+        .appAlert(isPresented: $viewModel.alertConfig.isPresented, alertConfig: viewModel.alertConfig)
         .background(Color.listBackground.ignoresSafeArea())
     }
 }
@@ -54,15 +56,15 @@ extension ProfileView {
             sectionTitle("Account")
             
             VStack(spacing: 0) {
-                NavigationLinkRow(title: "Change Password", image: .icnWaterLock)
+                ListLinkRow(title: "Change Password", image: .icnWaterLock)
                 
                 Divider().padding(.leading, 20)
                 
-                NavigationLinkRow(title: "Link Account", image: .icnLink)
+                ListLinkRow(title: "Link Account", image: .icnLink)
                 
                 Divider().padding(.leading, 20)
                 
-                NavigationLinkRow(title: "Delete Password", image: .icnDeleteUser)
+                ListLinkRow(title: "Delete Password", image: .icnDeleteUser)
             }
             .listSectionBlockStyle()
         }
@@ -73,11 +75,11 @@ extension ProfileView {
             sectionTitle("Preference")
             
             VStack(spacing: 0) {
-                NavigationLinkRow(title: "Start Week Day", image: .icnEvent)
+                ListLinkRow(title: "Start Week Day", image: .icnEvent)
                 
                 Divider().padding(.leading, 20)
                 
-                NavigationLinkRow(title: "Show Public Holiday", image: .icnGlobe)
+                ListLinkRow(title: "Show Public Holiday", image: .icnGlobe)
             }
             .listSectionBlockStyle()
         }
@@ -88,7 +90,7 @@ extension ProfileView {
             sectionTitle("Others")
             
             VStack(spacing: 0) {
-                NavigationLinkRow(title: "License", image: .icnDescription)
+                ListLinkRow(title: "License", image: .icnDescription)
             }
             .listSectionBlockStyle()
         }
@@ -96,6 +98,9 @@ extension ProfileView {
     
     private var signOutButton: some View {
         PrimaryButton(image: .icnLogout, title: "Sign Out") {
+            Task {
+                await viewModel.signOutButtonTapped()
+            }
         }
         .padding(.horizontal)
     }

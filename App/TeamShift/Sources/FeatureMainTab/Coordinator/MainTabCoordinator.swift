@@ -46,6 +46,18 @@ public final class MainTabCoordinator: CompositionCoordinator {
         ]
         tabViewController.selectedIndex = 2
     }
+    
+    public func didFinish(childCoordinator: any Coordinator, with result: Any?) {
+        if childCoordinator is ProfileCoordinator, let profileResult = result as? ProfileResult {
+            switch profileResult {
+            case .showOnboarding:
+                finish(with: .showAuthentication)
+            }
+        }
+        
+        // Clean up
+        removeChild(childCoordinator)
+    }
 }
 
 extension MainTabCoordinator {

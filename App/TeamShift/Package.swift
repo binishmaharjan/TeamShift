@@ -101,7 +101,8 @@ let package = Package(
             name: "FeatureProfile",
             dependencies: [
                 "SharedUIs",
-                "SharedModels"
+                "SharedModels",
+                "ClientAuthentication"
             ],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),

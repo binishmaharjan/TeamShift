@@ -1,8 +1,8 @@
-import SwiftUI
 import SharedUIs
+import SwiftUI
 
 // MARK: Normal List Item
-struct NavigationLinkRow: View {
+struct ListLinkRow: View {
     var title: String
     var image: Image
     
