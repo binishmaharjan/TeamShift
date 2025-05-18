@@ -63,7 +63,7 @@ public final class MainTabCoordinator: CompositionCoordinator {
 extension MainTabCoordinator {
     private func setupTabBar() {
         let appearance = UITabBarAppearance()
-        appearance.configureWithTransparentBackground()
+        appearance.configureWithOpaqueBackground()
         
         // Configure colors
         let selectedColor = UIColor(named: "app_primary", in: Bundle.sharedUIs, compatibleWith: nil)

@@ -13,8 +13,23 @@ struct ProfileView: View {
     var body: some View {
         ScrollView {
             VStack {
+                userID
+                
                 profileImage
-                    .padding(.vertical, 20)
+                    .padding(.vertical, 10)
+                
+                HStack {
+                    Text(viewModel.userName)
+                        .font(.customHeadline)
+
+                    Image.icnEdit
+                        .renderingMode(.template)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 14, height: 14)
+                }
+                .foregroundStyle(Color.text)
+                .padding(.bottom, 10)
 
                 ForEach(viewModel.sections, id: \.self) { section in
                     sectionView(for: section)
@@ -22,7 +37,8 @@ struct ProfileView: View {
                 }
                 
                 signOutButton
-                .padding(.bottom, 20)
+                    .padding(.horizontal)
+                    .padding(.bottom, 20)
             }
             .padding(.bottom, 10)
             .background(Color.listBackground)
@@ -34,6 +50,38 @@ struct ProfileView: View {
 }
 
 extension ProfileView {
+    private var userID: some View {
+        HStack {
+            VStack(alignment: .trailing) {
+                Text("User ID")
+                
+                Text(viewModel.uid)
+            }
+            .font(.customCaption2)
+            .foregroundStyle(Color.subText)
+            .bold()
+            
+            Button {
+                viewModel.copyUserIDButtonTapped()
+                print("Copy User ID")
+            } label: {
+                ZStack {
+                    Circle()
+                        .fill(Color.appPrimary)
+                        .frame(width: 28, height: 28)
+                    
+                    Image.icnCopy
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 18, height: 18)
+                }
+            }
+            .buttonStyle(.plain)
+        }
+        .padding(.horizontal)
+        .hSpacing(.trailing)
+    }
+    
     private var profileImage: some View {
         Image.imgUser1
             .resizable()
@@ -45,6 +93,24 @@ extension ProfileView {
             .overlay {
                 Circle().fill(.clear).stroke(Color.appPrimary, lineWidth: 2)
             }
+            .overlay {
+                Button {
+                    print("Edit Image")
+                } label: {
+                    ZStack {
+                        Circle()
+                            .fill(Color.appPrimary)
+                            .frame(width: 28, height: 28)
+                        
+                        Image.icnEdit
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 18, height: 18)
+                    }
+                }
+                .offset(x: 36, y: 36)
+                .buttonStyle(.plain)
+            }
     }
    
     private var signOutButton: some View {
@@ -53,7 +119,6 @@ extension ProfileView {
                 await viewModel.signOutButtonTapped()
             }
         }
-        .padding(.horizontal)
     }
     
     private func sectionTitle(_ title: String) -> some View {
@@ -62,12 +127,12 @@ extension ProfileView {
             .foregroundStyle(Color.subText)
             .textCase(nil)
             .padding(.leading, 20)
-            .padding(.bottom, 5)
     }
     
     private func sectionView(for section: ProfileSection) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             sectionTitle(section.title)
+                .padding(.bottom, 5)
             
             VStack(spacing: 0) {
                 ForEach(section.rows, id: \.self) { row in

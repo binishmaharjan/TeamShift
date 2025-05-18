@@ -3,6 +3,7 @@ import Dependencies
 import Foundation
 import Observation
 import SharedUIs
+import UIKit
 
 @Observable @MainActor
 final class ProfileViewModel {
@@ -18,14 +19,22 @@ final class ProfileViewModel {
     var alertConfig: AlertDialog.Config?
     var isLoading = false
     var sections: [ProfileSection] = ProfileSection.allCases
+    var uid: String { UserSession.shared.uid ?? "" }
+    var userName: String { UserSession.shared.userName ?? "" }
     
     @ObservationIgnored
     private weak var coordinator: ProfileCoordinator?
     @ObservationIgnored
     @Dependency(\.authenticationClient) private var authenticationClient
+    @ObservationIgnored
+    private let pasteboard = UIPasteboard.general
     
     func signOutButtonTapped() async {
         await showSignOutConfirm()
+    }
+    
+    func copyUserIDButtonTapped() {
+        pasteboard.string = uid
     }
 }
 
