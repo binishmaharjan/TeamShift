@@ -27,9 +27,12 @@ public class NamedUIHostingController<Content: View>: UIHostingController<Conten
      *   - viewHierarchyName: The name that will be displayed in Xcode's View Hierarchy debugger
      *   - rootView: The SwiftUI view to host
      */
-    override public  init(rootView: Content) {
+    override public init(rootView: Content) {
         self.viewHierarchyName = String(describing: Content.self)
         super.init(rootView: rootView)
+        
+        // hide default navigation back button
+        navigationItem.setHidesBackButton(true, animated: false)
     }
     
     @available(*, unavailable)
