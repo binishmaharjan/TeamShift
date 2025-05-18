@@ -9,6 +9,11 @@ import UIKit
 final class ProfileViewModel {
     enum Route {
         case showOnboarding
+        case showChangePassword
+        case showLinkAccount
+        case showDeleteAccount
+        case showStartWeekday
+        case showLicense
     }
     
     init(coordinator: ProfileCoordinator) {
@@ -35,6 +40,28 @@ final class ProfileViewModel {
     
     func copyUserIDButtonTapped() {
         pasteboard.string = uid
+    }
+    
+    func listRowTapped(_ listRow: ProfileRow) {
+        switch listRow {
+        case .changePassword:
+            coordinator?.profileRequestNavigation(for: .showChangePassword)
+            
+        case .linkAccount:
+            coordinator?.profileRequestNavigation(for: .showLinkAccount)
+            
+        case .deleteAccount:
+            coordinator?.profileRequestNavigation(for: .showDeleteAccount)
+            
+        case .startWeekDay:
+            coordinator?.profileRequestNavigation(for: .showStartWeekday)
+            
+        case .showPublicHoliday:
+            break // TODO: this is toggle
+            
+        case .license:
+            coordinator?.profileRequestNavigation(for: .showLicense)
+        }
     }
 }
 

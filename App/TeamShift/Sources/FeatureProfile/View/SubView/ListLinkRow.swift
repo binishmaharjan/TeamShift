@@ -4,10 +4,11 @@ import SwiftUI
 // MARK: Normal List Item
 struct ListLinkRow: View {
     var profileRow: ProfileRow
+    var onRowTapped: ((ProfileRow) -> Void)?
     
     var body: some View {
         Button {
-            print(profileRow.title)
+            onRowTapped?(profileRow)
         } label: {
             HStack {
                 profileRow.image

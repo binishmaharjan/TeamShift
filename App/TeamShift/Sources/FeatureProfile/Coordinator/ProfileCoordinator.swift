@@ -49,6 +49,76 @@ extension ProfileCoordinator {
         switch route {
         case .showOnboarding:
             finish(with: .showOnboarding)
+            
+        case .showChangePassword:
+            pushChangePasswordView()
+            
+        case .showLinkAccount:
+            pushLinkAccountView()
+            
+        case .showDeleteAccount:
+            pushDeleteAccountView()
+            
+        case .showStartWeekday:
+            pushStartWeekDayView()
+            
+        case .showLicense:
+            pushLicenseView()
         }
+    }
+    
+    private func pushChangePasswordView() {
+        let viewModel = ChangePasswordViewModel(coordinator: self)
+        
+        let view = ChangePasswordView(viewModel: viewModel)
+            .navigationBar()
+            .withCustomBackButton()
+        
+        let viewController = NamedUIHostingController(rootView: view)
+        topNavigationController.pushViewController(viewController, animated: true)
+    }
+    
+    private func pushLinkAccountView() {
+        let viewModel = LinkAccountViewModel(coordinator: self)
+        
+        let view = LinkAccountView(viewModel: viewModel)
+            .navigationBar()
+            .withCustomBackButton()
+        
+        let viewController = NamedUIHostingController(rootView: view)
+        topNavigationController.pushViewController(viewController, animated: true)
+    }
+    
+    private func pushDeleteAccountView() {
+        let viewModel = DeleteAccountViewModel(coordinator: self)
+        
+        let view = DeleteAccountView(viewModel: viewModel)
+            .navigationBar()
+            .withCustomBackButton()
+        
+        let viewController = NamedUIHostingController(rootView: view)
+        topNavigationController.pushViewController(viewController, animated: true)
+    }
+    
+    private func pushStartWeekDayView() {
+        let viewModel = StartWeekDayViewModel(coordinator: self)
+        
+        let view = StartWeekDayView(viewModel: viewModel)
+            .navigationBar()
+            .withCustomBackButton()
+        
+        let viewController = NamedUIHostingController(rootView: view)
+        topNavigationController.pushViewController(viewController, animated: true)
+    }
+    
+    private func pushLicenseView() {
+        let viewModel = LicenseViewModel(coordinator: self)
+        
+        let view = LicenseView(viewModel: viewModel)
+            .navigationBar()
+            .withCustomBackButton()
+        
+        let viewController = NamedUIHostingController(rootView: view)
+        topNavigationController.pushViewController(viewController, animated: true)
     }
 }

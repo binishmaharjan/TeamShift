@@ -18,17 +18,7 @@ struct ProfileView: View {
                 profileImage
                     .padding(.vertical, 10)
                 
-                HStack {
-                    Text(viewModel.userName)
-                        .font(.customHeadline)
-
-                    Image.icnEdit
-                        .renderingMode(.template)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 14, height: 14)
-                }
-                .foregroundStyle(Color.text)
+                userName
                 .padding(.bottom, 10)
 
                 ForEach(viewModel.sections, id: \.self) { section in
@@ -112,6 +102,20 @@ extension ProfileView {
                 .buttonStyle(.plain)
             }
     }
+    
+    private var userName: some View {
+        HStack {
+            Text(viewModel.userName)
+                .font(.customHeadline)
+
+            Image.icnEdit
+                .renderingMode(.template)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 14, height: 14)
+        }
+        .foregroundStyle(Color.text)
+    }
    
     private var signOutButton: some View {
         PrimaryButton(image: .icnLogout, title: "Sign Out") {
@@ -136,7 +140,9 @@ extension ProfileView {
             
             VStack(spacing: 0) {
                 ForEach(section.rows, id: \.self) { row in
-                    ListLinkRow(profileRow: row)
+                    ListLinkRow(profileRow: row) { selectedRow in
+                        viewModel.listRowTapped(selectedRow)
+                    }
                     if row != section.rows.last {
                         Divider().padding(.leading, 16)
                     }
