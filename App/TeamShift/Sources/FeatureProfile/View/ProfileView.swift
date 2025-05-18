@@ -40,10 +40,11 @@ struct ProfileView: View {
 }
 
 extension ProfileView {
+    @ViewBuilder
     private var userID: some View {
         HStack {
             VStack(alignment: .trailing) {
-                Text("User ID")
+                Text(l10.profileUserId)
                 
                 Text(viewModel.uid)
             }
@@ -53,7 +54,7 @@ extension ProfileView {
             
             Button {
                 viewModel.copyUserIDButtonTapped()
-                print("Copy User ID")
+                // TODO: Show Toast
             } label: {
                 ZStack {
                     Circle()
@@ -72,6 +73,7 @@ extension ProfileView {
         .hSpacing(.trailing)
     }
     
+    @ViewBuilder
     private var profileImage: some View {
         Image.imgUser1
             .resizable()
@@ -103,6 +105,7 @@ extension ProfileView {
             }
     }
     
+    @ViewBuilder
     private var userName: some View {
         HStack {
             Text(viewModel.userName)
@@ -117,14 +120,16 @@ extension ProfileView {
         .foregroundStyle(Color.text)
     }
    
+    @ViewBuilder
     private var signOutButton: some View {
-        PrimaryButton(image: .icnLogout, title: "Sign Out") {
+        PrimaryButton(image: .icnLogout, title: l10.profileButtonSignOut) {
             Task {
                 await viewModel.signOutButtonTapped()
             }
         }
     }
     
+    @ViewBuilder
     private func sectionTitle(_ title: String) -> some View {
         Text(title)
             .font(.customFootnote.bold())
@@ -133,6 +138,7 @@ extension ProfileView {
             .padding(.leading, 20)
     }
     
+    @ViewBuilder
     private func sectionView(for section: ProfileSection) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             sectionTitle(section.title)

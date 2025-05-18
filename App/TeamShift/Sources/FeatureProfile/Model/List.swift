@@ -1,4 +1,5 @@
 import Foundation
+import SharedUIs
 import SwiftUI
 
 enum ProfileRowType {
@@ -12,7 +13,16 @@ enum ProfileSection: String, CaseIterable {
     case other
     
     var title: String {
-        rawValue.capitalized
+        switch self {
+        case .account:
+            return l10.profileSectionAccount
+            
+        case .preference:
+            return l10.profileSectionPreference
+            
+        case .other:
+            return l10.profileSectionOthers
+        }
     }
     
     var rows: [ProfileRow] {
@@ -30,17 +40,35 @@ enum ProfileSection: String, CaseIterable {
 }
 
 enum ProfileRow: String {
-    case changePassword = "Change Password"
-    case linkAccount = "Link Account"
-    case deleteAccount = "Delete Account"
+    case changePassword
+    case linkAccount
+    case deleteAccount
     
-    case startWeekDay = "Start Week Day"
-    case showPublicHoliday = "Show Public Holiday"
+    case startWeekDay
+    case showPublicHoliday
     
-    case license = "License"
+    case license
     
     var title: String {
-        rawValue
+        switch self {
+        case .changePassword:
+            return l10.profileRowChangePassword
+            
+        case .linkAccount:
+            return l10.profileRowLinkAcccount
+            
+        case .deleteAccount:
+            return l10.profileRowDeleteAccount
+            
+        case .startWeekDay:
+            return l10.profileRowStartWeekDay
+            
+        case .showPublicHoliday:
+            return l10.profileRowShowPublicHoliday
+            
+        case .license:
+            return l10.profileRowLicense
+        }
     }
     
     var image: Image {
