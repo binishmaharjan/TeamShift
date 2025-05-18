@@ -108,7 +108,7 @@ public struct AlertDialog: View {
             config.icnImage
                 .resizable()
                 .scaledToFit()
-                .padding(12)
+                .padding(16)
                 .foregroundStyle(config.kind.foregroundColor)
                 .frame(width: 65, height: 65)
                 .background(config.kind.tint.gradient, in: .circle)
