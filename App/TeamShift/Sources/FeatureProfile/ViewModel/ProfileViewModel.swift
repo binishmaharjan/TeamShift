@@ -17,6 +17,7 @@ final class ProfileViewModel {
     // MARK: Properties
     var alertConfig: AlertDialog.Config?
     var isLoading = false
+    var sections: [ProfileSection] = ProfileSection.allCases
     
     @ObservationIgnored
     private weak var coordinator: ProfileCoordinator?

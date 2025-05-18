@@ -15,15 +15,11 @@ struct ProfileView: View {
             VStack {
                 profileImage
                     .padding(.vertical, 20)
-                
-                accountSection
-                    .padding(.bottom, 20)
-                
-                preferenceSection
-                .padding(.bottom, 20)
-                
-                otherSection
-                .padding(.bottom, 20)
+
+                ForEach(viewModel.sections, id: \.self) { section in
+                    sectionView(for: section)
+                        .padding(.bottom, 20)
+                }
                 
                 signOutButton
                 .padding(.bottom, 20)
@@ -50,52 +46,7 @@ extension ProfileView {
                 Circle().fill(.clear).stroke(Color.appPrimary, lineWidth: 2)
             }
     }
-    
-    private var accountSection: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            sectionTitle("Account")
-            
-            VStack(spacing: 0) {
-                ListLinkRow(title: "Change Password", image: .icnWaterLock)
-                
-                Divider().padding(.leading, 20)
-                
-                ListLinkRow(title: "Link Account", image: .icnLink)
-                
-                Divider().padding(.leading, 20)
-                
-                ListLinkRow(title: "Delete Password", image: .icnDeleteUser)
-            }
-            .listSectionBlockStyle()
-        }
-    }
-    
-    private var preferenceSection: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            sectionTitle("Preference")
-            
-            VStack(spacing: 0) {
-                ListLinkRow(title: "Start Week Day", image: .icnEvent)
-                
-                Divider().padding(.leading, 20)
-                
-                ListLinkRow(title: "Show Public Holiday", image: .icnGlobe)
-            }
-            .listSectionBlockStyle()
-        }
-    }
-    
-    private var otherSection: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            sectionTitle("Others")
-            
-            VStack(spacing: 0) {
-                ListLinkRow(title: "License", image: .icnDescription)
-            }
-            .listSectionBlockStyle()
-        }
-    }
-    
+   
     private var signOutButton: some View {
         PrimaryButton(image: .icnLogout, title: "Sign Out") {
             Task {
@@ -112,6 +63,22 @@ extension ProfileView {
             .textCase(nil)
             .padding(.leading, 20)
             .padding(.bottom, 5)
+    }
+    
+    private func sectionView(for section: ProfileSection) -> some View {
+        VStack(alignment: .leading, spacing: 0) {
+            sectionTitle(section.title)
+            
+            VStack(spacing: 0) {
+                ForEach(section.rows, id: \.self) { row in
+                    ListLinkRow(profileRow: row)
+                    if row != section.rows.last {
+                        Divider().padding(.leading, 16)
+                    }
+                }
+            }
+            .listSectionBlockStyle()
+        }
     }
 }
 

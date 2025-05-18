@@ -3,21 +3,21 @@ import SwiftUI
 
 // MARK: Normal List Item
 struct ListLinkRow: View {
-    var title: String
-    var image: Image
+    var profileRow: ProfileRow
     
     var body: some View {
         Button {
+            print(profileRow.title)
         } label: {
             HStack {
-                image
+                profileRow.image
                     .renderingMode(.template)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 20, height: 20)
                     .foregroundStyle(Color.appPrimary)
                 
-                Text(title)
+                Text(profileRow.title)
                 
                 Spacer()
                 
