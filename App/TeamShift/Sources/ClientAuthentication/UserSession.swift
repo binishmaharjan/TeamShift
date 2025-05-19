@@ -1,13 +1,23 @@
 import FirebaseAuth
 import Foundation
+import SharedModels
 
 public final class UserSession: Sendable {
+    // MARK: Init
     private init() { }
     
+    // MARK: Shared Instance
     public static let shared = UserSession()
     
+    // TODO: Save User Data In UserDefault and access from here?
+    
+    // MARK: Properties
+    private var currentUser: FirebaseAuth.User? {
+        Auth.auth().currentUser
+    }
+    
     public var isLoggedIn: Bool {
-        Auth.auth().currentUser != nil
+        currentUser != nil
     }
     
     public var uid: String? {
@@ -16,6 +26,15 @@ public final class UserSession: Sendable {
     }
     
     public var userName: String? {
-        Auth.auth().currentUser?.displayName
+        currentUser?.displayName
     }
+    
+    public var isGuestUser: Bool {
+        currentUser?.isAnonymous ?? false
+    }
+}
+
+// MARK: Functions
+extension UserSession {
+    
 }

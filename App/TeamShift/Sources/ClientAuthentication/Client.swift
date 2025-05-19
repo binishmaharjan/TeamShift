@@ -36,7 +36,6 @@ public struct AuthenticationClient: Sendable {
     ///
     /// - Parameters:
     ///   - email: Email Id of user
-    ///   - password: Password for the account
     /// - Returns: Void
     public var sendPasswordReset: @Sendable (_ withEmail: String) async throws -> Void
     /// Link Guest user to Email and password
@@ -49,6 +48,23 @@ public struct AuthenticationClient: Sendable {
     /// - Parameters:
     /// - Returns: Void
     public var linkAccountWithGmail: @Sendable () async throws -> Void
+    /// Change User Password
+    ///
+    /// - Parameter newPassword: The new password user wants to set
+    /// - Returns: Void
+    public var changePassword: @Sendable (_ to: String) async throws -> Void
+    /// Delete user after Reauthentication
+    ///
+    /// - Parameters:
+    ///   - email: Email Id of user
+    ///   - password: Password for the account
+    /// - Returns: Void
+    public var deleteUserWithReauthentication: @Sendable (_ withEmail: String, _ password: String) async throws -> Void
+    /// Delete user after Reauthentication with Google
+    ///
+    /// - Parameters:
+    /// - Returns: Void
+    public var deleteUserWithGoogleReauthentication: @Sendable () async throws -> Void
     /// SignOut User
     ///
     /// - Parameter none
@@ -75,6 +91,9 @@ extension AuthenticationClient: TestDependencyKey {
         sendPasswordReset: unimplemented(),
         linkAccount: unimplemented(),
         linkAccountWithGmail: unimplemented(),
+        changePassword: unimplemented(),
+        deleteUserWithReauthentication: unimplemented(),
+        deleteUserWithGoogleReauthentication: unimplemented(),
         signOut: unimplemented()
     )
 }

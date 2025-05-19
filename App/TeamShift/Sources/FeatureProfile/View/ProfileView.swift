@@ -35,6 +35,7 @@ struct ProfileView: View {
         }
         .loadingView(viewModel.isLoading)
         .appAlert(isPresented: $viewModel.alertConfig.isPresented, alertConfig: viewModel.alertConfig)
+        .displayToast(handledBy: viewModel.toastHandler)
         .background(Color.listBackground.ignoresSafeArea())
     }
 }

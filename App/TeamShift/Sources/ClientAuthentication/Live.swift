@@ -24,6 +24,9 @@ extension AuthenticationClient {
             sendPasswordReset: { try await session.sendPasswordReset(withEmail: $0) },
             linkAccount: { try await session.linkAccount(withEmail: $0, password: $1) },
             linkAccountWithGmail: { try await session.linkAccountWithGmail() },
+            changePassword: { try await session.updatePassword(to: $0) },
+            deleteUserWithReauthentication: { try await session.deleteUserWithReauthentication(withEmail: $0, password: $1) },
+            deleteUserWithGoogleReauthentication: { try await session.deleteUserWithGoogleReauthentication() },
             signOut: { try await session.signout() }
         )
     }
@@ -176,12 +179,72 @@ extension AuthenticationClient {
             }
         }
         
+        func updatePassword(to newPassword: String) async throws {
+            do {
+                let currentUser = Auth.auth().currentUser
+                try await currentUser?.updatePassword(to: newPassword)
+            } catch {
+                throw  AuthError(from: error)
+            }
+        }
+        
+        func deleteUserWithReauthentication(withEmail email: String, password: String) async throws {
+            do {
+                let credentials = EmailAuthProvider.credential(withEmail: email, password: password)
+                let isReauthenticated = try await reauthenticate(with: credentials)
+                
+                guard isReauthenticated else {
+                    throw AuthError.auth(message: "Failed to Reauthenticate")
+                }
+                
+                try await deleteUser()
+            } catch {
+                throw  AuthError(from: error)
+            }
+        }
+        
+        func deleteUserWithGoogleReauthentication() async throws {
+            do {
+                let gidGoogleUser = try await oAuthGoogleSignIn()
+                guard let idToken = gidGoogleUser.idToken else {
+                    throw AuthError.gid(message: "Failed to get Google authentication token")
+                }
+                
+                let accessToken = gidGoogleUser.accessToken
+                let credentials = GoogleAuthProvider.credential(
+                    withIDToken: idToken.tokenString,
+                    accessToken: accessToken.tokenString
+                )
+                let isReauthenticated = try await reauthenticate(with: credentials)
+                
+                guard isReauthenticated else {
+                    throw AuthError.auth(message: "Failed to Reauthenticate")
+                }
+                
+                try await deleteUser()
+            } catch {
+                throw  AuthError(from: error)
+            }
+        }
+        
         func signout() async throws {
             do {
                 try Auth.auth().signOut()
             } catch {
                 throw AuthError(from: error)
             }
+        }
+        
+        // func reauthenticate
+        private func reauthenticate(with credentials: AuthCredential) async throws -> Bool {
+            let currentUser = Auth.auth().currentUser
+            let authResult = try await currentUser?.reauthenticate(with: credentials)
+            return authResult?.user != nil
+        }
+        
+        private func deleteUser() async throws {
+            let currentUser = Auth.auth().currentUser
+            try await currentUser?.delete()
         }
         
         @MainActor

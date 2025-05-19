@@ -26,6 +26,7 @@ final class ProfileViewModel {
     var sections: [ProfileSection] = ProfileSection.allCases
     var uid: String { UserSession.shared.uid ?? "" }
     var userName: String { UserSession.shared.userName ?? "" }
+    var toastHandler: ToastHandler = .init()
     
     @ObservationIgnored
     private weak var coordinator: ProfileCoordinator?
@@ -40,6 +41,7 @@ final class ProfileViewModel {
     
     func copyUserIDButtonTapped() {
         pasteboard.string = uid
+        toastHandler.queueMessage("Copied")
     }
     
     func listRowTapped(_ listRow: ProfileRow) {
