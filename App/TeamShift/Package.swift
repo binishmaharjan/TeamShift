@@ -25,7 +25,8 @@ let package = Package(
         .package(url: "https://github.com/firebase/firebase-ios-sdk", exact: "11.12.0"),
         .package(url: "https://github.com/google/GoogleSignIn-iOS.git", exact: "8.0.0"),
         .package(url: "https://github.com/pointfreeco/swift-dependencies.git", exact: "1.9.2"),
-        .package(url: "https://github.com/swiftlang/swift-syntax.git", from: "601.0.1"),
+        .package(url: "https://github.com/swiftlang/swift-syntax.git", exact: "601.0.1"),
+        .package(url: "https://github.com/pointfreeco/swift-sharing", exact: "2.5.2")
     ],
     targets: [
         .target(
@@ -134,6 +135,7 @@ let package = Package(
                 "SharedModels",
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "DependenciesMacros", package: "swift-dependencies"),
+                .product(name: "Sharing", package: "swift-sharing"),
                 .product(name: "FirebaseAuth", package: "firebase-ios-sdk"),
                 .product(name: "GoogleSignIn", package: "GoogleSignIn-iOS"),
                 .product(name: "GoogleSignInSwift", package: "GoogleSignIn-iOS"),
