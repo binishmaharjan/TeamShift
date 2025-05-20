@@ -13,13 +13,15 @@ struct ToastView: View {
                 Text(toastMessage)
                     .font(.customFootnote.bold())
                     .foregroundStyle(Color.background)
+                    
                     .frame(maxWidth: .infinity, alignment: .center)
-                    .padding(.horizontal, 24)
-                    .padding(.vertical, 16)
+                    .padding(.vertical, 10)
+                    .padding(.horizontal, 15)
                     .background(Color.text.opacity(0.5))
-                    .padding(.horizontal, 16)
-                    .padding(.top, 32)
-//                    .transition(MoveTransition.move(edge: .top))
+                    .cornerRadius(10)
+                    .padding(.horizontal)
+                    .padding(.top, 70)
+                    .ignoresSafeArea()
             }
         }
         .animation(.easeInOut, value: toastHandler.currenToastMessage)
