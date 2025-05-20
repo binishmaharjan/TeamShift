@@ -17,7 +17,8 @@ public final class UserSession: Sendable {
     }
     
     public var isLoggedIn: Bool {
-        currentUser != nil
+        print(currentUser?.providerData[0].providerID)
+        return currentUser != nil
     }
     
     public var uid: String? {
@@ -36,5 +37,12 @@ public final class UserSession: Sendable {
 
 // MARK: Functions
 extension UserSession {
-    
+    public func isSignInMethod(_ method: SignInMethod) -> Bool {
+        guard let currentUser else {
+            return false
+        }
+        
+        let providerIDs = currentUser.providerData.map(\.providerID)
+        return providerIDs.contains(method.providerID)
+    }
 }

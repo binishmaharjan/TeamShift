@@ -5,6 +5,22 @@ public enum SignInMethod: String, Codable, Sendable {
     case google
     case apple
     case guest
+    
+    public var providerID: String {
+        switch self {
+        case .email:
+            return "password"
+            
+        case .google:
+            return "google.com"
+            
+        case .apple:
+            return "apple.com"
+            
+        case .guest:
+            return "none"
+        }
+    }
 }
 
 @DictionaryBuilder
