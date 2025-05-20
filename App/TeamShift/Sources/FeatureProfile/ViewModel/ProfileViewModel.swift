@@ -44,6 +44,10 @@ final class ProfileViewModel {
         toastHandler.queueMessage("Copied")
     }
     
+    func editNameButtonTapped() {
+        showEditNameAlert()
+    }
+    
     func listRowTapped(_ listRow: ProfileRow) {
         switch listRow {
         case .changePassword:
@@ -93,6 +97,22 @@ extension ProfileViewModel {
                 }
             },
             secondaryAction: { [weak self] in
+                Task { @MainActor in self?.alertConfig = nil }
+            }
+        )
+    }
+    
+    private func showEditNameAlert() {
+        alertConfig = .textField(
+            title: "Change Username",
+            message: "Please enter new username",
+            textHint: "New Username",
+            primaryAction: { [weak self] text in
+                Task { @MainActor in
+                    self?.alertConfig = nil
+                    print(text)
+                }
+            }, secondaryAction: { [weak self] in
                 Task { @MainActor in self?.alertConfig = nil }
             }
         )

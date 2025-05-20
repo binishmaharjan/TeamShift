@@ -119,6 +119,9 @@ extension ProfileView {
                 .frame(width: 14, height: 14)
         }
         .foregroundStyle(Color.text)
+        .onTapGesture {
+            viewModel.editNameButtonTapped()
+        }
     }
    
     @ViewBuilder

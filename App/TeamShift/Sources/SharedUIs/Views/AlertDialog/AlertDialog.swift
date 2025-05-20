@@ -4,12 +4,13 @@ public struct AlertDialog: View {
     public enum Kind: Sendable {
         case info(title: String, message: String?)
         case confirm(title: String, message: String?)
+        case textField(title: String, message: String?, textHint: String?)
         case error(message: String?)
         case success(message: String?)
         
         var tint: Color {
             switch self {
-            case .info, .confirm:
+            case .info, .confirm, .textField:
                 return .appPrimary
                 
             case .error:
@@ -26,7 +27,7 @@ public struct AlertDialog: View {
         
         var title: String {
             switch self {
-            case .info(let title, _), .confirm(let title, _):
+            case .info(let title, _), .confirm(let title, _), .textField(let title, _, _):
                 return title
                 
             case .error:
@@ -39,7 +40,7 @@ public struct AlertDialog: View {
         
         var message: String? {
             switch self {
-            case .info(_, let message), .confirm(_, let message), .error(let message), .success(let message):
+            case .info(_, let message), .confirm(_, let message), .textField(_, let message, _),.error(let message), .success(let message):
                 return message
             }
         }
@@ -83,19 +84,15 @@ public struct AlertDialog: View {
     }
     
     public struct Config: Sendable {
-        public init(kind: Kind, icnImage: Image, buttons: [ButtonConfig], addTextField: Bool = false, textFieldHint: String = "") {
+        public init(kind: Kind, icnImage: Image, buttons: [ButtonConfig]) {
             self.kind = kind
             self.icnImage = icnImage
             self.buttons = buttons
-            self.addTextField = addTextField
-            self.textFieldHint = textFieldHint
         }
         
         var kind: Kind
         var icnImage: Image
         var buttons: [ButtonConfig]
-        var addTextField: Bool
-        var textFieldHint: String
     }
     
     var config: Config
@@ -128,8 +125,8 @@ public struct AlertDialog: View {
                     .padding(.bottom, 4)
             }
             
-            if config.addTextField {
-                TextField(config.textFieldHint, text: $text)
+            if case .textField(_, _, let textFieldHint) = config.kind {
+                TextField(textFieldHint ?? "", text: $text)
                     .font(.customSubHeadline)
                     .padding(.horizontal, 15)
                     .padding(.vertical, 12)
@@ -157,7 +154,11 @@ public struct AlertDialog: View {
     @ViewBuilder
     private func buttonView(_ buttonConfig: ButtonConfig) -> some View {
         Button {
-            buttonConfig.action?(config.addTextField ? text : nil)
+            if case .textField = config.kind, case .primary = buttonConfig.type {
+                buttonConfig.action?(text)
+            } else {
+                buttonConfig.action?(nil)
+            }
         } label: {
             Text(buttonConfig.type.title)
                 .font(.customFootnote.bold())
@@ -175,7 +176,7 @@ extension AlertDialog.Config {
             kind: .info(title: title, message: message),
             icnImage: .icnInfo,
             buttons: [
-                .init(type: .primary(title: l10.commonButtonOK)) { _ in primaryAction?() }
+                AlertDialog.ButtonConfig(type: .primary(title: l10.commonButtonOK)) { _ in primaryAction?() }
             ]
         )
     }
@@ -191,8 +192,25 @@ extension AlertDialog.Config {
             kind: .info(title: title, message: message),
             icnImage: .icnInfo,
             buttons: [
-                .init(type: .primary(title: buttonTitle)) { _ in primaryAction?() },
-                .init(type: .secondary(title: l10.commonButtonCancel)) { _ in secondaryAction?() }
+                AlertDialog.ButtonConfig(type: .primary(title: buttonTitle)) { _ in primaryAction?() },
+                AlertDialog.ButtonConfig(type: .secondary(title: l10.commonButtonCancel)) { _ in secondaryAction?() }
+            ]
+        )
+    }
+    
+    public static func textField(
+        title: String,
+        message: String,
+        textHint: String? = nil,
+        primaryAction: (@Sendable (String?) -> Void)?,
+        secondaryAction: (@Sendable () -> Void)?
+    ) -> AlertDialog.Config {
+        AlertDialog.Config(
+            kind: .textField(title: title, message: message, textHint: textHint),
+            icnImage: .icnInfo,
+            buttons: [
+                AlertDialog.ButtonConfig(type: .primary(title: l10.commonButtonOK)) { text in primaryAction?(text) },
+                AlertDialog.ButtonConfig(type: .secondary(title: l10.commonButtonCancel)) { _ in secondaryAction?() }
             ]
         )
     }
@@ -202,7 +220,7 @@ extension AlertDialog.Config {
             kind: .error(message: message),
             icnImage: .icnError,
             buttons: [
-                .init(type: .primary(title: l10.commonButtonOK)) { _ in primaryAction?() },
+                AlertDialog.ButtonConfig(type: .primary(title: l10.commonButtonOK)) { _ in primaryAction?() },
             ]
         )
     }
@@ -212,7 +230,7 @@ extension AlertDialog.Config {
             kind: .success(message: message),
             icnImage: .icnSuccess,
             buttons: [
-                .init(type: .primary(title: l10.commonButtonOK)) { _ in primaryAction?() },
+                AlertDialog.ButtonConfig(type: .primary(title: l10.commonButtonOK)) { _ in primaryAction?() },
             ]
         )
     }
