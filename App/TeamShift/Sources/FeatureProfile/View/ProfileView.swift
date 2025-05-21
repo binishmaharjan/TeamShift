@@ -55,7 +55,6 @@ extension ProfileView {
             
             Button {
                 viewModel.copyUserIDButtonTapped()
-                // TODO: Show Toast
             } label: {
                 ZStack {
                     Circle()

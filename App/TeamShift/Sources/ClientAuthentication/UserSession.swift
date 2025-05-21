@@ -17,8 +17,7 @@ public final class UserSession: Sendable {
     }
     
     public var isLoggedIn: Bool {
-        print(currentUser?.providerData[0].providerID)
-        return currentUser != nil
+        currentUser != nil
     }
     
     public var uid: String? {

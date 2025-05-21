@@ -12,4 +12,3 @@ final class LinkAccountViewModel {
     @ObservationIgnored
     private weak var coordinator: ProfileCoordinator?
 }
-

@@ -4,7 +4,6 @@ import Observation
 
 // TODO: Fetch Maintenance Info
 // TODO: Add: AppCheck
-// TODO: layout for forgot password email
 @Observable @MainActor
 final class SplashViewModel {
     init(coordinator: SplashCoordinator) {
