@@ -11,12 +11,12 @@ public final class WorkplaceCoordinator: FlowCoordinator {
     
     // MARK: Init
     public init(navigationController: UINavigationController) {
-        print("\(Self.self): Start WorkplaceCoordinator")
+        print("ℹ️ \(Self.self): Start WorkplaceCoordinator")
         startNavigationController = navigationController
     }
     
     deinit {
-        print("\(Self.self): Deinit WorkplaceCoordinator")
+        print("ℹ️ \(Self.self): Deinit WorkplaceCoordinator")
     }
     
     // MARK: Properties

@@ -11,12 +11,12 @@ public final class ScheduleCoordinator: FlowCoordinator {
 
     // MARK: Init
     public init(navigationController: UINavigationController) {
-        print("\(Self.self): Start ScheduleCoordinator")
+        print("ℹ️ \(Self.self): Start ScheduleCoordinator")
         startNavigationController = navigationController
     }
     
     deinit {
-        print("\(Self.self): Deinit ScheduleCoordinator")
+        print("ℹ️ \(Self.self): Deinit ScheduleCoordinator")
     }
     
     // MARK: Properties

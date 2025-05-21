@@ -14,11 +14,11 @@ final class SplashCoordinator: FlowCoordinator {
     
     // MARK: Init
     init() {
-        print("\(Self.self): Start SplashCoordinator")
+        print("ℹ️ \(Self.self): Start SplashCoordinator")
     }
     
     deinit {
-        print("\(Self.self): Deinit SplashCoordinator")
+        print("ℹ️ \(Self.self): Deinit SplashCoordinator")
     }
     
     // MARK: Coordinator

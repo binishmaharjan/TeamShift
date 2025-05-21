@@ -52,7 +52,7 @@ extension ToastHandler {
                 if Task.isCancelled { return }
                 skipCurrent(in: defaultToastHidingDuration)
             } catch {
-                print("Toast: Task.sleep failed. Try Again")
+                print("❌ Toast: Task.sleep failed. Try Again")
             }
         }
     }

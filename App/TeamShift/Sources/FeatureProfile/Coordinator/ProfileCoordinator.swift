@@ -12,12 +12,12 @@ public final class ProfileCoordinator: FlowCoordinator {
     
     // MARK: Init
     public init(navigationController: UINavigationController) {
-        print("\(Self.self): Start ProfileCoordinator")
+        print("ℹ️ \(Self.self): Start ProfileCoordinator")
         startNavigationController = navigationController
     }
     
     deinit {
-        print("\(Self.self): Deinit ProfileCoordinator")
+        print("ℹ️ \(Self.self): Deinit ProfileCoordinator")
     }
     
     // MARK: Properties

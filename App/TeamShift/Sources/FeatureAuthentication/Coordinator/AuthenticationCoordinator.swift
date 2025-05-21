@@ -14,11 +14,11 @@ public final class AuthenticationCoordinator: FlowCoordinator {
     
     // MARK: Init
     public init() {
-        print("\(Self.self): Start AuthenticationCoordinator")
+        print("ℹ️ \(Self.self): Start AuthenticationCoordinator")
     }
     
     deinit {
-        print("\(Self.self): Deinit AuthenticationCoordinator")
+        print("ℹ️ \(Self.self): Deinit AuthenticationCoordinator")
     }
     
     // MARK: Properties

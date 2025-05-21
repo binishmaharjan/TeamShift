@@ -12,19 +12,19 @@ extension FlowCoordinator {
     /// Sets the child coordinator and assigns the finish delegate.
     public func addChild(_ coordinator: any Coordinator) {
         childCoordinator = coordinator
-        print("\(Self.self): Added child \(type(of: coordinator))...")
+        print("ℹ️ \(Self.self): Added child \(type(of: coordinator))...")
         coordinator.finishDelegate = self
     }
     
     /// Removes the currently active child coordinator.
     public func removeChild() {
         childCoordinator = nil
-        print("\(Self.self): Removed child \(type(of: childCoordinator))...")
+        print("ℹ️ \(Self.self): Removed child \(type(of: childCoordinator))...")
     }
     
     /// Handles the finishing of the current child coordinator by removing it.
     public func didFinish(childCoordinator: any Coordinator, with result: Any?) {
-        print("\(Self.self): Default didFinish called for \(type(of: childCoordinator))...")
+        print("ℹ️ \(Self.self): Default didFinish called for \(type(of: childCoordinator))...")
         removeChild()
     }
 }

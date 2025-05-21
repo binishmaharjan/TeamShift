@@ -15,11 +15,11 @@ public final class MainTabCoordinator: CompositionCoordinator {
     
     // MARK: Init
     public init() {
-        print("\(Self.self): Start MainTabCoordinator")
+        print("ℹ️ \(Self.self): Start MainTabCoordinator")
     }
     
     deinit {
-        print("\(Self.self): Deinit MainTabCoordinator")
+        print("ℹ️ \(Self.self): Deinit MainTabCoordinator")
     }
     
     // MARK: Properties

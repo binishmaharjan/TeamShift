@@ -10,7 +10,7 @@ public final class PresentationDelegate: NSObject, UIAdaptivePresentationControl
     public func presentationControllerDidDismiss(
         _ presentationController: UIPresentationController
     ) {
-        print("PresentedViewController was dismissed interactively by swipe down")
+        print("ℹ️ PresentedViewController was dismissed interactively by swipe down")
         onInteractiveDismiss()
     }
 }
