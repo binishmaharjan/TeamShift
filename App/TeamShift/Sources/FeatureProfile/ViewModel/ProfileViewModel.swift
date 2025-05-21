@@ -1,7 +1,9 @@
 import ClientAuthentication
+import ClientUserStore
 import Dependencies
 import Foundation
 import Observation
+import SharedModels
 import SharedUIs
 import UIKit
 
@@ -24,14 +26,20 @@ final class ProfileViewModel {
     var alertConfig: AlertDialog.Config?
     var isLoading = false
     var sections: [ProfileSection] = ProfileSection.allCases
-    var displayUid: String { UserSession.shared.displayUid ?? "" }
-    var userName: String { UserSession.shared.userName ?? "" }
+    
+    // User Data
+    private var userSession: UserSession { .shared }
+    var user: AppUser? { userSession.appUser }
+    var displayUid: String { userSession.displayUid ?? "" }
+    var username: String { user?.username ?? "" }
     var toastHandler: ToastHandler = .init()
     
     @ObservationIgnored
     private weak var coordinator: ProfileCoordinator?
     @ObservationIgnored
     @Dependency(\.authenticationClient) private var authenticationClient
+    @ObservationIgnored
+    @Dependency(\.userStoreClient) var userStoreClient
     @ObservationIgnored
     private let pasteboard = UIPasteboard.general
     
@@ -81,6 +89,26 @@ extension ProfileViewModel {
             showErrorAlert(error)
         }
     }
+    
+    private func updateUsername(to newUsername: String?) async {
+        guard let user = userSession.appUser, let newUsername else {
+            return
+        }
+        
+        isLoading = true
+        do {
+            let dict = SendableDictionary(user.dictionaryBuilder().username(newUsername).dictionary)
+            try await userStoreClient.updateUser(user.id, dict)
+            
+            // update saved user session
+            userSession.appUser?.username = newUsername
+            
+            isLoading = false
+        } catch {
+            isLoading = false
+            showErrorAlert(error)
+        }
+    }
 }
 
 // MARK: Alert
@@ -107,10 +135,10 @@ extension ProfileViewModel {
             title: "Change Username",
             message: "Please enter new username",
             textHint: "New Username",
-            primaryAction: { [weak self] text in
+            primaryAction: { [weak self] newUsername in
                 Task { @MainActor in
                     self?.alertConfig = nil
-                    print(text)
+                    await self?.updateUsername(to: newUsername)
                 }
             }, secondaryAction: { [weak self] in
                 Task { @MainActor in self?.alertConfig = nil }

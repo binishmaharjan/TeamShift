@@ -42,8 +42,8 @@ public struct AppUser: Equatable, Identifiable, Codable, Sendable {
     }
     
     public let id: String
-    public let username: String?
-    public let email: String?
-    public let signInMethod: SignInMethod
-    public let createdDate: Date
+    public var username: String?
+    public var email: String?
+    public var signInMethod: SignInMethod
+    public var createdDate: Date
 }

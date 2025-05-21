@@ -104,7 +104,8 @@ let package = Package(
             dependencies: [
                 "SharedUIs",
                 "SharedModels",
-                "ClientAuthentication"
+                "ClientAuthentication",
+                "ClientUserStore",
             ],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
