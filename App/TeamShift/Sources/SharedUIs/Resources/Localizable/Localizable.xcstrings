@@ -385,6 +385,61 @@
         }
       }
     },
+    "Profile_Alert_Change_Username_Description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please enter new username"
+          }
+        }
+      }
+    },
+    "Profile_Alert_Change_Username_Hint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Username"
+          }
+        }
+      }
+    },
+    "Profile_Alert_Change_Username_Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change Username"
+          }
+        }
+      }
+    },
+    "Profile_Alert_SignOut_Description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You will need to sign in again to access your account. If you are guest user all data will be lost."
+          }
+        }
+      }
+    },
+    "Profile_Alert_SignOut_Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign out"
+          }
+        }
+      }
+    },
     "Profile_Button_Sign_Out" : {
       "extractionState" : "manual",
       "localizations" : {

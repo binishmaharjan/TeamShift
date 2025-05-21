@@ -4,8 +4,10 @@ import Dependencies
 import Foundation
 import Observation
 
-// TODO: Fetch Maintenance Info
-// TODO: Add: AppCheck
+/* TODO:
+ Fetch Maintenance Info
+ Add: AppCheck
+ */
 @Observable @MainActor
 final class SplashViewModel {
     init(coordinator: SplashCoordinator) {

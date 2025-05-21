@@ -43,9 +43,11 @@ enum ProfileRow: String {
     case changePassword
     case linkAccount
     case deleteAccount
+    // case goPro
     
     case startWeekDay
     case showPublicHoliday
+    // case notification
     
     case license
     

@@ -116,8 +116,8 @@ extension ProfileViewModel {
     private func showSignOutConfirm() async {
         alertConfig = .confirm(
             buttonTitle: l10.commonButtonOK,
-            title: "Sign out",
-            message: "You will need to sign in again to access your account. If you are guest user all data will be lost.",
+            title: l10.profileAlertSignOutTitle,
+            message: l10.profileAlertSignOutDescription,
             primaryAction: { [weak self] in
                 Task { @MainActor in
                     self?.alertConfig = nil
@@ -132,9 +132,9 @@ extension ProfileViewModel {
     
     private func showEditNameAlert() {
         alertConfig = .textField(
-            title: "Change Username",
-            message: "Please enter new username",
-            textHint: "New Username",
+            title: l10.profileAlertChangeUsernameTitle,
+            message: l10.profileAlertChangeUsernameDescription,
+            textHint: l10.profileAlertChangeUsernameHint,
             primaryAction: { [weak self] newUsername in
                 Task { @MainActor in
                     self?.alertConfig = nil
