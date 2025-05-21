@@ -1,3 +1,4 @@
+import ClientUserDefaults
 import Dependencies
 @preconcurrency import FirebaseFirestore
 import Foundation
@@ -22,6 +23,8 @@ extension UserStoreClient {
 
 extension UserStoreClient {
     actor Session {
+//        @Dependency(\.userDefaultsClient) var userDefaultsClient
+        
         func saveUserToStore(withUser user: AppUser) async throws {
             do {
                 let reference = Firestore.firestore().collection(Collection.users.rawValue).document(user.id)
@@ -35,6 +38,7 @@ extension UserStoreClient {
             do {
                 let reference = Firestore.firestore().collection(Collection.users.rawValue).document(uid)
                 let user = try await reference.getDocument(as: AppUser.self)
+
                 return user
             } catch {
                 throw UserStoreError(from: error)

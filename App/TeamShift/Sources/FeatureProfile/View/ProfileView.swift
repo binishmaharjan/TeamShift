@@ -47,7 +47,7 @@ extension ProfileView {
             VStack(alignment: .trailing) {
                 Text(l10.profileUserId)
                 
-                Text(viewModel.uid)
+                Text(viewModel.displayUid)
             }
             .font(.customCaption2)
             .foregroundStyle(Color.subText)

@@ -5,8 +5,8 @@ import SharedModels
 
 @DependencyClient
 public struct UserDefaultsClient: Sendable {
-    public var appUser: @Sendable () async -> AppUser?
-    public var setAppUser: @Sendable (AppUser?) async -> Void
+    public var appUser: @Sendable () -> AppUser?
+    public var setAppUser: @Sendable (AppUser?) -> Void
 }
 
 // MARK: DependencyValues
@@ -25,7 +25,7 @@ extension UserDefaultsClient: TestDependencyKey {
     )
     
     public static let previewValue = UserDefaultsClient(
-        appUser: {.mockUser },
+        appUser: { .mockUser },
         setAppUser: unimplemented()
     )
 }

@@ -24,7 +24,7 @@ final class ProfileViewModel {
     var alertConfig: AlertDialog.Config?
     var isLoading = false
     var sections: [ProfileSection] = ProfileSection.allCases
-    var uid: String { UserSession.shared.uid ?? "" }
+    var displayUid: String { UserSession.shared.displayUid ?? "" }
     var userName: String { UserSession.shared.userName ?? "" }
     var toastHandler: ToastHandler = .init()
     
@@ -40,7 +40,7 @@ final class ProfileViewModel {
     }
     
     func copyUserIDButtonTapped() {
-        pasteboard.string = uid
+        pasteboard.string = displayUid
         toastHandler.queueMessage("Copied")
     }
     
