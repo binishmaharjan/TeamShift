@@ -36,6 +36,10 @@ final class SignInViewModel {
         do {
             let uid = try await authenticationClient.signIn(withEmail: email, password: password)
             let user = try await userStoreClient.getUser(uid: uid)
+            
+            // save user to user session
+            UserSession.shared.appUser = user
+            
             isLoading = false
             coordinator?.finish(with: .showMainTab)
         } catch {
@@ -49,6 +53,10 @@ final class SignInViewModel {
         do {
             let uid = try await authenticationClient.signInWithGoogle()
             let user = try await userStoreClient.getUser(uid: uid)
+            
+            // save user to user session
+            UserSession.shared.appUser = user
+            
             isLoading = false
             coordinator?.finish(with: .showMainTab)
         } catch {

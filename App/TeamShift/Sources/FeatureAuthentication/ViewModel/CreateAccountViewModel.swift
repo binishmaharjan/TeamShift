@@ -33,6 +33,10 @@ final class CreateAccountViewModel {
         do {
             let user = try await authenticationClient.createUser(withEmail: email, password: password)
             try await userStoreClient.saveUser(user: user)
+            
+            // save user to user session
+            UserSession.shared.appUser = user
+            
             isLoading = false
             coordinator?.finish(with: .showMainTab)
         } catch {
@@ -46,6 +50,10 @@ final class CreateAccountViewModel {
         do {
             let user = try await authenticationClient.signUpWithGoogle()
             try await userStoreClient.saveUser(user: user)
+            
+            // save user to user session
+            UserSession.shared.appUser = user
+            
             isLoading = false
             coordinator?.finish(with: .showMainTab)
         } catch {

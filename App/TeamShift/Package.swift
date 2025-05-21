@@ -37,6 +37,7 @@ let package = Package(
                 "FeatureAuthentication",
                 "FeatureMainTab",
                 "ClientAuthentication",
+                "ClientUserStore",
             ],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")

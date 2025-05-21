@@ -2,11 +2,12 @@ import FirebaseAuth
 import Foundation
 import SharedModels
 
-public final class UserSession: Sendable {
+public final class UserSession {
     // MARK: Init
     private init() { }
     
     // MARK: Shared Instance
+    @MainActor
     public static let shared = UserSession()
     
     // MARK: Properties
@@ -30,7 +31,7 @@ public final class UserSession: Sendable {
     }
     
     public var userName: String? {
-        currentUser?.displayName
+        appUser?.username
     }
     
     public var isGuestUser: Bool {
