@@ -16,7 +16,8 @@ extension UserStoreClient {
         return UserStoreClient(
             saveUser: { try await session.saveUserToStore(withUser: $0) },
             getUser: { try await session.getUserFromStore(for: $0) },
-            updateUser: { try await session.updateUser(for: $0, with: $1) }
+            updateUser: { try await session.updateUser(for: $0, with: $1) },
+            getAppConfig: { try await session.getAppConfig() }
         )
     }
 }
@@ -25,7 +26,7 @@ extension UserStoreClient {
     actor Session {
         func saveUserToStore(withUser user: AppUser) async throws {
             do {
-                let reference = Firestore.firestore().collection(Collection.users.rawValue).document(user.id)
+                let reference = Firestore.firestore().collection(CollectionID.users.rawValue).document(user.id)
                 try reference.setData(from: user)
             } catch {
                 throw UserStoreError(from: error)
@@ -34,7 +35,7 @@ extension UserStoreClient {
         
         func getUserFromStore(for uid: String) async throws -> AppUser {
             do {
-                let reference = Firestore.firestore().collection(Collection.users.rawValue).document(uid)
+                let reference = Firestore.firestore().collection(CollectionID.users.rawValue).document(uid)
                 let documentSnapshot = try await reference.getDocument()
                 
                 printLog(for: reference, snapshot: documentSnapshot)
@@ -48,11 +49,25 @@ extension UserStoreClient {
         
         func updateUser(for uid: String, with fields: SendableDictionary) async throws {
             do {
-                let reference = Firestore.firestore().collection(Collection.users.rawValue).document(uid)
+                let reference = Firestore.firestore().collection(CollectionID.users.rawValue).document(uid)
                 
                 printLog(for: reference, fields: fields)
                 
                 try await reference.updateData(fields.dictionary)
+            } catch {
+                throw UserStoreError(from: error)
+            }
+        }
+        
+        func getAppConfig() async throws -> AppConfig {
+            do {
+                let reference = Firestore.firestore().collection(CollectionID.appConfig.rawValue).document(DocumentID.settings.rawValue)
+                let documentSnapshot = try await reference.getDocument()
+                
+                printLog(for: reference, snapshot: documentSnapshot)
+                
+                let appConfig = try documentSnapshot.data(as: AppConfig.self)
+                return appConfig
             } catch {
                 throw UserStoreError(from: error)
             }

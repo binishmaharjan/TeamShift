@@ -8,6 +8,7 @@ public struct UserStoreClient: Sendable {
     public var saveUser: @Sendable (_ user: AppUser) async throws -> Void
     public var getUser: @Sendable (_ uid: String) async throws -> AppUser
     public var updateUser: @Sendable (_ uid: String, _ fields: SendableDictionary) async throws -> Void
+    public var getAppConfig: @Sendable () async throws -> AppConfig
 }
 
 // MARK: DependencyValues
@@ -23,6 +24,7 @@ extension UserStoreClient: TestDependencyKey {
     public static let testValue = UserStoreClient(
         saveUser: unimplemented(),
         getUser: unimplemented(),
-        updateUser: unimplemented()
+        updateUser: unimplemented(),
+        getAppConfig: unimplemented()
     )
 }

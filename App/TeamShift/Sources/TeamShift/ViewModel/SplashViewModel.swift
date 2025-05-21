@@ -23,21 +23,21 @@ final class SplashViewModel {
     @Dependency(\.userStoreClient) var userStoreClient
     
     // MARK: Methods
-    func showNextView() async {
-        if userSession.isLoggedIn, let uid = userSession.uid {
-            do {
+    
+    func startInitialFlow() async {
+        do {
+            _ = try await userStoreClient.getAppConfig()
+            if userSession.isLoggedIn, let uid = userSession.uid {
                 let user = try await userStoreClient.getUser(uid: uid)
                 
                 // save user to user session
                 UserSession.shared.appUser = user
                 
                 coordinator?.finish(with: .showMainTab)
-            } catch {
+            } else {
                 coordinator?.finish(with: .showAuthentication)
             }
-        } else {
-            let clock = ContinuousClock()
-            try? await clock.sleep(for: .seconds(1))
+        } catch {
             coordinator?.finish(with: .showAuthentication)
         }
     }

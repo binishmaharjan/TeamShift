@@ -23,6 +23,7 @@ public enum SignInMethod: String, Codable, Sendable {
     }
 }
 
+/// Represents the app user
 @DictionaryBuilder
 public struct AppUser: Equatable, Identifiable, Codable, Sendable {
     enum CodingKeys: String, CodingKey {

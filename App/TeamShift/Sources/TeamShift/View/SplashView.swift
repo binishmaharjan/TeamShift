@@ -16,7 +16,7 @@ struct SplashView: View {
         }
         .frame(maxHeight: .infinity)
         .task {
-            await viewModel.showNextView()
+            await viewModel.startInitialFlow()
         }
     }
 }
