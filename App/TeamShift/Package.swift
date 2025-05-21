@@ -19,6 +19,7 @@ let package = Package(
         .library(name: "FeatureWorkplace", targets: ["FeatureWorkplace"]),
         .library(name: "ClientAuthentication", targets: ["ClientAuthentication"]),
         .library(name: "ClientUserStore", targets: ["ClientUserStore"]),
+        .library(name: "ClientUserDefaults", targets: ["ClientUserDefaults"]),
     ],
     dependencies: [
         .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", exact: "0.58.2"),
@@ -149,6 +150,16 @@ let package = Package(
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "DependenciesMacros", package: "swift-dependencies"),
                 .product(name: "FirebaseFirestore", package: "firebase-ios-sdk"),
+            ],
+            plugins: [
+                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
+            ]
+        ),
+        .target(
+            name: "ClientUserDefaults",
+            dependencies: [
+                "SharedModels",
+                .product(name: "Dependencies", package: "swift-dependencies"),
             ],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
