@@ -50,21 +50,23 @@ public struct AuthenticationClient: Sendable {
     public var linkAccountWithGmail: @Sendable () async throws -> Void
     /// Change User Password
     ///
-    /// - Parameter newPassword: The new password user wants to set
+    /// - Parameter
+    ///     - newPassword: The new password user wants to set
+    ///     - oldPassword: Current password
     /// - Returns: Void
-    public var changePassword: @Sendable (_ to: String) async throws -> Void
-    /// Delete user after Reauthentication
+    public var changePassword: @Sendable (_ to: String, _ oldPassword: String) async throws -> Void
+    /// Delete user after ReAuthentication
     ///
     /// - Parameters:
     ///   - email: Email Id of user
     ///   - password: Password for the account
     /// - Returns: Void
-    public var deleteUserWithReauthentication: @Sendable (_ withEmail: String, _ password: String) async throws -> Void
-    /// Delete user after Reauthentication with Google
+    public var deleteUserWithReAuthentication: @Sendable (_ withEmail: String, _ password: String) async throws -> Void
+    /// Delete user after ReAuthentication with Google
     ///
     /// - Parameters:
     /// - Returns: Void
-    public var deleteUserWithGoogleReauthentication: @Sendable () async throws -> Void
+    public var deleteUserWithGoogleReAuthentication: @Sendable () async throws -> Void
     /// SignOut User
     ///
     /// - Parameter none
@@ -92,8 +94,8 @@ extension AuthenticationClient: TestDependencyKey {
         linkAccount: unimplemented(),
         linkAccountWithGmail: unimplemented(),
         changePassword: unimplemented(),
-        deleteUserWithReauthentication: unimplemented(),
-        deleteUserWithGoogleReauthentication: unimplemented(),
+        deleteUserWithReAuthentication: unimplemented(),
+        deleteUserWithGoogleReAuthentication: unimplemented(),
         signOut: unimplemented()
     )
 }

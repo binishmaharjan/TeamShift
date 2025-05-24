@@ -24,10 +24,10 @@ extension AuthenticationClient {
             sendPasswordReset: { try await session.sendPasswordReset(withEmail: $0) },
             linkAccount: { try await session.linkAccount(withEmail: $0, password: $1) },
             linkAccountWithGmail: { try await session.linkAccountWithGmail() },
-            changePassword: { try await session.updatePassword(to: $0) },
-            deleteUserWithReauthentication: { try await session.deleteUserWithReauthentication(withEmail: $0, password: $1) },
-            deleteUserWithGoogleReauthentication: { try await session.deleteUserWithGoogleReauthentication() },
-            signOut: { try await session.signout() }
+            changePassword: { try await session.updatePassword(to: $0, oldPassword: $1) },
+            deleteUserWithReAuthentication: { try await session.deleteUserWithReAuthentication(withEmail: $0, password: $1) },
+            deleteUserWithGoogleReAuthentication: { try await session.deleteUserWithGoogleReAuthentication() },
+            signOut: { try await session.signOut() }
         )
     }
 }
@@ -179,21 +179,30 @@ extension AuthenticationClient {
             }
         }
         
-        func updatePassword(to newPassword: String) async throws {
+        func updatePassword(to newPassword: String, oldPassword: String) async throws {
             do {
                 let currentUser = Auth.auth().currentUser
+                let email = currentUser?.email ?? ""
+                
+                let credentials = EmailAuthProvider.credential(withEmail: email, password: oldPassword)
+                let isReAuthenticated = try await reAuthenticate(with: credentials)
+                
+                guard isReAuthenticated else {
+                    throw AuthError.auth(message: "Failed to ReAuthenticate")
+                }
+                
                 try await currentUser?.updatePassword(to: newPassword)
             } catch {
                 throw  AuthError(from: error)
             }
         }
         
-        func deleteUserWithReauthentication(withEmail email: String, password: String) async throws {
+        func deleteUserWithReAuthentication(withEmail email: String, password: String) async throws {
             do {
                 let credentials = EmailAuthProvider.credential(withEmail: email, password: password)
-                let isReauthenticated = try await reauthenticate(with: credentials)
+                let isReAuthenticated = try await reAuthenticate(with: credentials)
                 
-                guard isReauthenticated else {
+                guard isReAuthenticated else {
                     throw AuthError.auth(message: "Failed to Reauthenticate")
                 }
                 
@@ -203,7 +212,7 @@ extension AuthenticationClient {
             }
         }
         
-        func deleteUserWithGoogleReauthentication() async throws {
+        func deleteUserWithGoogleReAuthentication() async throws {
             do {
                 let gidGoogleUser = try await oAuthGoogleSignIn()
                 guard let idToken = gidGoogleUser.idToken else {
@@ -215,10 +224,10 @@ extension AuthenticationClient {
                     withIDToken: idToken.tokenString,
                     accessToken: accessToken.tokenString
                 )
-                let isReauthenticated = try await reauthenticate(with: credentials)
+                let isReAuthenticated = try await reAuthenticate(with: credentials)
                 
-                guard isReauthenticated else {
-                    throw AuthError.auth(message: "Failed to Reauthenticate")
+                guard isReAuthenticated else {
+                    throw AuthError.auth(message: "Failed to ReAuthenticate")
                 }
                 
                 try await deleteUser()
@@ -227,7 +236,7 @@ extension AuthenticationClient {
             }
         }
         
-        func signout() async throws {
+        func signOut() async throws {
             do {
                 try Auth.auth().signOut()
             } catch {
@@ -235,8 +244,8 @@ extension AuthenticationClient {
             }
         }
         
-        // func reauthenticate
-        private func reauthenticate(with credentials: AuthCredential) async throws -> Bool {
+        // func reAuthenticate
+        private func reAuthenticate(with credentials: AuthCredential) async throws -> Bool {
             let currentUser = Auth.auth().currentUser
             let authResult = try await currentUser?.reauthenticate(with: credentials)
             return authResult?.user != nil
