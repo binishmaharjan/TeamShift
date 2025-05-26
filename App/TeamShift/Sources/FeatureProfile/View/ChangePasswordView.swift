@@ -39,7 +39,7 @@ extension ChangePasswordView {
     @ViewBuilder
     private var oldPasswordTextField: some View {
         PrimaryTextField(
-            "Old Password",
+            l10.changePasswordTextFieldOldPassword,
             icon: .icnLock,
             text: $viewModel.oldPassword,
             fieldIdentifier: .oldPassword,
@@ -51,7 +51,7 @@ extension ChangePasswordView {
     @ViewBuilder
     private var newPasswordTextField: some View {
         PrimaryTextField(
-            "New Password",
+            l10.changePasswordTextFieldNewPassword,
             icon: .icnLock,
             text: $viewModel.newPassword,
             fieldIdentifier: .newPassword,
@@ -62,7 +62,7 @@ extension ChangePasswordView {
     @ViewBuilder
     private var confirmPasswordTextField: some View {
         PrimaryTextField(
-            "Confirm Password",
+            l10.changePasswordTextFieldConfrimPassword,
             icon: .icnLock,
             text: $viewModel.confirmPassword,
             fieldIdentifier: .confirmPassword,
@@ -73,7 +73,7 @@ extension ChangePasswordView {
     
     @ViewBuilder
     private var changePasswordButton: some View {
-        PrimaryButton(title: "Change Password") {
+        PrimaryButton(title: l10.changePasswordButtonChange) {
             Task {
                 await viewModel.changePasswordButtonTapped()
             }

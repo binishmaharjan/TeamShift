@@ -37,7 +37,7 @@ public final class ProfileCoordinator: FlowCoordinator {
         
         let viewModel = ProfileViewModel(coordinator: self)
         let view = ProfileView(viewModel: viewModel)
-            .navigationBar("Me")
+            .navigationBar(l10.profileNavTitle)
         
         let viewController = UIHostingController(rootView: view)
         startNavigationController.setViewControllers([viewController], animated: false)
