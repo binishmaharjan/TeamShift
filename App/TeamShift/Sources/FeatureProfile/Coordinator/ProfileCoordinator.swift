@@ -71,7 +71,7 @@ extension ProfileCoordinator {
         let viewModel = ChangePasswordViewModel(coordinator: self)
         
         let view = ChangePasswordView(viewModel: viewModel)
-            .navigationBar("Change Password")
+            .navigationBar(l10.changePasswordNavTitle)
             .withCustomBackButton()
         
         let viewController = NamedUIHostingController(rootView: view)
@@ -82,7 +82,7 @@ extension ProfileCoordinator {
         let viewModel = LinkAccountViewModel(coordinator: self)
         
         let view = LinkAccountView(viewModel: viewModel)
-            .navigationBar()
+            .navigationBar(l10.linkAccountNavTitle)
             .withCustomBackButton()
         
         let viewController = NamedUIHostingController(rootView: view)

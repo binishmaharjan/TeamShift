@@ -92,6 +92,7 @@ extension ProfileViewModel {
     
     private func updateUsername(to newUsername: String?) async {
         guard let user = userSession.appUser, let newUsername else {
+            // TODO: Error Handling
             return
         }
         

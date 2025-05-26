@@ -4,6 +4,17 @@
     "" : {
 
     },
+    "ChangePassword_Alert_Change_Success" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your password has been updated successfully."
+          }
+        }
+      }
+    },
     "ChangePassword_Button_Change" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -242,6 +253,61 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Forgot Password"
+          }
+        }
+      }
+    },
+    "LinkAccount_Alert_Link_Success" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your account has been linked successfully."
+          }
+        }
+      }
+    },
+    "LinkAccount_Button_Apple" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Link with Apple"
+          }
+        }
+      }
+    },
+    "LinkAccount_Button_Email" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Link "
+          }
+        }
+      }
+    },
+    "LinkAccount_Button_Gmail" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Link with Gmail"
+          }
+        }
+      }
+    },
+    "LinkAccount_Nav_Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Link Account"
           }
         }
       }
