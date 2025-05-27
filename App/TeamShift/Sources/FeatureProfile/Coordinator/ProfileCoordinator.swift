@@ -93,7 +93,7 @@ extension ProfileCoordinator {
         let viewModel = DeleteAccountViewModel(coordinator: self)
         
         let view = DeleteAccountView(viewModel: viewModel)
-            .navigationBar()
+            .navigationBar("Delete Account")
             .withCustomBackButton()
         
         let viewController = NamedUIHostingController(rootView: view)

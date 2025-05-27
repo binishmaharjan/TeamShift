@@ -55,6 +55,11 @@ public struct AuthenticationClient: Sendable {
     ///     - oldPassword: Current password
     /// - Returns: Void
     public var changePassword: @Sendable (_ to: String, _ oldPassword: String) async throws -> Void
+    /// Delete user(Guest)
+    ///
+    /// - Parameter none
+    /// - Returns: Void
+    public var deleteUser: @Sendable () async throws -> Void
     /// Delete user after ReAuthentication
     ///
     /// - Parameters:
@@ -94,6 +99,7 @@ extension AuthenticationClient: TestDependencyKey {
         linkAccount: unimplemented(),
         linkAccountWithGmail: unimplemented(),
         changePassword: unimplemented(),
+        deleteUser: unimplemented(),
         deleteUserWithReAuthentication: unimplemented(),
         deleteUserWithGoogleReAuthentication: unimplemented(),
         signOut: unimplemented()

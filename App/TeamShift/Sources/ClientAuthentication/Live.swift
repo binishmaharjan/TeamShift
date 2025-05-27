@@ -25,6 +25,7 @@ extension AuthenticationClient {
             linkAccount: { try await session.linkAccount(withEmail: $0, password: $1) },
             linkAccountWithGmail: { try await session.linkAccountWithGmail() },
             changePassword: { try await session.updatePassword(to: $0, oldPassword: $1) },
+            deleteUser: { try await session.deleteUser() },
             deleteUserWithReAuthentication: { try await session.deleteUserWithReAuthentication(withEmail: $0, password: $1) },
             deleteUserWithGoogleReAuthentication: { try await session.deleteUserWithGoogleReAuthentication() },
             signOut: { try await session.signOut() }
@@ -197,6 +198,11 @@ extension AuthenticationClient {
             }
         }
         
+        func deleteUser() async throws {
+            let currentUser = Auth.auth().currentUser
+            try await currentUser?.delete()
+        }
+        
         func deleteUserWithReAuthentication(withEmail email: String, password: String) async throws {
             do {
                 let credentials = EmailAuthProvider.credential(withEmail: email, password: password)
@@ -249,11 +255,6 @@ extension AuthenticationClient {
             let currentUser = Auth.auth().currentUser
             let authResult = try await currentUser?.reauthenticate(with: credentials)
             return authResult?.user != nil
-        }
-        
-        private func deleteUser() async throws {
-            let currentUser = Auth.auth().currentUser
-            try await currentUser?.delete()
         }
         
         @MainActor
