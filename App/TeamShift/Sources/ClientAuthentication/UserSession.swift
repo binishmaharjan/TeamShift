@@ -2,12 +2,12 @@ import FirebaseAuth
 import Foundation
 import SharedModels
 
-public final class UserSession {
+@MainActor
+public final class UserSession: Sendable {
     // MARK: Init
     private init() { }
     
     // MARK: Shared Instance
-    @MainActor
     public static let shared = UserSession()
     
     // MARK: Properties

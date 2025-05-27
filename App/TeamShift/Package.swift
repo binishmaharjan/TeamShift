@@ -17,6 +17,7 @@ let package = Package(
         .library(name: "FeatureProfile", targets: ["FeatureProfile"]),
         .library(name: "FeatureSchedule", targets: ["FeatureSchedule"]),
         .library(name: "FeatureWorkplace", targets: ["FeatureWorkplace"]),
+        .library(name: "ClientApi", targets: ["ClientApi"]),
         .library(name: "ClientAuthentication", targets: ["ClientAuthentication"]),
         .library(name: "ClientUserStore", targets: ["ClientUserStore"]),
         .library(name: "ClientUserDefaults", targets: ["ClientUserDefaults"]),
@@ -126,6 +127,19 @@ let package = Package(
             dependencies: [
                 "SharedUIs",
                 "SharedModels"
+            ],
+            plugins: [
+                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
+            ]
+        ),
+        .target(
+            name: "ClientApi",
+            dependencies: [
+                "SharedModels",
+                "ClientAuthentication",
+                "ClientUserStore",
+                .product(name: "Dependencies", package: "swift-dependencies"),
+                .product(name: "DependenciesMacros", package: "swift-dependencies"),
             ],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),

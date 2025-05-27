@@ -51,7 +51,7 @@ extension AuthenticationClient {
                     createdDate: .now
                 )
             } catch {
-                throw AuthError(from: error)
+                throw mapError(error)
             }
         }
         
@@ -60,7 +60,7 @@ extension AuthenticationClient {
                 let authDataResult = try await Auth.auth().signIn(withEmail: email, password: password)
                 return authDataResult.user.uid
             } catch {
-                throw AuthError(from: error)
+                throw mapError(error)
             }
         }
         
@@ -80,7 +80,7 @@ extension AuthenticationClient {
                     createdDate: .now
                 )
             } catch {
-                throw AuthError(from: error)
+                throw mapError(error)
             }
         }
         
@@ -89,7 +89,7 @@ extension AuthenticationClient {
                 let gidGoogleUser = try await oAuthGoogleSignIn()
                 
                 guard let idToken = gidGoogleUser.idToken else {
-                    throw AuthError.gid(message: "ID Token Missing")
+                    throw AppError.apiError(.authenticationFailed("ID Token Missing"))
                 }
                 
                 let accessToken = gidGoogleUser.accessToken
@@ -111,7 +111,7 @@ extension AuthenticationClient {
                     createdDate: .now
                 )
             } catch {
-                throw AuthError(from: error)
+                throw mapError(error)
             }
         }
         
@@ -119,7 +119,7 @@ extension AuthenticationClient {
             do {
                 let gidGoogleUser = try await oAuthGoogleSignIn()
                 guard let idToken = gidGoogleUser.idToken else {
-                    throw AuthError.gid(message: "Failed to get Google authentication token")
+                    throw AppError.apiError(.authenticationFailed("Failed to get Google authentication token"))
                 }
                 
                 let accessToken = gidGoogleUser.accessToken
@@ -131,7 +131,7 @@ extension AuthenticationClient {
                 let authDataResult = try await Auth.auth().signIn(with: credentials)
                 return authDataResult.user.uid
             } catch {
-                throw AuthError(from: error)
+                throw mapError(error)
             }
         }
         
@@ -139,33 +139,33 @@ extension AuthenticationClient {
             do {
                 try await Auth.auth().sendPasswordReset(withEmail: email)
             } catch {
-                throw AuthError(from: error)
+                throw mapError(error)
             }
         }
         
         func linkAccount(withEmail email: String, password: String) async throws {
             do {
                 guard let currentUser = Auth.auth().currentUser, currentUser.isAnonymous else {
-                    throw AuthError.auth(message: "User is not anonymous")
+                    throw AppError.apiError(.authenticationFailed("User is not anonymous"))
                 }
                 
                 let credentials = EmailAuthProvider.credential(withEmail: email, password: password)
                 
                 _ = try await currentUser.link(with: credentials)
             } catch {
-                throw AuthError(from: error)
+                throw mapError(error)
             }
         }
         
         func linkAccountWithGmail() async throws {
             do {
                 guard let currentUser = Auth.auth().currentUser, currentUser.isAnonymous else {
-                    throw AuthError.auth(message: "User is not anonymous")
+                    throw AppError.apiError(.authenticationFailed("User is not anonymous"))
                 }
                 
                 let gidGoogleUser = try await oAuthGoogleSignIn()
                 guard let idToken = gidGoogleUser.idToken else {
-                    throw AuthError.gid(message: "Failed to get Google authentication token")
+                    throw AppError.apiError(.authenticationFailed("Failed to get Google authentication token"))
                 }
                 
                 let accessToken = gidGoogleUser.accessToken
@@ -176,7 +176,7 @@ extension AuthenticationClient {
                 
                 _ = try await currentUser.link(with: credentials)
             } catch {
-               throw  AuthError(from: error)
+                throw mapError(error)
             }
         }
         
@@ -189,12 +189,12 @@ extension AuthenticationClient {
                 let isReAuthenticated = try await reAuthenticate(with: credentials)
                 
                 guard isReAuthenticated else {
-                    throw AuthError.auth(message: "Failed to ReAuthenticate")
+                    throw AppError.apiError(.authenticationFailed("Failed to ReAuthenticate"))
                 }
                 
                 try await currentUser?.updatePassword(to: newPassword)
             } catch {
-                throw  AuthError(from: error)
+                throw mapError(error)
             }
         }
         
@@ -209,12 +209,12 @@ extension AuthenticationClient {
                 let isReAuthenticated = try await reAuthenticate(with: credentials)
                 
                 guard isReAuthenticated else {
-                    throw AuthError.auth(message: "Failed to Reauthenticate")
+                    throw AppError.apiError(.authenticationFailed("Failed to Authenticate"))
                 }
                 
                 try await deleteUser()
             } catch {
-                throw  AuthError(from: error)
+                throw mapError(error)
             }
         }
         
@@ -222,7 +222,7 @@ extension AuthenticationClient {
             do {
                 let gidGoogleUser = try await oAuthGoogleSignIn()
                 guard let idToken = gidGoogleUser.idToken else {
-                    throw AuthError.gid(message: "Failed to get Google authentication token")
+                    throw AppError.apiError(.authenticationFailed("Failed to get Google authentication token"))
                 }
                 
                 let accessToken = gidGoogleUser.accessToken
@@ -233,12 +233,12 @@ extension AuthenticationClient {
                 let isReAuthenticated = try await reAuthenticate(with: credentials)
                 
                 guard isReAuthenticated else {
-                    throw AuthError.auth(message: "Failed to ReAuthenticate")
+                    throw AppError.apiError(.authenticationFailed("Failed to authenticate"))
                 }
                 
                 try await deleteUser()
             } catch {
-                throw  AuthError(from: error)
+                throw mapError(error)
             }
         }
         
@@ -246,7 +246,7 @@ extension AuthenticationClient {
             do {
                 try Auth.auth().signOut()
             } catch {
-                throw AuthError(from: error)
+                throw mapError(error)
             }
         }
         
@@ -260,7 +260,7 @@ extension AuthenticationClient {
         @MainActor
         private func oAuthGoogleSignIn() async throws -> GIDGoogleUser {
             guard let clientID = FirebaseApp.app()?.options.clientID else {
-                throw AuthError.gid(message: "Google Sign In not configured")
+                throw AppError.apiError(.authenticationFailed("Google Sign In not configured"))
             }
             
             let config = GIDConfiguration(clientID: clientID)
@@ -269,7 +269,7 @@ extension AuthenticationClient {
             guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
                   let window = windowScene.windows.first,
                   let rootViewController = window.rootViewController else {
-                throw AuthError.gid(message: "Failed to get Root")
+                throw AppError.apiError(.authenticationFailed("Failed to get Root"))
             }
             
             let gIDSignInResult = try await GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController)
@@ -287,5 +287,38 @@ extension AuthenticationClient {
             }
             return "user_" + String(randomCharacters)
         }
+    }
+}
+
+// MARK: Error
+extension AuthenticationClient.Session {
+    private func mapError(_ error: Error) -> AppError {
+        if let nsError = error as NSError?, nsError.domain == AuthErrorDomain {
+            switch AuthErrorCode(rawValue: nsError.code) {
+            case .userNotFound:
+                return .apiError(.userNotFound)
+                
+            case .wrongPassword:
+                return .apiError(.invalidCredentials)
+                
+            case .emailAlreadyInUse:
+                return .apiError(.emailAlreadyInUse)
+                
+            case .networkError:
+                return .apiError(.networkTimeout)
+                
+            case .tooManyRequests:
+                return .apiError(.rateLimited)
+                
+            default:
+                return .apiError(.authenticationFailed(error.localizedDescription))
+            }
+        }
+        
+        if let nsError = error as NSError?, nsError.domain == kGIDSignInErrorDomain {
+            return .apiError(.authenticationFailed(error.localizedDescription))
+        }
+        
+        return .apiError(.unknown(error.localizedDescription))
     }
 }
