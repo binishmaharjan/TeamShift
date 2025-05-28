@@ -95,6 +95,7 @@ extension ApiClient {
             try await authenticationClient.linkAccount(withEmail: email, password: password)
             
             let dict = currentUser.dictionaryBuilder()
+                .email(email)
                 .signInMethod(.email)
                 .dictionary.asSendable
             
@@ -106,9 +107,10 @@ extension ApiClient {
                 throw AppError.internalError(.userNotFound)
             }
             
-            try await authenticationClient.linkAccountWithGmail()
+            let newEmail = try await authenticationClient.linkAccountWithGmail()
             
             let dict = currentUser.dictionaryBuilder()
+//                .email(newEmail)
                 .signInMethod(.google)
                 .dictionary.asSendable
             

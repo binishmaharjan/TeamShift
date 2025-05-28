@@ -1,4 +1,4 @@
-import ClientAuthentication
+import ClientApi
 import Dependencies
 import Foundation
 import Observation
@@ -12,12 +12,12 @@ final class ForgotPasswordViewModel {
     var isEmailValid: Bool { email.isEmail }
     
     @ObservationIgnored
-    @Dependency(\.authenticationClient) var authenticationClient
+    @Dependency(\.apiClient) var apiClient
     
     func sendEmailButtonTapped() async {
         isLoading = true
         do {
-            try await authenticationClient.sendPasswordReset(withEmail: email)
+            try await apiClient.sendPasswordReset(withEmail: email)
             isLoading = false
             showEmailSentAlert()
         } catch {

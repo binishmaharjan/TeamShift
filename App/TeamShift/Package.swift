@@ -37,8 +37,7 @@ let package = Package(
                 "SharedUIs",
                 "FeatureAuthentication",
                 "FeatureMainTab",
-                "ClientAuthentication",
-                "ClientUserStore",
+                "ClientApi",
             ],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
@@ -79,8 +78,7 @@ let package = Package(
             dependencies: [
                 "SharedUIs",
                 "SharedModels",
-                "ClientAuthentication",
-                "ClientUserStore",
+                "ClientApi",
                 .product(name: "FirebaseAnalytics", package: "firebase-ios-sdk"),
             ],
             plugins: [
@@ -105,8 +103,7 @@ let package = Package(
             dependencies: [
                 "SharedUIs",
                 "SharedModels",
-                "ClientAuthentication",
-                "ClientUserStore",
+                "ClientApi",
             ],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),

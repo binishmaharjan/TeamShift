@@ -3,7 +3,7 @@ import Foundation
 import SharedModels
 
 @MainActor
-public final class UserSession: Sendable {
+public final class UserSession {
     // MARK: Init
     private init() { }
     

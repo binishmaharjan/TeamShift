@@ -157,7 +157,7 @@ extension AuthenticationClient {
             }
         }
         
-        func linkAccountWithGmail() async throws {
+        func linkAccountWithGmail() async throws -> String? {
             do {
                 guard let currentUser = Auth.auth().currentUser, currentUser.isAnonymous else {
                     throw AppError.apiError(.authenticationFailed("User is not anonymous"))
@@ -175,6 +175,7 @@ extension AuthenticationClient {
                 )
                 
                 _ = try await currentUser.link(with: credentials)
+                return gidGoogleUser.profile?.email
             } catch {
                 throw mapError(error)
             }

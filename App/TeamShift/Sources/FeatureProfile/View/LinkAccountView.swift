@@ -68,7 +68,7 @@ extension LinkAccountView {
     private var signInButton: some View {
         PrimaryButton(title: l10.linkAccountButtonEmail) {
             Task {
-                await viewModel.signInButtonTapped()
+                await viewModel.linkButtonTapped()
             }
         }
         .disabled(!viewModel.isSignInButtonEnabled)
@@ -97,7 +97,7 @@ extension LinkAccountView {
             isTemplate: false
         ) {
             Task {
-                await viewModel.signInWithGoogleButtonTapped()
+                await viewModel.linkWithGoogleButtonTapped()
             }
         }
     }

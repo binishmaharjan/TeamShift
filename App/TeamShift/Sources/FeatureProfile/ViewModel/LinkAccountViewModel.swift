@@ -1,5 +1,4 @@
-import ClientAuthentication
-import ClientUserStore
+import ClientApi
 import Dependencies
 import Foundation
 import Observation
@@ -21,27 +20,15 @@ final class LinkAccountViewModel {
         email.isEmail && password.count > 5
     }
     
-    private var userSession: UserSession { .shared }
-    
     @ObservationIgnored
     private weak var coordinator: ProfileCoordinator?
     @ObservationIgnored
-    @Dependency(\.authenticationClient) var authenticationClient
-    @ObservationIgnored
-    @Dependency(\.userStoreClient) var userStoreClient
+    @Dependency(\.apiClient) var apiClient
     
-    func signInButtonTapped() async {
-        guard let currentUser = userSession.appUser, let uid = userSession.uid, userSession.isGuestUser else {
-            // TODO: Error Handling
-            return
-        }
-        
+    func linkButtonTapped() async {
         isLoading = true
         do {
-            try await authenticationClient.linkAccount(withEmail: email, password: password)
-            
-            let dict = SendableDictionary(currentUser.dictionaryBuilder().signInMethod(.email).dictionary)
-            try await userStoreClient.updateUser(uid: uid, fields: dict)
+            try await apiClient.linkAccount(withEmail: email, password: password)
             
             isLoading = false
             linkSuccess()
@@ -51,18 +38,10 @@ final class LinkAccountViewModel {
         }
     }
     
-    func signInWithGoogleButtonTapped() async {
-        guard let currentUser = userSession.appUser, let uid = userSession.uid, userSession.isGuestUser else {
-            // TODO: Error Handling
-            return
-        }
-        
+    func linkWithGoogleButtonTapped() async {
         isLoading = true
         do {
-            try await authenticationClient.linkAccountWithGmail()
-            
-            let dict = SendableDictionary(currentUser.dictionaryBuilder().signInMethod(.google).dictionary)
-            try await userStoreClient.updateUser(uid: uid, fields: dict)
+            try await apiClient.linkAccountWithGmail()
             
             isLoading = false
             linkSuccess()

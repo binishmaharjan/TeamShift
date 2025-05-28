@@ -64,6 +64,7 @@ public enum ApiError: LocalizedError, Equatable {
 public enum InternalError: LocalizedError, Equatable {
     case userNotFound
     case invalidUserData
+    case passwordNotMatched
     
     public var errorDescription: String? {
         switch self {
@@ -72,6 +73,9 @@ public enum InternalError: LocalizedError, Equatable {
         
         case .invalidUserData:
             return "Invalid User data"
+            
+        case .passwordNotMatched:
+            return "The passwords you entered don't match"
         }
     }
 }

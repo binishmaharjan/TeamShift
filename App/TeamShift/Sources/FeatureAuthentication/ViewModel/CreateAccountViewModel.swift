@@ -1,5 +1,4 @@
-import ClientAuthentication
-import ClientUserStore
+import ClientApi
 import Dependencies
 import Foundation
 import Observation
@@ -23,19 +22,13 @@ final class CreateAccountViewModel {
     }
     
     @ObservationIgnored
-    @Dependency(\.authenticationClient) var authenticationClient
-    @ObservationIgnored
-    @Dependency(\.userStoreClient) var userStoreClient
+    @Dependency(\.apiClient) var apiClient
     
     // MARK: Methods
     func createButtonTapped() async {
         isLoading = true
         do {
-            let user = try await authenticationClient.createUser(withEmail: email, password: password)
-            try await userStoreClient.saveUser(user: user)
-            
-            // save user to user session
-            UserSession.shared.appUser = user
+            try await apiClient.createUser(withEmail: email, password: password)
             
             isLoading = false
             coordinator?.finish(with: .showMainTab)
@@ -48,11 +41,7 @@ final class CreateAccountViewModel {
     func signUpWithGoogleButtonTapped() async {
         isLoading = true
         do {
-            let user = try await authenticationClient.signUpWithGoogle()
-            try await userStoreClient.saveUser(user: user)
-            
-            // save user to user session
-            UserSession.shared.appUser = user
+            try await apiClient.signUpWithGoogle()
             
             isLoading = false
             coordinator?.finish(with: .showMainTab)

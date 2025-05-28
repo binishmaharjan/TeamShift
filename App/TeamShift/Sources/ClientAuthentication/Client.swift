@@ -45,9 +45,9 @@ public struct AuthenticationClient: Sendable {
     public var linkAccount: @Sendable (_ withEmail: String, _ password: String) async throws -> Void
     /// Link Guest user to EGmail
     ///
-    /// - Parameters:
-    /// - Returns: Void
-    public var linkAccountWithGmail: @Sendable () async throws -> Void
+    /// - Parameter none
+    /// - Returns: String(new Gmail)
+    public var linkAccountWithGmail: @Sendable () async throws -> String?
     /// Change User Password
     ///
     /// - Parameter

@@ -1,22 +1,13 @@
-import ClientAuthentication
+import ClientApi
+import ClientAuthentication // TODO: usersession
 import Dependencies
 import Foundation
 import Observation
 import SharedUIs
+import SharedModels
 
 @Observable @MainActor
 final class ChangePasswordViewModel {
-    enum PasswordError: Error, LocalizedError {
-        case passwordNotMatched
-        
-        var errorDescription: String? {
-            switch self {
-            case .passwordNotMatched:
-                return "The passwords you entered don't match"
-            }
-        }
-    }
-    
     init(coordinator: ProfileCoordinator) {
         self.coordinator = coordinator
     }
@@ -36,17 +27,27 @@ final class ChangePasswordViewModel {
     @ObservationIgnored
     private weak var coordinator: ProfileCoordinator?
     @ObservationIgnored
-    @Dependency(\.authenticationClient) var authenticationClient
+    @Dependency(\.apiClient) var apiClient
     
     func changePasswordButtonTapped() async {
-        guard let currentUser = userSession.appUser, userSession.isSignInMethod(.email), newPassword == confirmPassword else {
-            showErrorAlert(PasswordError.passwordNotMatched)
+        guard let currentUser = userSession.appUser else {
+            showErrorAlert(AppError.internalError(.userNotFound))
             return
         }
-        isLoading = true
         
+        guard userSession.isSignInMethod(.email) else {
+            showErrorAlert(AppError.internalError(.invalidUserData))
+            return
+        }
+        
+        guard newPassword == confirmPassword else {
+            showErrorAlert(AppError.internalError(.passwordNotMatched))
+            return
+        }
+        
+        isLoading = true
         do {
-            try await authenticationClient.changePassword(to: newPassword, oldPassword: oldPassword)
+            try await apiClient.changePassword(to: newPassword, oldPassword: oldPassword)
             isLoading = false
             passwordChangedSuccess()
         } catch {

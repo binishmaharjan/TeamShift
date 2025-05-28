@@ -1,5 +1,5 @@
-import ClientAuthentication
-import ClientUserStore
+import ClientApi
+import ClientAuthentication // TODO: UserSession
 import Dependencies
 import Foundation
 import Observation
@@ -27,55 +27,28 @@ final class DeleteAccountViewModel {
     @ObservationIgnored
     private weak var coordinator: ProfileCoordinator?
     @ObservationIgnored
-    @Dependency(\.authenticationClient) var authenticationClient
-    @ObservationIgnored
-    @Dependency(\.userStoreClient) var userStoreClient
+    @Dependency(\.apiClient) var apiClient
     
     func deleteButtonTapped() async {
         isLoading = true
         do {
             switch signInMethod {
             case .email:
-                try await deleteForEmail()
+                try await apiClient.deleteUserWithReAuthentication(password: password)
                 
             case .google:
-                try await deleteForGmail()
+                try await apiClient.deleteUserWithGoogleReAuthentication()
                 
             case .apple:
-                try await deleteForApple()
+                break // TODO: Implement Apple
                 
             case .guest:
-                try await deleteForGuest()
+                try await apiClient.deleteUser()
             }
-            
-            let uid = userSession.uid ?? ""
-            try await userStoreClient.deleteUser(uid: uid)
         } catch {
             isLoading = false
             showErrorAlert(error)
         }
-    }
-}
-
-extension DeleteAccountViewModel {
-    private func deleteForEmail() async throws {
-        guard let currentUser = userSession.appUser, let email = currentUser.email else {
-            return
-        }
-        
-        try await authenticationClient.deleteUserWithReAuthentication(withEmail: email, password: password)
-    }
-    
-    private func deleteForApple() async throws {
-        //: TODO
-    }
-    
-    private func deleteForGmail() async throws {
-        try await authenticationClient.deleteUserWithGoogleReAuthentication()
-    }
-    
-    private func deleteForGuest() async throws {
-        try await authenticationClient.deleteUser()
     }
 }
 

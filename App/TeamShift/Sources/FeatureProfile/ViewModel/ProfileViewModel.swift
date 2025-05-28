@@ -1,5 +1,5 @@
-import ClientAuthentication
-import ClientUserStore
+import ClientApi
+import ClientAuthentication // TODO: Move this to separate Module
 import Dependencies
 import Foundation
 import Observation
@@ -37,10 +37,7 @@ final class ProfileViewModel {
     @ObservationIgnored
     private weak var coordinator: ProfileCoordinator?
     @ObservationIgnored
-    @Dependency(\.authenticationClient) private var authenticationClient
-    @ObservationIgnored
-    @Dependency(\.userStoreClient) var userStoreClient
-    @ObservationIgnored
+    @Dependency(\.apiClient) var apiClient
     private let pasteboard = UIPasteboard.general
     
     func signOutButtonTapped() async {
@@ -83,7 +80,7 @@ final class ProfileViewModel {
 extension ProfileViewModel {
     private func signOut() async {
         do {
-            try await authenticationClient.signOut()
+            try await apiClient.signOut()
             coordinator?.profileRequestNavigation(for: .showOnboarding)
         } catch {
             showErrorAlert(error)
@@ -91,15 +88,21 @@ extension ProfileViewModel {
     }
     
     private func updateUsername(to newUsername: String?) async {
-        guard let user = userSession.appUser, let newUsername else {
-            // TODO: Error Handling
+        guard let currentUser = userSession.appUser else {
+            showErrorAlert(AppError.internalError(.userNotFound))
+            return
+        }
+        
+        guard let newUsername, !newUsername.isEmpty else {
             return
         }
         
         isLoading = true
         do {
-            let dict = SendableDictionary(user.dictionaryBuilder().username(newUsername).dictionary)
-            try await userStoreClient.updateUser(user.id, dict)
+            let dict = currentUser.dictionaryBuilder()
+                .username(newUsername)
+                .dictionary.asSendable
+            try await apiClient.updateUser(uid: currentUser.id, fields: dict)
             
             // update saved user session
             userSession.appUser?.username = newUsername

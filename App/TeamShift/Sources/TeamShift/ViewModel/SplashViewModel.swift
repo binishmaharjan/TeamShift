@@ -1,5 +1,5 @@
-import ClientAuthentication
-import ClientUserStore
+import ClientApi
+import ClientAuthentication // TODO: usersession
 import Dependencies
 import Foundation
 import Observation
@@ -20,18 +20,15 @@ final class SplashViewModel {
     @ObservationIgnored
     private var userSession = UserSession.shared
     @ObservationIgnored
-    @Dependency(\.userStoreClient) var userStoreClient
+    @Dependency(\.apiClient) var apiClient
     
     // MARK: Methods
     
     func startInitialFlow() async {
         do {
-            _ = try await userStoreClient.getAppConfig()
+            _ = try await apiClient.getAppConfig()
             if userSession.isLoggedIn, let uid = userSession.uid {
-                let user = try await userStoreClient.getUser(uid: uid)
-                
-                // save user to user session
-                UserSession.shared.appUser = user
+                try await apiClient.getCurrentUser(uid: uid)
                 
                 coordinator?.finish(with: .showMainTab)
             } else {

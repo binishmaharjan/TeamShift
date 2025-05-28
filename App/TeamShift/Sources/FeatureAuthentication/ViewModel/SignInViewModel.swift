@@ -1,5 +1,4 @@
-import ClientAuthentication
-import ClientUserStore
+import ClientApi
 import Dependencies
 import Foundation
 import Observation
@@ -27,18 +26,12 @@ final class SignInViewModel {
     @ObservationIgnored
     weak var coordinator: AuthenticationCoordinator?
     @ObservationIgnored
-    @Dependency(\.authenticationClient) var authenticationClient
-    @ObservationIgnored
-    @Dependency(\.userStoreClient) var userStoreClient
+    @Dependency(\.apiClient) var apiClient
     
     func signInButtonTapped() async {
         isLoading = true
         do {
-            let uid = try await authenticationClient.signIn(withEmail: email, password: password)
-            let user = try await userStoreClient.getUser(uid: uid)
-            
-            // save user to user session
-            UserSession.shared.appUser = user
+            try await apiClient.signIn(withEmail: email, password: password)
             
             isLoading = false
             coordinator?.finish(with: .showMainTab)
@@ -51,11 +44,7 @@ final class SignInViewModel {
     func signInWithGoogleButtonTapped() async {
         isLoading = true
         do {
-            let uid = try await authenticationClient.signInWithGoogle()
-            let user = try await userStoreClient.getUser(uid: uid)
-            
-            // save user to user session
-            UserSession.shared.appUser = user
+            try await apiClient.signInWithGoogle()
             
             isLoading = false
             coordinator?.finish(with: .showMainTab)

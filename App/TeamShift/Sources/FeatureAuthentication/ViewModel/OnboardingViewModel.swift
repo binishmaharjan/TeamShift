@@ -1,4 +1,4 @@
-import ClientAuthentication
+import ClientApi
 import Dependencies
 import Foundation
 import Observation
@@ -21,9 +21,7 @@ final class OnboardingViewModel {
     var isLoading = false
     
     @ObservationIgnored
-    @Dependency(\.authenticationClient) var authenticationClient
-    @ObservationIgnored
-    @Dependency(\.userStoreClient) var userStoreClient
+    @Dependency(\.apiClient) var apiClient
     
     func createAccountButtonTapped() {
         coordinator?.onboardingRequestNavigation(for: .createAccount)
@@ -52,8 +50,7 @@ final class OnboardingViewModel {
         
         isLoading = true
         do {
-            let user = try await authenticationClient.signUpAsGuest()
-            try await userStoreClient.saveUser(user: user)
+            try await apiClient.signUpAsGuest()
             isLoading = false
             coordinator?.finish(with: .showMainTab)
         } catch {
