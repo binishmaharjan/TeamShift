@@ -100,6 +100,10 @@ extension ApiClient {
                 .dictionary.asSendable
             
             try await userStoreClient.updateUser(uid: currentUser.id, fields: dict)
+            
+            await MainActor.run {
+                userSession.appUser?.signInMethod = .email
+            }
         }
         
         func linkAccountWithGmail() async throws {
@@ -110,11 +114,15 @@ extension ApiClient {
             let newEmail = try await authenticationClient.linkAccountWithGmail()
             
             let dict = currentUser.dictionaryBuilder()
-//                .email(newEmail)
+                .email(newEmail)
                 .signInMethod(.google)
                 .dictionary.asSendable
             
             try await userStoreClient.updateUser(uid: currentUser.id, fields: dict)
+            
+            await MainActor.run {
+                userSession.appUser?.signInMethod = .google
+            }
         }
         
         func updatePassword(to newPassword: String, oldPassword: String) async throws {
