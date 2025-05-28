@@ -139,8 +139,9 @@ extension ApiClient {
                 throw AppError.internalError(.invalidUserData)
             }
             
-            try await authenticationClient.deleteUserWithReAuthentication(withEmail: email, password: password)
+            try await authenticationClient.reAuthenticate(withEmail: email, password: password)
             try await userStoreClient.deleteUser(uid: currentUser.id)
+            try await authenticationClient.deleteUser()
         }
         
         func deleteUserWithGoogleReAuthentication() async throws {
@@ -152,8 +153,9 @@ extension ApiClient {
                 throw AppError.internalError(.invalidUserData)
             }
             
-            try await authenticationClient.deleteUserWithGoogleReAuthentication()
+            try await authenticationClient.reAuthenticateWithGoogle()
             try await userStoreClient.deleteUser(uid: currentUser.id)
+            try await authenticationClient.deleteUser()
         }
         
         func signOut() async throws {

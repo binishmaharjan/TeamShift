@@ -32,6 +32,18 @@ public struct AuthenticationClient: Sendable {
     /// - Parameters none
     /// - Returns: UserId
     public var signInWithGoogle: @Sendable () async throws -> String
+    /// reAuthenticate the user.
+    ///
+    /// - Parameters:
+    ///   - email: Email Id of user
+    ///   - password: Password for the account
+    /// - Returns: Bool
+    public var reAuthenticate: @Sendable (_ withEmail: String, _ password: String) async throws -> Void
+    /// reAuthenticate the with OAuth(Google).
+    ///
+    /// - Parameters none
+    /// - Returns: UserId
+    public var reAuthenticateWithGoogle: @Sendable () async throws -> Void
     /// Send Password Reset Email
     ///
     /// - Parameters:
@@ -60,18 +72,6 @@ public struct AuthenticationClient: Sendable {
     /// - Parameter none
     /// - Returns: Void
     public var deleteUser: @Sendable () async throws -> Void
-    /// Delete user after ReAuthentication
-    ///
-    /// - Parameters:
-    ///   - email: Email Id of user
-    ///   - password: Password for the account
-    /// - Returns: Void
-    public var deleteUserWithReAuthentication: @Sendable (_ withEmail: String, _ password: String) async throws -> Void
-    /// Delete user after ReAuthentication with Google
-    ///
-    /// - Parameters:
-    /// - Returns: Void
-    public var deleteUserWithGoogleReAuthentication: @Sendable () async throws -> Void
     /// SignOut User
     ///
     /// - Parameter none
@@ -95,13 +95,13 @@ extension AuthenticationClient: TestDependencyKey {
         signUpAsGuest: unimplemented(),
         signUpWithGoogle: unimplemented(),
         signInWithGoogle: unimplemented(),
+        reAuthenticate: unimplemented(),
+        reAuthenticateWithGoogle: unimplemented(),
         sendPasswordReset: unimplemented(),
         linkAccount: unimplemented(),
         linkAccountWithGmail: unimplemented(),
         changePassword: unimplemented(),
         deleteUser: unimplemented(),
-        deleteUserWithReAuthentication: unimplemented(),
-        deleteUserWithGoogleReAuthentication: unimplemented(),
         signOut: unimplemented()
     )
 }

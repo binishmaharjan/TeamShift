@@ -94,7 +94,7 @@ extension DeleteAccountView {
     private var deleteButton: some View {
         PrimaryButton(title: "Delete Account") {
             Task {
-                print("Delete")
+                await viewModel.deleteButtonTapped()
             }
         }
         .disabled(!viewModel.isDeleteButtonEnabled)
