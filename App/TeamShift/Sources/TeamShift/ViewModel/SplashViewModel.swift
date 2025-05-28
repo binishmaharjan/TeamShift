@@ -1,5 +1,5 @@
 import ClientApi
-import ClientAuthentication // TODO: usersession
+import ClientUserSession
 import Dependencies
 import Foundation
 import Observation
@@ -18,7 +18,7 @@ final class SplashViewModel {
     weak var coordinator: SplashCoordinator?
     
     @ObservationIgnored
-    private var userSession = UserSession.shared
+    @Dependency(\.userSession) var userSession
     @ObservationIgnored
     @Dependency(\.apiClient) var apiClient
     

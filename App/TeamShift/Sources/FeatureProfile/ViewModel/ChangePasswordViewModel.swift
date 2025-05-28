@@ -1,10 +1,10 @@
 import ClientApi
-import ClientAuthentication // TODO: usersession
+import ClientUserSession
 import Dependencies
 import Foundation
 import Observation
-import SharedUIs
 import SharedModels
+import SharedUIs
 
 @Observable @MainActor
 final class ChangePasswordViewModel {
@@ -22,15 +22,15 @@ final class ChangePasswordViewModel {
         oldPassword.count > 5 && newPassword.count > 5 && confirmPassword.count > 5
     }
     
-    private var userSession: UserSession { .shared }
-    
     @ObservationIgnored
     private weak var coordinator: ProfileCoordinator?
     @ObservationIgnored
     @Dependency(\.apiClient) var apiClient
+    @ObservationIgnored
+    @Dependency(\.userSession) var userSession
     
     func changePasswordButtonTapped() async {
-        guard let currentUser = userSession.appUser else {
+        guard let currentUser = userSession.currentUser else {
             showErrorAlert(AppError.internalError(.userNotFound))
             return
         }

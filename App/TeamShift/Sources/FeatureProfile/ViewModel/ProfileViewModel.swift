@@ -1,5 +1,5 @@
 import ClientApi
-import ClientAuthentication // TODO: Move this to separate Module
+import ClientUserSession
 import Dependencies
 import Foundation
 import Observation
@@ -28,9 +28,8 @@ final class ProfileViewModel {
     var sections: [ProfileSection] = ProfileSection.allCases
     
     // User Data
-    private var userSession: UserSession { .shared }
-    var user: AppUser? { userSession.appUser }
-    var displayUid: String { userSession.displayUid ?? "" }
+    var user: AppUser? { userSession.currentUser }
+    var displayUid: String { userSession.displayID ?? "" }
     var username: String { user?.username ?? "" }
     var toastHandler: ToastHandler = .init()
     
@@ -38,6 +37,8 @@ final class ProfileViewModel {
     private weak var coordinator: ProfileCoordinator?
     @ObservationIgnored
     @Dependency(\.apiClient) var apiClient
+    @ObservationIgnored
+    @Dependency(\.userSession) var userSession
     private let pasteboard = UIPasteboard.general
     
     func signOutButtonTapped() async {
@@ -88,7 +89,7 @@ extension ProfileViewModel {
     }
     
     private func updateUsername(to newUsername: String?) async {
-        guard let currentUser = userSession.appUser else {
+        guard let currentUser = userSession.currentUser else {
             showErrorAlert(AppError.internalError(.userNotFound))
             return
         }
@@ -105,7 +106,7 @@ extension ProfileViewModel {
             try await apiClient.updateUser(uid: currentUser.id, fields: dict)
             
             // update saved user session
-            userSession.appUser?.username = newUsername
+            userSession.currentUser?.username = newUsername
             
             isLoading = false
         } catch {

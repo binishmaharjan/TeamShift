@@ -20,6 +20,7 @@ let package = Package(
         .library(name: "ClientApi", targets: ["ClientApi"]),
         .library(name: "ClientAuthentication", targets: ["ClientAuthentication"]),
         .library(name: "ClientUserStore", targets: ["ClientUserStore"]),
+        .library(name: "ClientUserSession", targets: ["ClientUserSession"]),
         .library(name: "ClientUserDefaults", targets: ["ClientUserDefaults"]),
     ],
     dependencies: [
@@ -38,6 +39,7 @@ let package = Package(
                 "FeatureAuthentication",
                 "FeatureMainTab",
                 "ClientApi",
+                "ClientUserSession"
             ],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
@@ -104,6 +106,7 @@ let package = Package(
                 "SharedUIs",
                 "SharedModels",
                 "ClientApi",
+                "ClientUserSession"
             ],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
@@ -146,11 +149,24 @@ let package = Package(
             name: "ClientAuthentication",
             dependencies: [
                 "SharedModels",
+                "ClientUserSession",
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "DependenciesMacros", package: "swift-dependencies"),
                 .product(name: "FirebaseAuth", package: "firebase-ios-sdk"),
                 .product(name: "GoogleSignIn", package: "GoogleSignIn-iOS"),
                 .product(name: "GoogleSignInSwift", package: "GoogleSignIn-iOS"),
+            ],
+            plugins: [
+                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
+            ]
+        ),
+        .target(
+            name: "ClientUserSession",
+            dependencies: [
+                "SharedModels",
+                .product(name: "Dependencies", package: "swift-dependencies"),
+                .product(name: "DependenciesMacros", package: "swift-dependencies"),
+                .product(name: "FirebaseAuth", package: "firebase-ios-sdk"),
             ],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),

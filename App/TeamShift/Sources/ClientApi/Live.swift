@@ -1,5 +1,6 @@
 import ClientAuthentication
 import ClientUserStore
+import ClientUserSession
 import Dependencies
 import SharedModels
 
@@ -36,14 +37,14 @@ extension ApiClient {
     actor Session {
         @Dependency(\.authenticationClient) var authenticationClient
         @Dependency(\.userStoreClient) var userStoreClient
-        @MainActor let userSession = UserSession.shared
+        @MainActor @Dependency(\.userSession) var userSession
         
         func createUser(withEmail email: String, password: String) async throws {
             let user = try await authenticationClient.createUser(withEmail: email, password: password)
             try await userStoreClient.saveUser(user: user)
             
             await MainActor.run {
-                userSession.appUser = user
+                userSession.currentUser = user
             }
         }
         
@@ -52,7 +53,7 @@ extension ApiClient {
             let user = try await userStoreClient.getUser(uid: uid)
               
             await MainActor.run {
-                userSession.appUser = user
+                userSession.currentUser = user
             }
         }
         
@@ -61,7 +62,7 @@ extension ApiClient {
             try await userStoreClient.saveUser(user: user)
             
             await MainActor.run {
-                userSession.appUser = user
+                userSession.currentUser = user
             }
         }
         
@@ -70,7 +71,7 @@ extension ApiClient {
             try await userStoreClient.saveUser(user: user)
             
             await MainActor.run {
-                userSession.appUser = user
+                userSession.currentUser = user
             }
         }
         
@@ -79,7 +80,7 @@ extension ApiClient {
             let user = try await userStoreClient.getUser(uid: uid)
             
             await MainActor.run {
-                userSession.appUser = user
+                userSession.currentUser = user
             }
         }
         
@@ -88,7 +89,7 @@ extension ApiClient {
         }
         
         func linkAccount(withEmail email: String, password: String) async throws {
-            guard let currentUser = await userSession.appUser else {
+            guard let currentUser = await userSession.currentUser else {
                 throw AppError.internalError(.userNotFound)
             }
             
@@ -102,12 +103,12 @@ extension ApiClient {
             try await userStoreClient.updateUser(uid: currentUser.id, fields: dict)
             
             await MainActor.run {
-                userSession.appUser?.signInMethod = .email
+                userSession.currentUser?.signInMethod = .email
             }
         }
         
         func linkAccountWithGmail() async throws {
-            guard let currentUser = await userSession.appUser else {
+            guard let currentUser = await userSession.currentUser else {
                 throw AppError.internalError(.userNotFound)
             }
             
@@ -121,7 +122,7 @@ extension ApiClient {
             try await userStoreClient.updateUser(uid: currentUser.id, fields: dict)
             
             await MainActor.run {
-                userSession.appUser?.signInMethod = .google
+                userSession.currentUser?.signInMethod = .google
             }
         }
         
@@ -130,7 +131,7 @@ extension ApiClient {
         }
         
         func deleteUser() async throws {
-            guard let currentUser = await userSession.appUser else {
+            guard let currentUser = await userSession.currentUser else {
                 throw AppError.internalError(.userNotFound)
             }
             
@@ -139,7 +140,7 @@ extension ApiClient {
         }
         
         func deleteUserWithReAuthentication(password: String) async throws {
-            guard let currentUser = await userSession.appUser else {
+            guard let currentUser = await userSession.currentUser else {
                 throw AppError.internalError(.userNotFound)
             }
             
@@ -153,7 +154,7 @@ extension ApiClient {
         }
         
         func deleteUserWithGoogleReAuthentication() async throws {
-            guard let currentUser = await userSession.appUser else {
+            guard let currentUser = await userSession.currentUser else {
                 throw AppError.internalError(.userNotFound)
             }
             
@@ -174,7 +175,7 @@ extension ApiClient {
             let user = try await userStoreClient.getUser(uid: uid)
             
             await MainActor.run {
-                userSession.appUser = user
+                userSession.currentUser = user
             }
         }
         

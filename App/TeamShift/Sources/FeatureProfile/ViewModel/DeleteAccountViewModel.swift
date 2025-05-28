@@ -1,5 +1,5 @@
 import ClientApi
-import ClientAuthentication // TODO: UserSession
+import ClientUserSession
 import Dependencies
 import Foundation
 import Observation
@@ -12,8 +12,6 @@ final class DeleteAccountViewModel {
         self.coordinator = coordinator
     }
     
-    private var userSession: UserSession { .shared }
-    
     var password: String = ""
     var alertConfig: AlertDialog.Config?
     var isLoading = false
@@ -21,13 +19,15 @@ final class DeleteAccountViewModel {
         (signInMethod == .email) ? (password.count > 5) : true
     }
     var signInMethod: SignInMethod {
-        userSession.appUser?.signInMethod ?? .guest
+        userSession.currentUser?.signInMethod ?? .guest
     }
     
     @ObservationIgnored
     private weak var coordinator: ProfileCoordinator?
     @ObservationIgnored
     @Dependency(\.apiClient) var apiClient
+    @ObservationIgnored
+    @Dependency(\.userSession) var userSession
     
     func deleteButtonTapped() async {
         isLoading = true
