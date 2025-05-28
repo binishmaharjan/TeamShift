@@ -40,26 +40,21 @@ public struct DictionaryBuilder: MemberMacro {
                 let propertyType = propertyTypeSyntax.trimmedDescription
                 // Use backticks for safety
                 let methodName = "`\(propertyName)`"
-                
-//                updaterMethods.append(
-//                    """
-//                        public func \(methodName)(_ value: \(propertyType)) -> Self {
-//                            var newSelf = self
-//                            newSelf._updates["\(propertyName)"] = value
-//                            return newSelf
-//                        }
-//                    """
-//                )
+
                 updaterMethods.append(
                     """
                         public func \(methodName)(_ value: \(propertyType)) -> Self {
                             var newSelf = self
+                            // Get the coding keys
+                            let codingKey = CodingKeys.\(propertyName).stringValue
+                    
                             // Check if value is RawRepresentable and use rawValue if possible
                             if let rawRepresentable = value as? any RawRepresentable {
-                                newSelf._updates["\(propertyName)"] = rawRepresentable.rawValue
+                                newSelf._updates[codingKey] = rawRepresentable.rawValue
                             } else {
-                                newSelf._updates["\(propertyName)"] = value
+                                newSelf._updates[codingKey] = value
                             }
+                    
                             return newSelf
                         }
                     """
