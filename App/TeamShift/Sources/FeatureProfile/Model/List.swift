@@ -1,3 +1,5 @@
+import ClientUserSession
+import Dependencies
 import Foundation
 import SharedUIs
 import SwiftUI
@@ -25,10 +27,24 @@ enum ProfileSection: String, CaseIterable {
         }
     }
     
+    @MainActor
     var rows: [ProfileRow] {
+        @Dependency(\.userSession) var userSession
+        
         switch self {
         case .account:
-            return [.changePassword, .linkAccount, .deleteAccount]
+            var rows: [ProfileRow] = []
+            if userSession.isSignInMethod(.email) {
+                rows.append(.changePassword)
+            }
+            
+            if userSession.isSignInMethod(.guest) {
+                rows.append(.linkAccount)
+            }
+            
+            rows.append(.deleteAccount)
+            
+            return rows
             
         case .preference:
             return [.startWeekDay, .showPublicHoliday]

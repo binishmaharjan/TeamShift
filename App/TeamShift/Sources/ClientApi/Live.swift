@@ -1,6 +1,6 @@
 import ClientAuthentication
-import ClientUserStore
 import ClientUserSession
+import ClientUserStore
 import Dependencies
 import SharedModels
 

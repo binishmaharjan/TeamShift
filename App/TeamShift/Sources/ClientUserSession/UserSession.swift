@@ -6,17 +6,17 @@ import SharedModels
 @MainActor
 public class UserSession {
     // MARK: Properties - Auth
-    private var currentAuthUser: FirebaseAuth.User? {
+   var currentAuthUser: FirebaseAuth.User? {
         Auth.auth().currentUser
     }
     public var isLoggedIn: Bool {
-        currentUser != nil
+        currentAuthUser != nil
     }
     
     // MARK: Properties - App User
     public var currentUser: AppUser?
     public var uid: String? {
-        currentUser?.id
+        currentAuthUser?.uid
     }
     public var displayID: String? {
         let uid = uid ?? ""
@@ -34,6 +34,10 @@ extension UserSession {
             return false
         }
         
+        if method == .guest {
+            return currentAuthUser.isAnonymous
+        }
+        
         let providerIDs = currentAuthUser.providerData.map(\.providerID)
         return providerIDs.contains(method.providerID)
     }
@@ -49,14 +53,14 @@ extension DependencyValues {
 
 // MARK: Instances
 extension UserSession {
-    static var mock: UserSession = UserSession()
-    static var live: UserSession = UserSession()
+    static var mock = UserSession()
+    static var live = UserSession()
 }
 
 extension UserSession: @preconcurrency TestDependencyKey {
-    public static let testValue: UserSession = UserSession()
+    public static let testValue: UserSession = .mock
 }
 
 extension UserSession: @preconcurrency DependencyKey {
-    public static let liveValue: UserSession = UserSession()
+    public static let liveValue: UserSession = .live
 }
