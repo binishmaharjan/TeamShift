@@ -1,0 +1,99 @@
+# .github/workflows/ios-beta-release.yml
+name: iOS Beta Release (Manual Trigger)
+
+# Configure the workflow to be triggered manually from the GitHub UI
+on:
+  workflow_dispatch:
+    inputs:
+      build_branch:
+        description: 'Branch to build from'
+        required: true
+        default: 'main' # Or your primary development branch like 'develop'
+        type: string
+      release_notes:
+        description: 'Release Notes for TestFlight (optional)'
+        required: false
+        type: string
+        default: 'Automated TestFlight build via manual trigger.' # Default message
+
+jobs:
+  build_and_deploy:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.build_branch }} # Checkout the specified branch
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4.1' # Specify your Ruby version, e.g., '3.4.1'
+          bundler-cache: true # Installs gems from Gemfile.lock
+
+      - name: Install Bundler dependencies
+        run: bundle install
+
+      - name: Decode and Install P12 Certificate and Provisioning Profile
+        env:
+          P12_BASE64: ${{ secrets.P12_BASE64 }}
+          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+          PROVISIONING_PROFILE_BASE64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
+          PROVISIONING_PROFILE_NAME: ${{ secrets.PROVISIONING_PROFILE_NAME }}
+          PROVISIONING_PROFILE_UUID: ${{ secrets.PROVISIONING_PROFILE_UUID }} # UUID is needed in Fastfile
+        run: |
+          # 1. Create a temporary keychain for the build process
+          # The keychain will be automatically deleted when the runner instance is recycled.
+          # We explicitly delete it for good measure in the cleanup step.
+          KEYCHAIN_PATH="$RUNNER_TEMP/ios_build.keychain-db"
+          echo "Creating keychain at: $KEYCHAIN_PATH"
+          security create-keychain -p "${P12_PASSWORD}" "$KEYCHAIN_PATH"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH" # Timeout after 6 hours
+          security unlock-keychain -p "${P12_PASSWORD}" "$KEYCHAIN_PATH"
+          security default-keychain -s "$KEYCHAIN_PATH"
+          security list-keychains -d user -s "$KEYCHAIN_PATH" # Set as default for the session
+
+          # 2. Decode the Base64 P12 certificate and import it into the keychain
+          P12_FILE="$RUNNER_TEMP/certificate.p12"
+          echo "${P12_BASE64}" | base64 --decode > "$P12_FILE"
+          echo "Importing p12 certificate into keychain..."
+          security import "$P12_FILE" -k "$KEYCHAIN_PATH" -P "${P12_PASSWORD}" -T /usr/bin/codesign -T /usr/bin/security
+          rm "$P12_FILE" # Clean up the temporary .p12 file immediately after import
+
+          # 3. Decode the Base64 Provisioning Profile and install it
+          # Provisioning profiles go into ~/Library/MobileDevice/Provisioning Profiles
+          PROFILES_DIR="$HOME/Library/MobileDevice/Provisioning Profiles"
+          mkdir -p "$PROFILES_DIR" # Create directory if it doesn't exist
+          PROVISIONING_PROFILE_FILE="$PROFILES_DIR/${PROVISIONING_PROFILE_NAME}"
+          echo "Installing provisioning profile to: $PROVISIONING_PROFILE_FILE"
+          echo "${PROVISIONING_PROFILE_BASE64}" | base64 --decode > "$PROVISIONING_PROFILE_FILE"
+
+          echo "Certificates and profiles installed successfully."
+          # Optional: Verify installed certificates (for debugging)
+          security find-identity -p codesigning -v
+
+      - name: Run Fastlane Beta Lane
+        env:
+          # Pass App Store Connect API Key secrets directly as environment variables
+          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          APP_STORE_CONNECT_API_KEY_BASE64: ${{ secrets.APP_STORE_CONNECT_API_KEY_BASE64 }}
+          # Pass the Provisioning Profile UUID to Fastlane (used by `build_app` action)
+          PROVISIONING_PROFILE_UUID: ${{ secrets.PROVISIONING_PROFILE_UUID }}
+          # Pass the release notes input to the Fastfile
+          RELEASE_NOTES: ${{ github.event.inputs.release_notes }}
+          # Optional: If you need to specify an Apple Team ID in Fastlane for some actions
+          # FASTLANE_TEAM_ID: "YOUR_APPLE_DEVELOPER_TEAM_ID"
+        run: bundle exec fastlane build_and_export_release
+
+      - name: Clean up Keychain (Crucial for security)
+        if: always() # This step will run even if previous steps fail
+        run: |
+          KEYCHAIN_PATH="$RUNNER_TEMP/ios_build.keychain-db"
+          if security list-keychains | grep -q "$KEYCHAIN_PATH"; then
+              security delete-keychain "$KEYCHAIN_PATH"
+              echo "Temporary keychain deleted."
+          else
+              echo "Temporary keychain not found or already deleted."
+          fi

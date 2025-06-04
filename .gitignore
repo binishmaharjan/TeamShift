@@ -25,6 +25,7 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
+*.p8
 
 ## DS_Store
 *.DS_Store

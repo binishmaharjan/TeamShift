@@ -29,17 +29,7 @@ final class ChangePasswordViewModel {
     @ObservationIgnored
     @Dependency(\.userSession) var userSession
     
-    func changePasswordButtonTapped() async {
-        guard let currentUser = userSession.currentUser else {
-            showErrorAlert(AppError.internalError(.userNotFound))
-            return
-        }
-        
-        guard userSession.isSignInMethod(.email) else {
-            showErrorAlert(AppError.internalError(.invalidUserData))
-            return
-        }
-        
+    func changePasswordButtonTapped() async {        
         guard newPassword == confirmPassword else {
             showErrorAlert(AppError.internalError(.passwordNotMatched))
             return
