@@ -43,8 +43,7 @@ end
 desc "Builds, archives, and exports the Release version for testing App Store distribution process"
 lane :build_and_export_release do
 
-  latest_build = latest_testflight_build_number(app_identifier: "com.binish.teamshift.dev")
-  increment_build_number(build_number: latest_build + 1)
+  increment_build_number(build_number: latest_testflight_build_number + 1)
 
   gym(
     workspace: WORKSPACE_PATH,      
