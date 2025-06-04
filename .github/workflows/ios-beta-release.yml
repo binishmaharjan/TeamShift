@@ -37,10 +37,7 @@ jobs:
           
       - name: Select Xcode version
         run: sudo xcode-select -s /Applications/Xcode_16.2.app/Contents/Developer
-        
-      - name: Resolve dependencies
-        run: swift package resolve
-
+      
       - name: Decode and Install P12 Certificate and Provisioning Profile
         env:
           P12_BASE64: ${{ secrets.P12_BASE64 }}
