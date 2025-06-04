@@ -73,7 +73,7 @@ lane :build_and_export_release do
     key_content: decoded_api_key_content
   )
 
-  changelog = "Automated TestFlight build from GitHub Actions. Version #{get_version_number}, Build #{get_build_number}."
+  changelog = "Automated TestFlight build from GitHub Actions."
 
   pilot(
     ipa: "./build/TeamShift-Release.ipa",
