@@ -108,7 +108,7 @@ extension ProfileView {
     @ViewBuilder
     private var userName: some View {
         HStack {
-            Text(viewModel.username)
+            Text("viewModel.username")
                 .font(.customHeadline)
 
             Image.icnEdit
