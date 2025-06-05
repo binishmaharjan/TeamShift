@@ -49,7 +49,6 @@ jobs:
           P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
           PROVISIONING_PROFILE_BASE64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
           PROVISIONING_PROFILE_NAME: ${{ secrets.PROVISIONING_PROFILE_NAME }}
-          PROVISIONING_PROFILE_UUID: ${{ secrets.PROVISIONING_PROFILE_UUID }} # UUID is needed in Fastfile
         run: |
           # 1. Create a temporary keychain for the build process
           # The keychain will be automatically deleted when the runner instance is recycled.
@@ -87,8 +86,6 @@ jobs:
           APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
           APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
           APP_STORE_CONNECT_API_KEY_BASE64: ${{ secrets.APP_STORE_CONNECT_API_KEY_BASE64 }}
-          # Pass the Provisioning Profile UUID to Fastlane (used by `build_app` action)
-          PROVISIONING_PROFILE_UUID: ${{ secrets.PROVISIONING_PROFILE_UUID }}
           # Pass the release notes input to the Fastfile
           RELEASE_NOTES: ${{ github.event.inputs.release_notes }}
           # Optional: If you need to specify an Apple Team ID in Fastlane for some actions
