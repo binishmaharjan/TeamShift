@@ -87,7 +87,7 @@ extension ProfileView {
             }
             .overlay {
                 Button {
-                    print("Edit Image")
+                    viewModel.changePictureButtonTapped()
                 } label: {
                     ZStack {
                         Circle()

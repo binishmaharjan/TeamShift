@@ -50,6 +50,9 @@ extension ProfileCoordinator {
         case .showOnboarding:
             finish(with: .showOnboarding)
             
+        case .showChangePicture:
+            pushChangePictureView()
+            
         case .showChangePassword:
             pushChangePasswordView()
             
@@ -65,6 +68,17 @@ extension ProfileCoordinator {
         case .showLicense:
             pushLicenseView()
         }
+    }
+    
+    private func pushChangePictureView() {
+        let viewModel = ChangePictureViewModel(coordinator: self)
+        
+        let view = ChangePictureView(viewModel: viewModel)
+            .navigationTitle("Change Picture")
+            .withCustomBackButton()
+        
+        let viewController = NamedUIHostingController(rootView: view)
+        topNavigationController.pushViewController(viewController, animated: true)
     }
     
     private func pushChangePasswordView() {

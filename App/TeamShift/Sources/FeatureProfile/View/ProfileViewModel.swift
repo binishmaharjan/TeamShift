@@ -11,6 +11,7 @@ import UIKit
 final class ProfileViewModel {
     enum Route {
         case showOnboarding
+        case showChangePicture
         case showChangePassword
         case showLinkAccount
         case showDeleteAccount
@@ -48,6 +49,10 @@ final class ProfileViewModel {
     func copyUserIDButtonTapped() {
         pasteboard.string = displayUid
         toastHandler.queueMessage("Copied")
+    }
+    
+    func changePictureButtonTapped() {
+        coordinator?.profileRequestNavigation(for: .showChangePicture)
     }
     
     func editNameButtonTapped() {
