@@ -17,7 +17,7 @@ public struct AlertDialog: View {
                 return .appError
                 
             case .success:
-                return .activityIndicator
+                return .green00D159
             }
         }
         

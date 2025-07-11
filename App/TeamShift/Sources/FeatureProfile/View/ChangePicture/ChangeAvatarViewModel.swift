@@ -4,7 +4,7 @@ import Observation
 import SharedUIs
 
 @Observable @MainActor
-final class ChangePictureViewModel {
+final class ChangeAvatarViewModel {
     init(coordinator: ProfileCoordinator) {
         self.coordinator = coordinator
     }

@@ -24,16 +24,16 @@ public final class AuthenticationCoordinator: FlowCoordinator {
     // MARK: Properties
     public var childCoordinator: (any Coordinator)?
     public weak var finishDelegate: (any CoordinatorFinishDelegate)?
-    public lazy var startNavigationController: UINavigationController = {
-        let navigationController = UINavigationController()
+    public lazy var startNavigationController: NavigationController = {
+        let navigationController = NavigationController()
         return navigationController
     }()
     
-    private var navigationControllers = [UINavigationController]()
-    private var topNavigationController: UINavigationController {
+    private var navigationControllers = [NavigationController]()
+    private var topNavigationController: NavigationController {
         navigationControllers.last ?? startNavigationController
     }
-    private var rootNavigationController: UINavigationController {
+    private var rootNavigationController: NavigationController {
         navigationControllers.first ?? startNavigationController
     }
     private var routePresentationDelegates: [PresentationDelegate] = []
@@ -66,7 +66,7 @@ extension AuthenticationCoordinator {
         let viewModel = CreateAccountViewModel(coordinator: self)
         
         let view = CreateAccountView(viewModel: viewModel)
-            .navigationBar()
+            .navigationBar(l10.onboardingTitle)
             .withCustomBackButton()
         
         let viewController = NamedUIHostingController(rootView: view)
@@ -77,7 +77,7 @@ extension AuthenticationCoordinator {
         let viewModel = SignInViewModel(coordinator: self)
         
         let view = SignInView(viewModel: viewModel)
-            .navigationBar()
+            .navigationBar(l10.signInTitle)
             .withCustomBackButton()
         
         let viewController = NamedUIHostingController(rootView: view)
@@ -99,11 +99,11 @@ extension AuthenticationCoordinator {
     }
     
     private func presentForgotPasswordView() {
-        let navigationController = UINavigationController()
+        let navigationController = NavigationController()
         
         let viewModel = ForgotPasswordViewModel()
         let view = ForgotPasswordView(viewModel: viewModel)
-            .navigationBar()
+            .navigationBar(l10.forgotPasswordTitle)
             .withCustomCloseButton { [weak navigationController, weak self] in
                 // For Close Button Tapped
                 navigationController?.dismiss(animated: true)

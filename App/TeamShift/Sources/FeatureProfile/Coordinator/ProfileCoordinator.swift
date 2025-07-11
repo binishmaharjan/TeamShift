@@ -11,7 +11,7 @@ public final class ProfileCoordinator: FlowCoordinator {
     public typealias ResultType = ProfileResult
     
     // MARK: Init
-    public init(navigationController: UINavigationController) {
+    public init(navigationController: NavigationController) {
         print("ℹ️ \(Self.self): Start ProfileCoordinator")
         startNavigationController = navigationController
     }
@@ -23,12 +23,12 @@ public final class ProfileCoordinator: FlowCoordinator {
     // MARK: Properties
     public var childCoordinator: (any Coordinator)?
     public weak var finishDelegate: (any CoordinatorFinishDelegate)?
-    private let startNavigationController: UINavigationController
-    private var navigationControllers = [UINavigationController]()
-    private var topNavigationController: UINavigationController {
+    private let startNavigationController: NavigationController
+    private var navigationControllers = [NavigationController]()
+    private var topNavigationController: NavigationController {
         navigationControllers.last ?? startNavigationController
     }
-    private var rootNavigationController: UINavigationController {
+    private var rootNavigationController: NavigationController {
         navigationControllers.first ?? startNavigationController
     }
     
@@ -71,9 +71,9 @@ extension ProfileCoordinator {
     }
     
     private func pushChangePictureView() {
-        let viewModel = ChangePictureViewModel(coordinator: self)
+        let viewModel = ChangeAvatarViewModel(coordinator: self)
         
-        let view = ChangePictureView(viewModel: viewModel)
+        let view = ChangeAvatarView(viewModel: viewModel)
             .navigationTitle("Change Picture")
             .withCustomBackButton()
         

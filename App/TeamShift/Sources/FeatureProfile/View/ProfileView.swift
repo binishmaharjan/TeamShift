@@ -14,6 +14,7 @@ struct ProfileView: View {
         ScrollView {
             VStack {
                 userID
+                    .padding(.top, 12)
                 
                 profileImage
                     .padding(.vertical, 10)
