@@ -17,12 +17,12 @@ public struct AlertDialog: View {
                 return .appError
                 
             case .success:
-                return .green00D159
+                return .appSuccess
             }
         }
         
         var foregroundColor: Color {
-            .background
+            .backgroundPrimary
         }
         
         var title: String {
@@ -58,7 +58,7 @@ public struct AlertDialog: View {
         }
         
         var foregroundColor: Color {
-            .background
+            .backgroundPrimary
         }
         
         var tint: Color {

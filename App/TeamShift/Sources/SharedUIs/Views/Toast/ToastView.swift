@@ -9,10 +9,10 @@ struct ToastView: View {
     
     var body: some View {
         Group {
-            if let toastMessage = toastHandler.currenToastMessage {
+            if let toastMessage = toastHandler.currentToastMessage {
                 Text(toastMessage)
                     .font(.customFootnote.bold())
-                    .foregroundStyle(Color.background)
+                    .foregroundStyle(Color.backgroundPrimary)
                     
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.vertical, 10)
@@ -20,11 +20,10 @@ struct ToastView: View {
                     .background(Color.text.opacity(0.5))
                     .cornerRadius(10)
                     .padding(.horizontal)
-                    .padding(.top, 70)
-                    .ignoresSafeArea()
+                    .padding(.top, 10)
             }
         }
-        .animation(.easeInOut, value: toastHandler.currenToastMessage)
+        .animation(.easeInOut, value: toastHandler.currentToastMessage)
         .onTapGesture {
             toastHandler.skipCurrent(in: toastHidingDuration)
         }

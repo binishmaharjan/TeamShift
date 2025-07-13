@@ -34,7 +34,7 @@ struct DeleteAccountView: View {
         .vSpacing(.top)
         .loadingView(viewModel.isLoading)
         .appAlert(isPresented: $viewModel.alertConfig.isPresented, alertConfig: viewModel.alertConfig)
-        .background(Color.background)
+        .background(Color.backgroundPrimary)
     }
 }
 

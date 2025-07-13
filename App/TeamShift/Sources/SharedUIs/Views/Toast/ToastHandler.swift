@@ -5,7 +5,7 @@ public final class ToastHandler: Sendable {
     public init() { }
     
     @MainActor
-    public private(set) var currenToastMessage: String?
+    public private(set) var currentToastMessage: String?
     @MainActor @ObservationIgnored private var toastQueue: [String] = []
     @MainActor @ObservationIgnored private var currentToastShowingTask: Task<Void, Never>?
     
@@ -38,12 +38,12 @@ public final class ToastHandler: Sendable {
 extension ToastHandler {
     @MainActor
     private func displayNextToastIfAvailable() {
-        guard currenToastMessage == nil, let message = toastQueue.first else {
+        guard currentToastMessage == nil, let message = toastQueue.first else {
             return
         }
         
         toastQueue.removeFirst()
-        currenToastMessage = message
+        currentToastMessage = message
         
         currentToastShowingTask?.cancel()
         currentToastShowingTask = Task {
@@ -59,8 +59,8 @@ extension ToastHandler {
     
     @MainActor
     private func removeCurrentToast() {
-        if currenToastMessage == nil { return }
+        if currentToastMessage == nil { return }
         currentToastShowingTask?.cancel()
-        currenToastMessage = nil
+        currentToastMessage = nil
     }
 }

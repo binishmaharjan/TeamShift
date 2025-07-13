@@ -35,7 +35,7 @@ struct ChangeAvatarView: View {
 //                .frame(width: 250, height: 250)
 //                .vSpacing(.top)
         }
-        .background(Color.background)
+        .background(Color.backgroundPrimary)
     }
 }
 

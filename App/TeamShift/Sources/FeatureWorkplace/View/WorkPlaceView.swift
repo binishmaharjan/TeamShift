@@ -15,7 +15,7 @@ struct WorkPlaceView: View {
             Text("WorkPlace View")
                 .font(.customHeadline)
         }
-        .background(Color.background)
+        .background(Color.backgroundPrimary)
     }
 }
 

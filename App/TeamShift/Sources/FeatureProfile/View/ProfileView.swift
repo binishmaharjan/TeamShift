@@ -32,12 +32,12 @@ struct ProfileView: View {
                     .padding(.bottom, 20)
             }
             .padding(.bottom, 10)
-            .background(Color.listBackground)
+            .background(Color.backgroundList)
         }
         .loadingView(viewModel.isLoading)
         .appAlert(isPresented: $viewModel.alertConfig.isPresented, alertConfig: viewModel.alertConfig)
         .displayToast(handledBy: viewModel.toastHandler)
-        .background(Color.listBackground.ignoresSafeArea())
+        .background(Color.backgroundList.ignoresSafeArea())
     }
 }
 

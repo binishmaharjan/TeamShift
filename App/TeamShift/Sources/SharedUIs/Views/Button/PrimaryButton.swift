@@ -9,8 +9,8 @@ public struct PrimaryButtonStyle: ButtonStyle {
             .label
             .frame(maxWidth: .infinity)
             .frame(height: 44)
-            .background((configuration.isPressed || !isEnabled) ? Color.appPrimaryHighlighted : Color.appPrimary)
-            .foregroundStyle((configuration.isPressed || !isEnabled) ? Color.background.opacity(0.5) : Color.background)
+            .background((configuration.isPressed || !isEnabled) ? Color.appPrimaryPressed : Color.appPrimary)
+            .foregroundStyle((configuration.isPressed || !isEnabled) ? Color.backgroundPrimary.opacity(0.5) : Color.backgroundPrimary)
             .clipShape(RoundedRectangle(cornerRadius: 21, style: .continuous))
     }
 }

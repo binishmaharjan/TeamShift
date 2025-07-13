@@ -8,10 +8,10 @@ struct OnboardingView: View {
     
     @State private var viewModel: OnboardingViewModel
     @State private var item: [Item] = [
-        .init(color: .onboardingBackground, title: l10.onboardingTitle1, subTitle: l10.onboardingDescription1),
-        .init(color: .onboardingBackground, title: l10.onboardingTitle2, subTitle: l10.onboardingDescription2),
-        .init(color: .onboardingBackground, title: l10.onboardingTitle3, subTitle: l10.onboardingDescription3),
-        .init(color: .onboardingBackground, title: l10.onboardingTitle4, subTitle: l10.onboardingDescription4),
+        .init(color: .backgroundOnboarding, title: l10.onboardingTitle1, subTitle: l10.onboardingDescription1),
+        .init(color: .backgroundOnboarding, title: l10.onboardingTitle2, subTitle: l10.onboardingDescription2),
+        .init(color: .backgroundOnboarding, title: l10.onboardingTitle3, subTitle: l10.onboardingDescription3),
+        .init(color: .backgroundOnboarding, title: l10.onboardingTitle4, subTitle: l10.onboardingDescription4),
     ]
     
     var body: some View {
@@ -27,7 +27,7 @@ struct OnboardingView: View {
         .padding(.top, 34) // use safe area padding to avoid clipping of scrollview
         .frame(maxHeight: .infinity)
         .padding(.horizontal, 24)
-        .background(Color.background)
+        .background(Color.backgroundPrimary)
         .loadingView(viewModel.isLoading)
         .appAlert(isPresented: $viewModel.alertConfig.isPresented, alertConfig: viewModel.alertConfig)
     }

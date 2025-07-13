@@ -14,7 +14,7 @@ struct LicenseView: View {
             Text("License View")
                 .font(.customHeadline)
         }
-        .background(Color.background)
+        .background(Color.backgroundPrimary)
     }
 }
 
