@@ -42,7 +42,7 @@ extension DeleteAccountView {
     @ViewBuilder
     private var title: some View {
         Text("Delete Account")
-            .foregroundStyle(Color.text)
+            .foregroundStyle(Color.textPrimary)
             .font(.customHeadline)
     }
     
@@ -57,7 +57,7 @@ extension DeleteAccountView {
             If you're certain you want to proceed, your account and all associated data will be permanently deleted. Please take a moment to consider this decision carefully, as it cannot be undone.
             """
         )
-        .foregroundStyle(Color.text)
+        .foregroundStyle(Color.textPrimary)
         .font(.customCaption)
         .multilineTextAlignment(.leading)
     }
@@ -66,14 +66,14 @@ extension DeleteAccountView {
     private var separator: some View {
         Rectangle()
             .frame(height: 1)
-            .foregroundStyle(Color.text.opacity(0.5))
+            .foregroundStyle(Color.textPrimary.opacity(0.5))
     }
     
     @ViewBuilder
     private var confirmText: some View {
         Text("I confirm I want to permanently delete my account and all data")
             .frame(maxWidth: .infinity)
-            .foregroundStyle(Color.text)
+            .foregroundStyle(Color.textPrimary)
             .font(.customCaption)
             .multilineTextAlignment(.leading)
     }

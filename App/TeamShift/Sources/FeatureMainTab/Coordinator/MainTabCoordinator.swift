@@ -70,7 +70,7 @@ extension MainTabCoordinator {
         appearance.stackedLayoutAppearance.selected.iconColor = selectedColor
         appearance.stackedLayoutAppearance.selected.titleTextAttributes = [NSAttributedString.Key.foregroundColor: selectedColor as Any]
         
-        let unselectedColor = UIColor(named: "sub_text", in: Bundle.sharedUIs, compatibleWith: nil)
+        let unselectedColor = UIColor(named: "text_secondary", in: Bundle.sharedUIs, compatibleWith: nil)
         appearance.stackedLayoutAppearance.normal.iconColor = unselectedColor
         appearance.stackedLayoutAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: unselectedColor as Any]
         

@@ -44,12 +44,12 @@ extension OnboardingView {
         } titleContent: { $item in
             VStack(spacing: 4) {
                 Text(item.title)
-                    .foregroundStyle(Color.text)
+                    .foregroundStyle(Color.textPrimary)
                     .font(.customTitle)
                     .lineLimit(1)
                 
                 Text(item.subTitle)
-                    .foregroundStyle(Color.subText)
+                    .foregroundStyle(Color.textSecondary)
                     .font(.customFootnote)
                     .lineLimit(4)
                     .multilineTextAlignment(.center)
@@ -81,7 +81,7 @@ extension OnboardingView {
     @ViewBuilder
     private var continueAsGuestLink: some View {
         Text(continueAsGuestUserString)
-            .foregroundStyle(Color.subText)
+            .foregroundStyle(Color.textSecondary)
             .font(.customCaption)
             .bold()
             .padding(8)

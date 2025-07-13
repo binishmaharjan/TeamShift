@@ -36,7 +36,7 @@ extension ForgotPasswordView {
         Text(l10.forgotPasswordDescription)
             .frame(maxWidth: .infinity)
             .font(.customCaption)
-            .foregroundStyle(Color.subText)
+            .foregroundStyle(Color.textSecondary)
             .multilineTextAlignment(.leading)
     }
     

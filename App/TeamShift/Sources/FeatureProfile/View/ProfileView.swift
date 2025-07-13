@@ -51,7 +51,7 @@ extension ProfileView {
                 Text(viewModel.displayUid)
             }
             .font(.customCaption2)
-            .foregroundStyle(Color.subText)
+            .foregroundStyle(Color.textSecondary)
             .bold()
             
             Button {
@@ -118,7 +118,7 @@ extension ProfileView {
                 .scaledToFit()
                 .frame(width: 14, height: 14)
         }
-        .foregroundStyle(Color.text)
+        .foregroundStyle(Color.textPrimary)
         .onTapGesture {
             viewModel.editNameButtonTapped()
         }
@@ -137,7 +137,7 @@ extension ProfileView {
     private func sectionTitle(_ title: String) -> some View {
         Text(title)
             .font(.customFootnote.bold())
-            .foregroundStyle(Color.subText)
+            .foregroundStyle(Color.textSecondary)
             .textCase(nil)
             .padding(.leading, 20)
     }

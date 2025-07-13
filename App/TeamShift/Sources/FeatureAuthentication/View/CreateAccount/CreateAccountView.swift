@@ -87,7 +87,7 @@ extension CreateAccountView {
             Rectangle()
                 .frame(height: 1)
         }
-        .foregroundStyle(Color.text.opacity(0.5))
+        .foregroundStyle(Color.textPrimary.opacity(0.5))
     }
     
     @ViewBuilder
@@ -117,7 +117,7 @@ extension CreateAccountView {
     @ViewBuilder
     private var createAccountCaution: some View {
         Text(createAccountCautionString)
-            .foregroundStyle(Color.subText)
+            .foregroundStyle(Color.textSecondary)
             .font(.customCaption)
             .multilineTextAlignment(.center)
     }

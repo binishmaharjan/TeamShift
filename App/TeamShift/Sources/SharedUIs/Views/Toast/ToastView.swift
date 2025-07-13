@@ -17,7 +17,7 @@ struct ToastView: View {
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.vertical, 10)
                     .padding(.horizontal, 15)
-                    .background(Color.text.opacity(0.5))
+                    .background(Color.textPrimary.opacity(0.5))
                     .cornerRadius(10)
                     .padding(.horizontal)
                     .padding(.top, 10)
