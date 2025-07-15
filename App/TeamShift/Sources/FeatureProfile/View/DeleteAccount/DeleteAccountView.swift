@@ -40,23 +40,8 @@ struct DeleteAccountView: View {
 
 extension DeleteAccountView {
     @ViewBuilder
-    private var title: some View {
-        Text("Delete Account")
-            .foregroundStyle(Color.textPrimary)
-            .font(.customHeadline)
-    }
-    
-    @ViewBuilder
     private var description: some View {
-        Text(
-            """
-            We're sorry to see you go. Before you proceed, please understand that deleting your account is a permanent action that cannot be undone.
-            
-            When you delete your account, all of your data will be permanently removed from our servers. You will no longer be able to access shared schedules, and any pending notifications will be cancelled immediately. This action cannot be reversed once completed. We do not keep backups of deleted accounts for privacy reasons, which means your data cannot be recovered under any circumstances.
-            
-            If you're certain you want to proceed, your account and all associated data will be permanently deleted. Please take a moment to consider this decision carefully, as it cannot be undone.
-            """
-        )
+        Text(l10.deleteAccountDescription)
         .foregroundStyle(Color.textPrimary)
         .font(.customCaption)
         .multilineTextAlignment(.leading)
@@ -71,7 +56,7 @@ extension DeleteAccountView {
     
     @ViewBuilder
     private var confirmText: some View {
-        Text("I confirm I want to permanently delete my account and all data")
+        Text(l10.deleteAccountConfirmText)
             .frame(maxWidth: .infinity)
             .foregroundStyle(Color.textPrimary)
             .font(.customCaption)

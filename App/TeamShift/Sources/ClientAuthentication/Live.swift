@@ -43,12 +43,11 @@ extension AuthenticationClient {
                 changeRequest.displayName = email.toName
                 try await changeRequest.commitChanges()
                 
-                return AppUser(
+                return createNewUser(
                     id: authDataResult.user.uid,
                     username: authDataResult.user.displayName,
                     email: authDataResult.user.email,
-                    signInMethod: .email,
-                    createdDate: .now
+                    signInMethod: .email
                 )
             } catch {
                 throw mapError(error)
@@ -72,12 +71,11 @@ extension AuthenticationClient {
                 changeRequest.displayName = generateRandomUsername()
                 try await changeRequest.commitChanges()
                 
-                return AppUser(
+                return createNewUser(
                     id: authDataResult.user.uid,
                     username: authDataResult.user.displayName,
                     email: authDataResult.user.email,
-                    signInMethod: .guest,
-                    createdDate: .now
+                    signInMethod: .guest
                 )
             } catch {
                 throw mapError(error)
@@ -103,12 +101,11 @@ extension AuthenticationClient {
                 changeRequest.displayName = gidGoogleUser.profile?.name
                 try await changeRequest.commitChanges()
                 
-                return AppUser(
+                return createNewUser(
                     id: authDataResult.user.uid,
                     username: authDataResult.user.displayName,
                     email: authDataResult.user.email,
-                    signInMethod: .google,
-                    createdDate: .now
+                    signInMethod: .google
                 )
             } catch {
                 throw mapError(error)
@@ -266,6 +263,24 @@ extension AuthenticationClient {
             let gIDSignInResult = try await GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController)
             let gidGoogleUser = gIDSignInResult.user
             return gidGoogleUser
+        }
+        
+        private func createNewUser(id: String, username: String?, email: String?, signInMethod: SignInMethod) -> AppUser {
+            let randomColorTemplate = ColorTemplate(rawValue: generateRandomNumber(upTo: ColorTemplate.allCases.count)) ?? .redOrange
+            let randomIconData = IconData(rawValue: generateRandomNumber(upTo: IconData.allCases.count)) ?? .icnMan2
+            return AppUser(
+                id: id,
+                username: username,
+                email: email,
+                signInMethod: signInMethod,
+                colorTemplate: randomColorTemplate,
+                iconData: randomIconData,
+                createdDate: .now
+            )
+        }
+        
+        private func generateRandomNumber(upTo number: Int) -> Int {
+            Int.random(in: 0 ..< number )
         }
         
         private func generateRandomUsername() -> String {

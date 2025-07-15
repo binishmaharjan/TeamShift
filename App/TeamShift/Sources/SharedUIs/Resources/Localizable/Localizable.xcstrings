@@ -4,6 +4,39 @@
     "" : {
 
     },
+    "ChangeAvatar_Color_Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Color"
+          }
+        }
+      }
+    },
+    "ChangeAvatar_Icon_Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Icon"
+          }
+        }
+      }
+    },
+    "ChangeAvatar_Nav_Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change Avatar"
+          }
+        }
+      }
+    },
     "ChangePassword_Alert_Change_Success" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -209,6 +242,39 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "privacy policy"
+          }
+        }
+      }
+    },
+    "DeleteAccount_Confirm_Text" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I confirm I want to permanently delete my account and all data."
+          }
+        }
+      }
+    },
+    "DeleteAccount_Description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "We're sorry to see you go. Before you proceed, please understand that deleting your account is a permanent action that cannot be undone.\n            \nWhen you delete your account, all of your data will be permanently removed from our servers. You will no longer be able to access shared schedules, and any pending notifications will be cancelled immediately. This action cannot be reversed once completed. We do not keep backups of deleted accounts for privacy reasons, which means your data cannot be recovered under any circumstances.\n            \nIf you're certain you want to proceed, your account and all associated data will be permanently deleted. Please take a moment to consider this decision carefully, as it cannot be undone."
+          }
+        }
+      }
+    },
+    "DeleteAccount_Nav_Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete Account"
           }
         }
       }

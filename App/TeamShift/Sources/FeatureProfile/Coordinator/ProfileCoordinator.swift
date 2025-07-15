@@ -74,7 +74,7 @@ extension ProfileCoordinator {
         let viewModel = ChangeAvatarViewModel(coordinator: self)
         
         let view = ChangeAvatarView(viewModel: viewModel)
-            .navigationTitle("Change Picture")
+            .navigationTitle(l10.changeAvatarNavTitle)
             .withCustomBackButton()
         
         let viewController = NamedUIHostingController(rootView: view)
@@ -107,7 +107,7 @@ extension ProfileCoordinator {
         let viewModel = DeleteAccountViewModel(coordinator: self)
         
         let view = DeleteAccountView(viewModel: viewModel)
-            .navigationBar("Delete Account")
+            .navigationBar(l10.deleteAccountNavTitle)
             .withCustomBackButton()
         
         let viewController = NamedUIHostingController(rootView: view)
