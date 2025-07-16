@@ -135,4 +135,12 @@ extension ProfileCoordinator {
         let viewController = NamedUIHostingController(rootView: view)
         topNavigationController.pushViewController(viewController, animated: true)
     }
+    
+    func popLast() {
+        topNavigationController.popViewController(animated: true)
+    }
+    
+    func popToRoot() {
+        topNavigationController.popToRootViewController(animated: true)
+    }
 }

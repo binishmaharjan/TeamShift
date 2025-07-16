@@ -21,6 +21,8 @@ final class ProfileViewModel {
     
     init(coordinator: ProfileCoordinator) {
         self.coordinator = coordinator
+        self.user = userSession.currentUser
+        self.displayUid = userSession.displayID ?? ""
     }
     
     // MARK: Properties
@@ -29,19 +31,19 @@ final class ProfileViewModel {
     var sections: [ProfileSection] = ProfileSection.allCases
     
     // User Data
-    var user: AppUser? { userSession.currentUser }
-    var displayUid: String { userSession.displayID ?? "" }
+    var user: AppUser?
+    var displayUid: String = ""
     var username: String { user?.username ?? "" }
     var colorTemplate: ColorTemplate { user?.colorTemplate ?? .redOrange }
     var iconData: IconData { user?.iconData ?? .icnMan2 }
     var toastHandler: ToastHandler = .init()
     
     @ObservationIgnored
+    @Dependency(\.userSession) var userSession
+    @ObservationIgnored
     private weak var coordinator: ProfileCoordinator?
     @ObservationIgnored
     @Dependency(\.apiClient) var apiClient
-    @ObservationIgnored
-    @Dependency(\.userSession) var userSession
     private let pasteboard = UIPasteboard.general
     
     func signOutButtonTapped() async {
@@ -59,6 +61,10 @@ final class ProfileViewModel {
     
     func editNameButtonTapped() {
         showEditNameAlert()
+    }
+    
+    func refreshUserData() {
+        user = userSession.currentUser
     }
     
     func listRowTapped(_ listRow: ProfileRow) {
@@ -114,6 +120,7 @@ extension ProfileViewModel {
             
             // update saved user session
             userSession.currentUser?.username = newUsername
+            refreshUserData()
             
             isLoading = false
         } catch {

@@ -28,22 +28,30 @@ struct ChangeAvatarView: View {
             }
             .padding(.horizontal, 16)
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        print("Save Button Pressed")
-                    } label: {
-                        Text(l10.commonButtonSave)
-                            .font(.customHeadline)
-                            .foregroundStyle(Color.appPrimary)
-                    }
-                }
+                ToolbarItem(placement: .topBarTrailing) { saveButton }
             }
         }
+        .loadingView(viewModel.isLoading)
+        .appAlert(isPresented: $viewModel.alertConfig.isPresented, alertConfig: viewModel.alertConfig)
         .background(Color.backgroundPrimary)
     }
 }
 
 extension ChangeAvatarView {
+    @ViewBuilder
+    private var saveButton: some View {
+        Button {
+            Task {
+                await viewModel.updateAvatar()
+            }
+        } label: {
+            Text(l10.commonButtonSave)
+                .font(.customHeadline)
+        }
+        .buttonStyle(.toolbar)
+        .disabled(!viewModel.isSavedButtonEnabled)
+    }
+    
     @ViewBuilder
     private var iconPreview: some View {
         (viewModel.selectedIconData?.image ?? Image.icnMan2)
@@ -142,7 +150,7 @@ extension ChangeAvatarView {
                 .frame(width: size - 10, height: size - 10) // subtracting 10 for touch area
                 .clipShape(Circle())
                 .padding(5) // Add padding for better touch area
-                .background(viewModel.selectedIconData?.id == iconData.id ? Color.appPrimary.opacity(0.1) : Color.clear)
+                .background(viewModel.selectedIconData?.id == iconData.id ? Color.appPrimary.opacity(0.5) : Color.clear)
                 .clipShape(Circle())
         }
     }

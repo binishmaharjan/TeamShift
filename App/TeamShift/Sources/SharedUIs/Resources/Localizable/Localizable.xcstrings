@@ -4,6 +4,17 @@
     "" : {
 
     },
+    "ChangeAvatar_Alert_Success" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your avatar has been changed successfully."
+          }
+        }
+      }
+    },
     "ChangeAvatar_Color_Title" : {
       "extractionState" : "manual",
       "localizations" : {
