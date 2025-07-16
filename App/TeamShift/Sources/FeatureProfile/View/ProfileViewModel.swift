@@ -32,6 +32,8 @@ final class ProfileViewModel {
     var user: AppUser? { userSession.currentUser }
     var displayUid: String { userSession.displayID ?? "" }
     var username: String { user?.username ?? "" }
+    var colorTemplate: ColorTemplate { user?.colorTemplate ?? .redOrange }
+    var iconData: IconData { user?.iconData ?? .icnMan2 }
     var toastHandler: ToastHandler = .init()
     
     @ObservationIgnored

@@ -147,6 +147,17 @@
         }
       }
     },
+    "Common_Button_Save" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        }
+      }
+    },
     "Common_TextField_Email" : {
       "extractionState" : "manual",
       "localizations" : {

@@ -32,7 +32,7 @@ struct ChangeAvatarView: View {
                     Button {
                         print("Save Button Pressed")
                     } label: {
-                        Text("Save")
+                        Text(l10.commonButtonSave)
                             .font(.customHeadline)
                             .foregroundStyle(Color.appPrimary)
                     }

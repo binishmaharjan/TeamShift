@@ -76,12 +76,13 @@ extension ProfileView {
     
     @ViewBuilder
     private var profileImage: some View {
-        Image.icnMan2
+        viewModel.iconData.image
             .resizable()
             .scaledToFit()
-            .padding(4)
-            .offset(y: 8)
+            .padding(6)
+            .offset(y: 6)
             .frame(width: 100, height: 100)
+            .background(viewModel.colorTemplate.gradient)
             .mask(
                 Circle()
             )
