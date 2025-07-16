@@ -36,7 +36,7 @@ public struct PrimaryTextField<Field: Hashable>: View {
                 .renderingMode(.template)
                 .scaledToFit()
                 .frame(width: 18, height: 18)
-                .foregroundStyle(isCurrentlyFocused ? Color.appPrimary : Color.text.opacity(0.3))
+                .foregroundStyle(isCurrentlyFocused ? Color.appPrimary : Color.textPrimary.opacity(0.3))
             
             Group {
                 if (!isVisibilityOn && isSecure) {
@@ -54,7 +54,7 @@ public struct PrimaryTextField<Field: Hashable>: View {
                     .renderingMode(.template)
                     .scaledToFit()
                     .frame(width: 18, height: 18)
-                    .foregroundStyle(isCurrentlyFocused ? Color.appPrimary : Color.text.opacity(0.3))
+                    .foregroundStyle(isCurrentlyFocused ? Color.appPrimary : Color.textPrimary.opacity(0.3))
                     .onTapGesture {
                         isVisibilityOn.toggle()
                         DispatchQueue.main.async {
@@ -69,7 +69,7 @@ public struct PrimaryTextField<Field: Hashable>: View {
         .overlay {
             RoundedRectangle(cornerRadius: 10, style: .continuous)
                 .stroke(lineWidth: 1)
-                .fill(isCurrentlyFocused ? Color.appPrimary : Color.text.opacity(0.3))
+                .fill(isCurrentlyFocused ? Color.appPrimary : Color.textPrimary.opacity(0.3))
         }
         .animation(.easeOut(duration: 0.15), value: isCurrentlyFocused)
         .animation(.easeOut(duration: 0.15), value: isVisibilityOn)

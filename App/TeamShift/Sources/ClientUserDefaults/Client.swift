@@ -36,6 +36,8 @@ extension AppUser {
         username: "Mock User",
         email: nil,
         signInMethod: .guest,
+        colorTemplate: .redOrange,
+        iconData: .icnMan2,
         createdDate: .now
     )
 }

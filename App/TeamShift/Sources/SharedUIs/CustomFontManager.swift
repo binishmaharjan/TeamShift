@@ -83,7 +83,7 @@ extension Font {
     public static let customTitle2 = custom(.semiBold, relativeTo: .title2)
     /// FontSize: 20.0, Weight: SemiBold
     public static let customTitle3 = custom(.semiBold, relativeTo: .title3)
-    /// FontSize: 17.0, Weight: SemiBold
+    /// FontSize: 17.0, Weight: Bold
     public static let customHeadline = custom(.bold, relativeTo: .headline)
     /// FontSize: 17.0, Weight: Regular
     public static let customBody = custom(.regular, relativeTo: .body)

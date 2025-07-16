@@ -17,10 +17,8 @@ struct CreateAccountView: View {
     
     var body: some View {
         VStack(spacing: 12) {
-            title
-                .padding(.bottom, 48)
-            
             emailTextField
+                .padding(.top, 24)
             
             passwordTextField
             
@@ -44,13 +42,6 @@ struct CreateAccountView: View {
 }
 
 extension CreateAccountView {
-    @ViewBuilder
-    private var title: some View {
-        Text(l10.onboardingTitle)
-            .foregroundStyle(Color.text)
-            .font(.customTitle)
-    }
-    
     @ViewBuilder
     private var emailTextField: some View {
         PrimaryTextField(
@@ -96,7 +87,7 @@ extension CreateAccountView {
             Rectangle()
                 .frame(height: 1)
         }
-        .foregroundStyle(Color.text.opacity(0.5))
+        .foregroundStyle(Color.textPrimary.opacity(0.5))
     }
     
     @ViewBuilder
@@ -126,7 +117,7 @@ extension CreateAccountView {
     @ViewBuilder
     private var createAccountCaution: some View {
         Text(createAccountCautionString)
-            .foregroundStyle(Color.subText)
+            .foregroundStyle(Color.textSecondary)
             .font(.customCaption)
             .multilineTextAlignment(.center)
     }

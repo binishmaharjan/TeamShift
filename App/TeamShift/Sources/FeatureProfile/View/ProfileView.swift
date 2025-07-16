@@ -14,6 +14,7 @@ struct ProfileView: View {
         ScrollView {
             VStack {
                 userID
+                    .padding(.top, 12)
                 
                 profileImage
                     .padding(.vertical, 10)
@@ -31,12 +32,15 @@ struct ProfileView: View {
                     .padding(.bottom, 20)
             }
             .padding(.bottom, 10)
-            .background(Color.listBackground)
+            .background(Color.backgroundList)
+        }
+        .onAppear {
+            viewModel.refreshUserData()
         }
         .loadingView(viewModel.isLoading)
         .appAlert(isPresented: $viewModel.alertConfig.isPresented, alertConfig: viewModel.alertConfig)
         .displayToast(handledBy: viewModel.toastHandler)
-        .background(Color.listBackground.ignoresSafeArea())
+        .background(Color.backgroundList.ignoresSafeArea())
     }
 }
 
@@ -50,7 +54,7 @@ extension ProfileView {
                 Text(viewModel.displayUid)
             }
             .font(.customCaption2)
-            .foregroundStyle(Color.subText)
+            .foregroundStyle(Color.textSecondary)
             .bold()
             
             Button {
@@ -75,10 +79,13 @@ extension ProfileView {
     
     @ViewBuilder
     private var profileImage: some View {
-        Image.imgUser1
+        viewModel.iconData.image
             .resizable()
             .scaledToFit()
+            .padding(6)
+            .offset(y: 6)
             .frame(width: 100, height: 100)
+            .background(viewModel.colorTemplate.gradient)
             .mask(
                 Circle()
             )
@@ -117,7 +124,7 @@ extension ProfileView {
                 .scaledToFit()
                 .frame(width: 14, height: 14)
         }
-        .foregroundStyle(Color.text)
+        .foregroundStyle(Color.textPrimary)
         .onTapGesture {
             viewModel.editNameButtonTapped()
         }
@@ -136,7 +143,7 @@ extension ProfileView {
     private func sectionTitle(_ title: String) -> some View {
         Text(title)
             .font(.customFootnote.bold())
-            .foregroundStyle(Color.subText)
+            .foregroundStyle(Color.textSecondary)
             .textCase(nil)
             .padding(.leading, 20)
     }

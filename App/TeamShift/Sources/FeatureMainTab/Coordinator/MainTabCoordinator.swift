@@ -70,7 +70,7 @@ extension MainTabCoordinator {
         appearance.stackedLayoutAppearance.selected.iconColor = selectedColor
         appearance.stackedLayoutAppearance.selected.titleTextAttributes = [NSAttributedString.Key.foregroundColor: selectedColor as Any]
         
-        let unselectedColor = UIColor(named: "sub_text", in: Bundle.sharedUIs, compatibleWith: nil)
+        let unselectedColor = UIColor(named: "text_secondary", in: Bundle.sharedUIs, compatibleWith: nil)
         appearance.stackedLayoutAppearance.normal.iconColor = unselectedColor
         appearance.stackedLayoutAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: unselectedColor as Any]
         
@@ -78,8 +78,8 @@ extension MainTabCoordinator {
         tabViewController.tabBar.scrollEdgeAppearance = appearance
     }
     
-    private func setupScheduleView() -> UINavigationController {
-        let scheduleTabView = UINavigationController()
+    private func setupScheduleView() -> NavigationController {
+        let scheduleTabView = NavigationController()
         let scheduleCoordinator = ScheduleCoordinator(navigationController: scheduleTabView)
         
         addChild(scheduleCoordinator)
@@ -91,8 +91,8 @@ extension MainTabCoordinator {
         return scheduleTabView
     }
     
-    private func setupWorkplaceView() -> UINavigationController {
-        let workplaceTabView = UINavigationController()
+    private func setupWorkplaceView() -> NavigationController {
+        let workplaceTabView = NavigationController()
         let workplaceCoordinator = WorkplaceCoordinator(navigationController: workplaceTabView)
         
         addChild(workplaceCoordinator)
@@ -104,8 +104,8 @@ extension MainTabCoordinator {
         return workplaceTabView
     }
     
-    private func setupProfileView() -> UINavigationController {
-        let profileTabView = UINavigationController()
+    private func setupProfileView() -> NavigationController {
+        let profileTabView = NavigationController()
         let profileCoordinator = ProfileCoordinator(navigationController: profileTabView)
         
         addChild(profileCoordinator)

@@ -9,13 +9,13 @@ public struct SecondaryButtonStyle: ButtonStyle {
             .label
             .frame(maxWidth: .infinity)
             .frame(height: 44)
-            .background((configuration.isPressed || !isEnabled) ? Color.background : Color.background)
-            .foregroundStyle((configuration.isPressed || !isEnabled) ? Color.appPrimaryHighlighted : Color.text)
+            .background((configuration.isPressed || !isEnabled) ? Color.backgroundPrimary : Color.backgroundPrimary)
+            .foregroundStyle((configuration.isPressed || !isEnabled) ? Color.appPrimaryPressed : Color.textPrimary)
             .clipShape(RoundedRectangle(cornerRadius: 21, style: .continuous))
             .overlay {
                 RoundedRectangle(cornerRadius: 21, style: .continuous)
                     .stroke(lineWidth: 1)
-                    .fill(Color.text.opacity(0.3))
+                    .fill(Color.textPrimary.opacity(0.3))
             }
     }
 }

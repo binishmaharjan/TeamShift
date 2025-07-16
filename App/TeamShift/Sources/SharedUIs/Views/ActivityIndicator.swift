@@ -9,10 +9,10 @@ public struct ActivityIndicator: View {
     private let colorGradient = LinearGradient(
         gradient: Gradient(
             colors: [
-                Color.activityIndicator,
-                Color.activityIndicator.opacity(0.75),
-                Color.activityIndicator.opacity(0.5),
-                Color.activityIndicator.opacity(0.2),
+                Color.appSuccess,
+                Color.appSuccess.opacity(0.75),
+                Color.appSuccess.opacity(0.5),
+                Color.appSuccess.opacity(0.2),
                 .clear
             ]
         ),

@@ -17,7 +17,7 @@ extension View {
     @ViewBuilder
     public func hSeparator() -> some View {
         Rectangle()
-            .fill(Color.separator.opacity(0.5))
+            .fill(Color.backgroundSeparator.opacity(0.5))
             .frame(height: 1)
     }
     
@@ -25,7 +25,7 @@ extension View {
     @ViewBuilder
     public func vSeparator() -> some View {
         Rectangle()
-            .fill(Color.separator.opacity(0.5))
+            .fill(Color.backgroundSeparator.opacity(0.5))
             .frame(width: 1)
     }
 }

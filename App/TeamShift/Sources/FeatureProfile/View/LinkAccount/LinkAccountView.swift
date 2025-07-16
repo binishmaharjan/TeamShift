@@ -32,7 +32,7 @@ struct LinkAccountView: View {
             
             signInAppleButton
         }
-        .background(Color.background)
+        .background(Color.backgroundPrimary)
         .padding(.horizontal, 24)
         .vSpacing(.top)
         .loadingView(viewModel.isLoading)
@@ -86,7 +86,7 @@ extension LinkAccountView {
             Rectangle()
                 .frame(height: 1)
         }
-        .foregroundStyle(Color.text.opacity(0.5))
+        .foregroundStyle(Color.textPrimary.opacity(0.5))
     }
     
     @ViewBuilder

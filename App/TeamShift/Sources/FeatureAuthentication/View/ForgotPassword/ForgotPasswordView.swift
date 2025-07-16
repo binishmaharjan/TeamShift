@@ -16,11 +16,8 @@ struct ForgotPasswordView: View {
     
     var body: some View {
         VStack(spacing: 12) {
-            title
-                .padding(.bottom, 48)
-            
             description
-                .padding(.bottom, 24)
+                .padding(.vertical, 24)
             
             emailTextField
             
@@ -35,18 +32,11 @@ struct ForgotPasswordView: View {
 
 extension ForgotPasswordView {
     @ViewBuilder
-    private var title: some View {
-        Text(l10.forgotPasswordTitle)
-            .foregroundStyle(Color.text)
-            .font(.customTitle)
-    }
-    
-    @ViewBuilder
     private var description: some View {
         Text(l10.forgotPasswordDescription)
             .frame(maxWidth: .infinity)
             .font(.customCaption)
-            .foregroundStyle(Color.subText)
+            .foregroundStyle(Color.textSecondary)
             .multilineTextAlignment(.leading)
     }
     

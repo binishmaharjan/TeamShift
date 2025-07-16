@@ -17,12 +17,12 @@ public struct AlertDialog: View {
                 return .appError
                 
             case .success:
-                return .activityIndicator
+                return .appSuccess
             }
         }
         
         var foregroundColor: Color {
-            .background
+            .backgroundPrimary
         }
         
         var title: String {
@@ -58,7 +58,7 @@ public struct AlertDialog: View {
         }
         
         var foregroundColor: Color {
-            .background
+            .backgroundPrimary
         }
         
         var tint: Color {
@@ -121,7 +121,7 @@ public struct AlertDialog: View {
                 Text(message)
                     .font(.customCaption)
                     .multilineTextAlignment(.center)
-                    .foregroundStyle(Color.subText)
+                    .foregroundStyle(Color.textSecondary)
                     .padding(.bottom, 4)
             }
             
@@ -132,7 +132,7 @@ public struct AlertDialog: View {
                     .padding(.vertical, 12)
                     .background {
                         RoundedRectangle(cornerRadius: 10)
-                            .fill(Color.subText.opacity(0.1))
+                            .fill(Color.textSecondary.opacity(0.1))
                     }
                     .padding(.bottom, 5)
             }

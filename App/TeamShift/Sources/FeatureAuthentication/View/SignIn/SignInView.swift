@@ -17,10 +17,8 @@ struct SignInView: View {
     
     var body: some View {
         VStack(spacing: 12) {
-            title
-                .padding(.bottom, 48)
-            
             emailTextField
+                .padding(.top, 24)
             
             passwordTextField
             
@@ -43,13 +41,6 @@ struct SignInView: View {
 }
 
 extension SignInView {
-    @ViewBuilder
-    private var title: some View {
-        Text(l10.signInTitle)
-            .foregroundStyle(Color.text)
-            .font(.customTitle)
-    }
-    
     @ViewBuilder
     private var emailTextField: some View {
         PrimaryTextField(
@@ -108,7 +99,7 @@ extension SignInView {
             Rectangle()
                 .frame(height: 1)
         }
-        .foregroundStyle(Color.text.opacity(0.5))
+        .foregroundStyle(Color.textPrimary.opacity(0.5))
     }
     
     @ViewBuilder

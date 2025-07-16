@@ -31,14 +31,26 @@ public struct AppUser: Equatable, Identifiable, Codable, Sendable {
         case username
         case email
         case signInMethod = "sign_in_method"
+        case colorTemplate = "color_template"
+        case iconData = "icon_data"
         case createdDate = "created_date"
     }
     
-    public init(id: String, username: String?, email: String?, signInMethod: SignInMethod, createdDate: Date) {
+    public init(
+        id: String,
+        username: String?,
+        email: String?,
+        signInMethod: SignInMethod,
+        colorTemplate: ColorTemplate,
+        iconData: IconData,
+        createdDate: Date
+    ) {
         self.id = id
         self.username = username
         self.email = email
         self.signInMethod = signInMethod
+        self.colorTemplate = colorTemplate
+        self.iconData = iconData
         self.createdDate = createdDate
     }
     
@@ -46,5 +58,7 @@ public struct AppUser: Equatable, Identifiable, Codable, Sendable {
     public var username: String?
     public var email: String?
     public var signInMethod: SignInMethod
+    public var colorTemplate: ColorTemplate
+    public var iconData: IconData
     public var createdDate: Date
 }

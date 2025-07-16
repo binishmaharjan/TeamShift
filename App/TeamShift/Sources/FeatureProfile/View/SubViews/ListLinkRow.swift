@@ -31,7 +31,7 @@ struct ListLinkRow: View {
             .padding(.trailing, 16)
             .contentShape(Rectangle())
             .font(.customSubHeadline)
-            .foregroundStyle(Color.text)
+            .foregroundStyle(Color.textPrimary)
         }
     }
 }
