@@ -92,24 +92,6 @@ extension ProfileView {
             .overlay {
                 Circle().fill(.clear).stroke(Color.appPrimary, lineWidth: 2)
             }
-            .overlay {
-                Button {
-                    viewModel.changePictureButtonTapped()
-                } label: {
-                    ZStack {
-                        Circle()
-                            .fill(Color.appPrimary)
-                            .frame(width: 28, height: 28)
-                        
-                        Image.icnEdit
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 18, height: 18)
-                    }
-                }
-                .offset(x: 36, y: 36)
-                .buttonStyle(.plain)
-            }
     }
     
     @ViewBuilder
@@ -117,17 +99,8 @@ extension ProfileView {
         HStack {
             Text(viewModel.username)
                 .font(.customHeadline)
-
-            Image.icnEdit
-                .renderingMode(.template)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 14, height: 14)
         }
         .foregroundStyle(Color.textPrimary)
-        .onTapGesture {
-            viewModel.editNameButtonTapped()
-        }
     }
    
     @ViewBuilder

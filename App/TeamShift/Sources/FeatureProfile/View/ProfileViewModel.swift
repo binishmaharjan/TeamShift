@@ -11,7 +11,7 @@ import UIKit
 final class ProfileViewModel {
     enum Route {
         case showOnboarding
-        case showChangePicture
+        case showChangeAvatar
         case showChangePassword
         case showLinkAccount
         case showDeleteAccount
@@ -55,20 +55,18 @@ final class ProfileViewModel {
         toastHandler.queueMessage("Copied")
     }
     
-    func changePictureButtonTapped() {
-        coordinator?.profileRequestNavigation(for: .showChangePicture)
-    }
-    
-    func editNameButtonTapped() {
-        showEditNameAlert()
-    }
-    
     func refreshUserData() {
         user = userSession.currentUser
     }
     
     func listRowTapped(_ listRow: ProfileRow) {
         switch listRow {
+        case .changeAvatar:
+            coordinator?.profileRequestNavigation(for: .showChangeAvatar)
+            
+        case .changeUsername:
+            showEditNameAlert()
+            
         case .changePassword:
             coordinator?.profileRequestNavigation(for: .showChangePassword)
             

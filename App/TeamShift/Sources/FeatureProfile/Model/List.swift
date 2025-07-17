@@ -33,7 +33,7 @@ enum ProfileSection: String, CaseIterable {
         
         switch self {
         case .account:
-            var rows: [ProfileRow] = []
+            var rows: [ProfileRow] = [.changeAvatar, .changeUsername]
             if userSession.isSignInMethod(.email) {
                 rows.append(.changePassword)
             }
@@ -56,6 +56,8 @@ enum ProfileSection: String, CaseIterable {
 }
 
 enum ProfileRow: String {
+    case changeAvatar
+    case changeUsername
     case changePassword
     case linkAccount
     case deleteAccount
@@ -69,6 +71,12 @@ enum ProfileRow: String {
     
     var title: String {
         switch self {
+        case .changeAvatar:
+            return l10.profileRowChangeAvatar
+            
+        case .changeUsername:
+            return l10.profileRowChangeUsername
+            
         case .changePassword:
             return l10.profileRowChangePassword
             
@@ -91,6 +99,12 @@ enum ProfileRow: String {
     
     var image: Image {
         switch self {
+        case .changeAvatar:
+            return .icnEditPerson
+            
+        case .changeUsername:
+            return .icnEditNote
+            
         case .changePassword:
             return .icnWaterLock
             
@@ -113,7 +127,7 @@ enum ProfileRow: String {
     
     var rowType: ProfileRowType {
         switch self {
-        case .changePassword, .linkAccount, .deleteAccount, .startWeekDay, .license:
+        case .changeAvatar, .changeUsername, .changePassword, .linkAccount, .deleteAccount, .startWeekDay, .license:
             return .navigation
             
         case .showPublicHoliday:

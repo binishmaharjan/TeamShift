@@ -135,8 +135,8 @@ extension ApiClient {
                 throw AppError.internalError(.userNotFound)
             }
             
-            try await authenticationClient.deleteUser()
             try await userStoreClient.deleteUser(uid: currentUser.id)
+            try await authenticationClient.deleteUser()
         }
         
         func deleteUserWithReAuthentication(password: String) async throws {

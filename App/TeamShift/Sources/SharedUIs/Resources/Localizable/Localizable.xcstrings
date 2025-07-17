@@ -671,6 +671,17 @@
         }
       }
     },
+    "Profile_Row_Change_Avatar" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change Avatar"
+          }
+        }
+      }
+    },
     "Profile_Row_Change_Password" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -678,6 +689,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Change Password"
+          }
+        }
+      }
+    },
+    "Profile_Row_Change_Username" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change Username"
           }
         }
       }

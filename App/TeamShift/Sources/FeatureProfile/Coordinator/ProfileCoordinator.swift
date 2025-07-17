@@ -50,8 +50,8 @@ extension ProfileCoordinator {
         case .showOnboarding:
             finish(with: .showOnboarding)
             
-        case .showChangePicture:
-            pushChangePictureView()
+        case .showChangeAvatar:
+            pushChangeAvatarView()
             
         case .showChangePassword:
             pushChangePasswordView()
@@ -70,7 +70,7 @@ extension ProfileCoordinator {
         }
     }
     
-    private func pushChangePictureView() {
+    private func pushChangeAvatarView() {
         let viewModel = ChangeAvatarViewModel(coordinator: self)
         
         let view = ChangeAvatarView(viewModel: viewModel)
