@@ -30,6 +30,10 @@ final class DeleteAccountViewModel {
     @Dependency(\.userSession) var userSession
     
     func deleteButtonTapped() async {
+        confirmDeletion()
+    }
+    
+    private func deleteAccount() async {
         isLoading = true
         do {
             switch signInMethod {
@@ -46,7 +50,7 @@ final class DeleteAccountViewModel {
                 try await apiClient.deleteUser()
             }
             
-            showAccountDeleted()
+            successAccountDeleted()
         } catch {
             isLoading = false
             showErrorAlert(error)
@@ -55,10 +59,27 @@ final class DeleteAccountViewModel {
 }
 
 extension DeleteAccountViewModel {
-    private func showAccountDeleted() {
+    private func confirmDeletion() {
+        alertConfig = .confirm(
+            buttonTitle: l10.deleteAccountAlertConfirmButtonTitle,
+            title: l10.deleteAccountAlertConfirmTitle,
+            message: l10.deleteAccountAlertConfirmMessage,
+            primaryAction: { [weak self] in
+                self?.alertConfig = nil
+                Task {
+                    await self?.deleteAccount()
+                }
+            },
+            secondaryAction: { [weak self] in
+                self?.alertConfig = nil
+            }
+        )
+    }
+    
+    private func successAccountDeleted() {
         alertConfig = .info(
-            title: "Account Deleted",
-            message: "Your account has been deleted.All data will be permanently removed. You will now be signed out."
+            title: l10.deleteAccountAlertSuccessTitle,
+            message: l10.deleteAccountAlertSuccessMessage
         ) { [weak self] in
             self?.alertConfig = nil
             self?.coordinator?.finish(with: .showOnboarding)

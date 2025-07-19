@@ -268,6 +268,61 @@
         }
       }
     },
+    "DeleteAccount_Alert_Confirm_Button_Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete Account"
+          }
+        }
+      }
+    },
+    "DeleteAccount_Alert_Confirm_Message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This will permanently delete your account and all associated data. This action cannot be undone."
+          }
+        }
+      }
+    },
+    "DeleteAccount_Alert_Confirm_Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete Account?"
+          }
+        }
+      }
+    },
+    "DeleteAccount_Alert_Success_Message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your account has been deleted.All data will be permanently removed. You will now be signed out."
+          }
+        }
+      }
+    },
+    "DeleteAccount_Alert_Success_Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Account Deleted"
+          }
+        }
+      }
+    },
     "DeleteAccount_Confirm_Text" : {
       "extractionState" : "manual",
       "localizations" : {

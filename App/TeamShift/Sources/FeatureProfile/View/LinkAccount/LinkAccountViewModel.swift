@@ -24,11 +24,17 @@ final class LinkAccountViewModel {
     private weak var coordinator: ProfileCoordinator?
     @ObservationIgnored
     @Dependency(\.apiClient) var apiClient
+    @ObservationIgnored
+    @Dependency(\.userSession) var userSession
     
     func linkButtonTapped() async {
         isLoading = true
         do {
             try await apiClient.linkAccount(withEmail: email, password: password)
+            
+            // update saved user session
+            userSession.currentUser?.email = email
+            userSession.currentUser?.signInMethod = .email
             
             isLoading = false
             linkSuccess()
@@ -42,6 +48,9 @@ final class LinkAccountViewModel {
         isLoading = true
         do {
             try await apiClient.linkAccountWithGmail()
+            
+            // update saved user session
+            userSession.currentUser?.signInMethod = .google
             
             isLoading = false
             linkSuccess()

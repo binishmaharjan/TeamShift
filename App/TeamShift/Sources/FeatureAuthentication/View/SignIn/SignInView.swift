@@ -48,7 +48,8 @@ extension SignInView {
             icon: .icnMail,
             text: $viewModel.email,
             fieldIdentifier: .email,
-            focusedField: $focusedField
+            focusedField: $focusedField,
+            keyboardType: .emailAddress
         )
     }
     

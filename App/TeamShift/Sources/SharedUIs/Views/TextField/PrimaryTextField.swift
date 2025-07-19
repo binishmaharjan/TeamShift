@@ -7,7 +7,8 @@ public struct PrimaryTextField<Field: Hashable>: View {
         text: Binding<String>,
         fieldIdentifier: Field,
         focusedField: FocusState<Field?>.Binding,
-        isSecure: Bool = false
+        isSecure: Bool = false,
+        keyboardType: UIKeyboardType = .default
     ) {
         self.placeholder = placeholder
         self.icon = icon
@@ -15,6 +16,7 @@ public struct PrimaryTextField<Field: Hashable>: View {
         self.fieldIdentifier = fieldIdentifier
         self.focusedField = focusedField
         self.isSecure = isSecure
+        self.keyboardType = keyboardType
     }
 
     @State private var isVisibilityOn: Bool = false
@@ -24,6 +26,7 @@ public struct PrimaryTextField<Field: Hashable>: View {
     private let fieldIdentifier: Field
     private var focusedField: FocusState<Field?>.Binding
     private var isSecure: Bool = false
+    private let keyboardType: UIKeyboardType
     
     private var isCurrentlyFocused: Bool {
         focusedField.wrappedValue == fieldIdentifier
@@ -43,6 +46,7 @@ public struct PrimaryTextField<Field: Hashable>: View {
                     SecureField(placeholder, text: $text)
                 } else {
                     TextField(placeholder, text: $text)
+                        .keyboardType(keyboardType)
                 }
             }
             .font(.customFootnote)
