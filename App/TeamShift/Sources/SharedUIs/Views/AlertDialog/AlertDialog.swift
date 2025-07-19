@@ -1,7 +1,7 @@
 import SwiftUI
 
 public struct AlertDialog: View {
-    public enum Kind: Sendable {
+    public enum Kind {
         case info(title: String, message: String?)
         case confirm(title: String, message: String?)
         case textField(title: String, message: String?, textHint: String?)
@@ -46,7 +46,7 @@ public struct AlertDialog: View {
         }
     }
     
-    public enum ButtonType: Sendable {
+    public enum ButtonType {
         case primary(title: String)
         case secondary(title: String)
         
@@ -72,18 +72,18 @@ public struct AlertDialog: View {
         }
     }
     
-    public struct ButtonConfig: Identifiable, Sendable {
-        public init(type: ButtonType, action: (@Sendable (String?) -> Void)? = nil) {
+    public struct ButtonConfig: Identifiable {
+        public init(type: ButtonType, action: ((String?) -> Void)? = nil) {
             self.type = type
             self.action = action
         }
         
         public let id = UUID()
         var type: ButtonType
-        var action: (@Sendable (String?) -> Void)?
+        var action: ((String?) -> Void)?
     }
     
-    public struct Config: Sendable {
+    public struct Config {
         public init(kind: Kind, icnImage: Image, buttons: [ButtonConfig]) {
             self.kind = kind
             self.icnImage = icnImage
@@ -171,7 +171,7 @@ public struct AlertDialog: View {
 }
 
 extension AlertDialog.Config {
-    public static func info(title: String, message: String, primaryAction: (@Sendable () -> Void)?) -> AlertDialog.Config {
+    public static func info(title: String, message: String, primaryAction: (() -> Void)?) -> AlertDialog.Config {
         AlertDialog.Config(
             kind: .info(title: title, message: message),
             icnImage: .icnInfo,
@@ -185,8 +185,8 @@ extension AlertDialog.Config {
         buttonTitle: String,
         title: String,
         message: String,
-        primaryAction: (@Sendable () -> Void)?,
-        secondaryAction: (@Sendable () -> Void)?
+        primaryAction: (() -> Void)?,
+        secondaryAction: (() -> Void)?
     ) -> AlertDialog.Config {
         AlertDialog.Config(
             kind: .info(title: title, message: message),
@@ -202,8 +202,8 @@ extension AlertDialog.Config {
         title: String,
         message: String,
         textHint: String? = nil,
-        primaryAction: (@Sendable (String?) -> Void)?,
-        secondaryAction: (@Sendable () -> Void)?
+        primaryAction: ((String?) -> Void)?,
+        secondaryAction: (() -> Void)?
     ) -> AlertDialog.Config {
         AlertDialog.Config(
             kind: .textField(title: title, message: message, textHint: textHint),
@@ -215,7 +215,7 @@ extension AlertDialog.Config {
         )
     }
     
-    public static func error(message: String, primaryAction: (@Sendable () -> Void)?) -> AlertDialog.Config {
+    public static func error(message: String, primaryAction: (() -> Void)?) -> AlertDialog.Config {
         AlertDialog.Config(
             kind: .error(message: message),
             icnImage: .icnError,
@@ -225,7 +225,7 @@ extension AlertDialog.Config {
         )
     }
     
-    public static func success(message: String, primaryAction: (@Sendable () -> Void)?) -> AlertDialog.Config {
+    public static func success(message: String, primaryAction: (() -> Void)?) -> AlertDialog.Config {
         AlertDialog.Config(
             kind: .success(message: message),
             icnImage: .icnSuccess,

@@ -95,17 +95,13 @@ extension ChangeAvatarViewModel {
 extension ChangeAvatarViewModel {
     private func changeAvatarSuccess() {
         alertConfig = .success(message: l10.changeAvatarAlertSuccess) { [weak self] in
-            Task { @MainActor in
-                self?.alertConfig = nil
-            }
+            self?.alertConfig = nil
         }
     }
     
     private func showErrorAlert(_ error: Error) {
         alertConfig = .error(message: error.localizedDescription) { [weak self] in
-            Task { @MainActor in
-                self?.alertConfig = nil
-            }
+            self?.alertConfig = nil
         }
     }
 }

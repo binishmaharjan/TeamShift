@@ -55,19 +55,15 @@ final class LinkAccountViewModel {
 extension LinkAccountViewModel {
     private func linkSuccess() {
         alertConfig = .success(message: l10.linkAccountAlertLinkSuccess) { [weak self] in
-            Task { @MainActor in
-                self?.alertConfig = nil
-                self?.email = ""
-                self?.password = ""
-            }
+            self?.alertConfig = nil
+            self?.email = ""
+            self?.password = ""
         }
     }
     
     private func showErrorAlert(_ error: Error) {
         alertConfig = .error(message: error.localizedDescription) { [weak self] in
-            Task { @MainActor in
-                self?.alertConfig = nil
-            }
+            self?.alertConfig = nil
         }
     }
 }

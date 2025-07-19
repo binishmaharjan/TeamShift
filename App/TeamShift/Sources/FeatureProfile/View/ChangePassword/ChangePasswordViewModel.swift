@@ -50,20 +50,16 @@ final class ChangePasswordViewModel {
 extension ChangePasswordViewModel {
     private func passwordChangedSuccess() {
         alertConfig = .success(message: l10.changePasswordAlertChangeSuccess) { [weak self] in
-            Task { @MainActor in
-                self?.alertConfig = nil
-                self?.oldPassword = ""
-                self?.newPassword = ""
-                self?.confirmPassword = ""
-            }
+            self?.alertConfig = nil
+            self?.oldPassword = ""
+            self?.newPassword = ""
+            self?.confirmPassword = ""
         }
     }
     
     private func showErrorAlert(_ error: Error) {
         alertConfig = .error(message: error.localizedDescription) { [weak self] in
-            Task { @MainActor in
-                self?.alertConfig = nil
-            }
+            self?.alertConfig = nil
         }
     }
 }

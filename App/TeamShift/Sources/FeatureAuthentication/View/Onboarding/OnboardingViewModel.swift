@@ -37,10 +37,12 @@ final class OnboardingViewModel {
             title: l10.onboardingAlertGuestUserTitle,
             message: l10.onboardingAlertGuestUserDescription,
             primaryAction: { [weak self] in
-                Task { @MainActor in await self?.handleContinueAsGuestAction() }
+                Task {
+                    await self?.handleContinueAsGuestAction()
+                }
             },
             secondaryAction: { [weak self] in
-                Task { @MainActor in self?.alertConfig = nil }
+                self?.alertConfig = nil
             }
         )
     }
@@ -63,9 +65,7 @@ final class OnboardingViewModel {
 extension OnboardingViewModel {
     private func showErrorAlert(_ error: Error) {
         alertConfig = .error(message: error.localizedDescription) { [weak self] in
-            Task { @MainActor in
-                self?.alertConfig = nil
-            }
+            self?.alertConfig = nil
         }
     }
 }

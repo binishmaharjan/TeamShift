@@ -136,13 +136,13 @@ extension ProfileViewModel {
             title: l10.profileAlertSignOutTitle,
             message: l10.profileAlertSignOutDescription,
             primaryAction: { [weak self] in
-                Task { @MainActor in
-                    self?.alertConfig = nil
+                self?.alertConfig = nil
+                Task {
                     await self?.signOut()
                 }
             },
             secondaryAction: { [weak self] in
-                Task { @MainActor in self?.alertConfig = nil }
+                self?.alertConfig = nil
             }
         )
     }
@@ -153,21 +153,19 @@ extension ProfileViewModel {
             message: l10.profileAlertChangeUsernameDescription,
             textHint: l10.profileAlertChangeUsernameHint,
             primaryAction: { [weak self] newUsername in
-                Task { @MainActor in
-                    self?.alertConfig = nil
+                self?.alertConfig = nil
+                Task {
                     await self?.updateUsername(to: newUsername)
                 }
             }, secondaryAction: { [weak self] in
-                Task { @MainActor in self?.alertConfig = nil }
+                self?.alertConfig = nil
             }
         )
     }
     
     private func showErrorAlert(_ error: Error) {
         alertConfig = .error(message: error.localizedDescription) { [weak self] in
-            Task { @MainActor in
-                self?.alertConfig = nil
-            }
+            self?.alertConfig = nil
         }
     }
 }

@@ -60,18 +60,14 @@ extension DeleteAccountViewModel {
             title: "Account Deleted",
             message: "Your account has been deleted.All data will be permanently removed. You will now be signed out."
         ) { [weak self] in
-            Task { @MainActor in
-                self?.alertConfig = nil
-                self?.coordinator?.finish(with: .showOnboarding)
-            }
+            self?.alertConfig = nil
+            self?.coordinator?.finish(with: .showOnboarding)
         }
     }
     
     private func showErrorAlert(_ error: Error) {
         alertConfig = .error(message: error.localizedDescription) { [weak self] in
-            Task { @MainActor in
-                self?.alertConfig = nil
-            }
+            self?.alertConfig = nil
         }
     }
 }

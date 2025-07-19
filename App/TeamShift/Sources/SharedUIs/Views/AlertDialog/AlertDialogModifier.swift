@@ -72,16 +72,19 @@ private struct AlertDialogModifier: ViewModifier {
 }
 
 extension View {
-//    @ViewBuilder
-//    public func alert(isPresented: Binding<Bool>, @ViewBuilder content: @escaping () -> AlertDialog) -> some View {
-//        self.modifier(AlertDialogModifier(isPresented: isPresented, alertContent: content))
-//    }
     @ViewBuilder
     public func appAlert(isPresented: Binding<Bool>, alertConfig: AlertDialog.Config?) -> some View {
         modifier(AlertDialogModifier(isPresented: isPresented, alertConfig: alertConfig))
     }
 }
 
+/*
+ get, set method are sendable.
+ but Binding is not since it is designed to be user on main thread
+ so when changing the wrapped value, it basically means the you are trying to change something non thread safe(UI) on thread safe closure
+ so adding Isolating to @MainActor to ensure that this operation only run on MainThread
+ */
+@MainActor
 extension Binding where Value == AlertDialog.Config? {
     public var isPresented: Binding<Bool> {
         .init {
