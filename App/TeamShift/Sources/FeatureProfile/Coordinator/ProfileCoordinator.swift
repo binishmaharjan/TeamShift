@@ -44,6 +44,7 @@ public final class ProfileCoordinator: FlowCoordinator {
     }
 }
 
+// MARK: Profile Navigataion
 extension ProfileCoordinator {
     func profileRequestNavigation(for route: ProfileViewModel.Route) {
         switch route {
@@ -144,3 +145,16 @@ extension ProfileCoordinator {
         topNavigationController.popToRootViewController(animated: true)
     }
 }
+
+// MARK: License Navigation
+extension ProfileCoordinator {
+    func pushLicenseDescription(licenseName: String, licenseText: String) {
+        let view = LicenseDescriptionView(licenseText: licenseText)
+            .navigationBar(licenseName)
+            .withCustomBackButton()
+        
+        let viewController = NamedUIHostingController(rootView: view)
+        topNavigationController.pushViewController(viewController, animated: true)
+    }
+}
+

@@ -11,4 +11,11 @@ final class LicenseViewModel {
     
     @ObservationIgnored
     private weak var coordinator: ProfileCoordinator?
+    
+    var licenses = LicensePlugin.licenses
+    
+    func licenseRowTapped(for license: LicensePlugin.License) {
+        guard let licenseText = license.licenseText else { return }
+        coordinator?.pushLicenseDescription(licenseName: license.name, licenseText: licenseText)
+    }
 }

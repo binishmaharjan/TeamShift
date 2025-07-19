@@ -110,6 +110,7 @@ let package = Package(
             ],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
+                .plugin(name: "LicensePlugin")
             ]
         ),
         .target(
@@ -198,6 +199,10 @@ let package = Package(
         ),
         .plugin(
             name: "AssetGenPlugin",
+            capability: .buildTool()
+        ),
+        .plugin(
+            name: "LicensePlugin",
             capability: .buildTool()
         ),
     ]
