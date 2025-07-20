@@ -59,12 +59,14 @@ extension ChangeAvatarViewModel {
         
         isLoading = true
         do {
-//            let dict = currentUser.dictionaryBuilder()
-//                .colorTemplate(selectedColorTemplate)
-//                .iconData(selectedIconData)
-//                .dictionary.asSendable
+            let avatarDict = currentUser.avatar
+                .dictionaryBuilder()
+                .colorTemplate(selectedColorTemplate)
+                .iconData(selectedIconData)
+                .dictionary
+            
             let dict = currentUser.dictionaryBuilder()
-                .avatar(Avatar(colorTemplate: selectedColorTemplate, iconData: selectedIconData))
+                .avatar(avatarDict)
                 .dictionary.asSendable
             
             try await apiClient.updateUser(uid: currentUser.id, fields: dict)

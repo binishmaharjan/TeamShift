@@ -43,6 +43,13 @@ public struct DictionaryBuilder: MemberMacro {
 
                 updaterMethods.append(
                     """
+                        public func \(methodName)(_ dictionary: [String: Any]) -> Self {
+                            var newSelf = self
+                            let codingKey = CodingKeys.\(propertyName).stringValue
+                            newSelf._updates[codingKey] = dictionary
+                            return newSelf
+                        }
+                    
                         public func \(methodName)(_ value: \(propertyType)) -> Self {
                             var newSelf = self
                             // Get the coding keys
@@ -96,3 +103,5 @@ public struct DictionaryBuilder: MemberMacro {
         ]
     }
 }
+
+
