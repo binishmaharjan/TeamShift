@@ -37,6 +37,7 @@ extension AppUser {
         email: nil,
         signInMethod: .guest,
         avatar: Avatar(colorTemplate: .redOrange, iconData: .icnMan3),
+        fcmToken: "randtoken",
         createdDate: .now
     )
 }

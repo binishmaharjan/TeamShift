@@ -48,6 +48,7 @@ public struct AppUser: Equatable, Identifiable, Codable, Sendable {
         case email
         case signInMethod = "sign_in_method"
         case avatar
+        case fcmToken = "fcm_token"
         case createdDate = "created_date"
     }
     
@@ -57,6 +58,7 @@ public struct AppUser: Equatable, Identifiable, Codable, Sendable {
         email: String?,
         signInMethod: SignInMethod,
         avatar: Avatar,
+        fcmToken: String,
         createdDate: Date
     ) {
         self.id = id
@@ -64,6 +66,7 @@ public struct AppUser: Equatable, Identifiable, Codable, Sendable {
         self.email = email
         self.signInMethod = signInMethod
         self.avatar = avatar
+        self.fcmToken = fcmToken
         self.createdDate = createdDate
     }
     
@@ -72,5 +75,6 @@ public struct AppUser: Equatable, Identifiable, Codable, Sendable {
     public var email: String?
     public var signInMethod: SignInMethod
     public var avatar: Avatar
+    public var fcmToken: String
     public var createdDate: Date
 }
