@@ -273,8 +273,7 @@ extension AuthenticationClient {
                 username: username,
                 email: email,
                 signInMethod: signInMethod,
-                colorTemplate: randomColorTemplate,
-                iconData: randomIconData,
+                avatar: Avatar(colorTemplate: randomColorTemplate, iconData: randomIconData),
                 createdDate: .now
             )
         }

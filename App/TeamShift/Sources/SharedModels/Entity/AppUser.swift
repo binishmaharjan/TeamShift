@@ -23,6 +23,22 @@ public enum SignInMethod: String, Codable, Sendable {
     }
 }
 
+@DictionaryBuilder
+public struct Avatar: Equatable, Codable, Sendable {
+    enum CodingKeys: String, CodingKey {
+        case colorTemplate = "color_template"
+        case iconData = "icon_data"
+    }
+    
+    public init(colorTemplate: ColorTemplate, iconData: IconData) {
+        self.colorTemplate = colorTemplate
+        self.iconData = iconData
+    }
+    
+    public var colorTemplate: ColorTemplate
+    public var iconData: IconData
+}
+
 /// Represents the app user
 @DictionaryBuilder
 public struct AppUser: Equatable, Identifiable, Codable, Sendable {
@@ -31,8 +47,7 @@ public struct AppUser: Equatable, Identifiable, Codable, Sendable {
         case username
         case email
         case signInMethod = "sign_in_method"
-        case colorTemplate = "color_template"
-        case iconData = "icon_data"
+        case avatar
         case createdDate = "created_date"
     }
     
@@ -41,16 +56,14 @@ public struct AppUser: Equatable, Identifiable, Codable, Sendable {
         username: String?,
         email: String?,
         signInMethod: SignInMethod,
-        colorTemplate: ColorTemplate,
-        iconData: IconData,
+        avatar: Avatar,
         createdDate: Date
     ) {
         self.id = id
         self.username = username
         self.email = email
         self.signInMethod = signInMethod
-        self.colorTemplate = colorTemplate
-        self.iconData = iconData
+        self.avatar = avatar
         self.createdDate = createdDate
     }
     
@@ -58,7 +71,6 @@ public struct AppUser: Equatable, Identifiable, Codable, Sendable {
     public var username: String?
     public var email: String?
     public var signInMethod: SignInMethod
-    public var colorTemplate: ColorTemplate
-    public var iconData: IconData
+    public var avatar: Avatar
     public var createdDate: Date
 }

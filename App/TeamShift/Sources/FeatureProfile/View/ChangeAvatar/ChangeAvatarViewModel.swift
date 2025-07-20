@@ -11,12 +11,12 @@ final class ChangeAvatarViewModel {
         
         self.coordinator = coordinator
         // Store original values
-        self.originalColorTemplate = userSession.currentUser?.colorTemplate
-        self.originalIconData = userSession.currentUser?.iconData
+        self.originalColorTemplate = userSession.currentUser?.avatar.colorTemplate
+        self.originalIconData = userSession.currentUser?.avatar.iconData
         
         // Initialize selected values
-        self.selectedColorTemplate = userSession.currentUser?.colorTemplate
-        self.selectedIconData = userSession.currentUser?.iconData
+        self.selectedColorTemplate = userSession.currentUser?.avatar.colorTemplate
+        self.selectedIconData = userSession.currentUser?.avatar.iconData
     }
     
     // MARK: Properties
@@ -59,15 +59,19 @@ extension ChangeAvatarViewModel {
         
         isLoading = true
         do {
+//            let dict = currentUser.dictionaryBuilder()
+//                .colorTemplate(selectedColorTemplate)
+//                .iconData(selectedIconData)
+//                .dictionary.asSendable
             let dict = currentUser.dictionaryBuilder()
-                .colorTemplate(selectedColorTemplate)
-                .iconData(selectedIconData)
+                .avatar(Avatar(colorTemplate: selectedColorTemplate, iconData: selectedIconData))
                 .dictionary.asSendable
+            
             try await apiClient.updateUser(uid: currentUser.id, fields: dict)
             
             // update saved user session
-            userSession.currentUser?.colorTemplate = selectedColorTemplate
-            userSession.currentUser?.iconData = selectedIconData
+            userSession.currentUser?.avatar.colorTemplate = selectedColorTemplate
+            userSession.currentUser?.avatar.iconData = selectedIconData
             
             isLoading = false
             
