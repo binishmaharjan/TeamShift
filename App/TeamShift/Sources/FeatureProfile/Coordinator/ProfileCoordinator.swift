@@ -130,7 +130,7 @@ extension ProfileCoordinator {
         let viewModel = LicenseViewModel(coordinator: self)
         
         let view = LicenseView(viewModel: viewModel)
-            .navigationBar()
+            .navigationBar(l10.licenseNavTitle)
             .withCustomBackButton()
         
         let viewController = NamedUIHostingController(rootView: view)
