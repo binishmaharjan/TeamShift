@@ -39,6 +39,22 @@ public struct Avatar: Equatable, Codable, Sendable {
     public var iconData: IconData
 }
 
+@DictionaryBuilder
+public struct Subscription: Equatable, Codable, Sendable {
+    public enum Status: Int, Equatable, Codable, Sendable {
+        case free = 0
+        case paid = 1
+    }
+    
+    public init(status: Status, expiryDate: Date? = nil) {
+        self.status = status
+        self.expiryDate = expiryDate
+    }
+    
+    var status: Status
+    var expiryDate: Date?
+}
+
 /// Represents the app user
 @DictionaryBuilder
 public struct AppUser: Equatable, Identifiable, Codable, Sendable {
@@ -49,6 +65,7 @@ public struct AppUser: Equatable, Identifiable, Codable, Sendable {
         case signInMethod = "sign_in_method"
         case avatar
         case fcmToken = "fcm_token"
+        case subscription
         case createdDate = "created_date"
     }
     
@@ -59,6 +76,7 @@ public struct AppUser: Equatable, Identifiable, Codable, Sendable {
         signInMethod: SignInMethod,
         avatar: Avatar,
         fcmToken: String,
+        subscription: Subscription,
         createdDate: Date
     ) {
         self.id = id
@@ -67,6 +85,7 @@ public struct AppUser: Equatable, Identifiable, Codable, Sendable {
         self.signInMethod = signInMethod
         self.avatar = avatar
         self.fcmToken = fcmToken
+        self.subscription = subscription
         self.createdDate = createdDate
     }
     
@@ -76,5 +95,6 @@ public struct AppUser: Equatable, Identifiable, Codable, Sendable {
     public var signInMethod: SignInMethod
     public var avatar: Avatar
     public var fcmToken: String
+    public var subscription: Subscription
     public var createdDate: Date
 }

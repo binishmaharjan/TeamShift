@@ -275,6 +275,7 @@ extension AuthenticationClient {
                 signInMethod: signInMethod,
                 avatar: Avatar(colorTemplate: randomColorTemplate, iconData: randomIconData),
                 fcmToken: "random_token",
+                subscription: Subscription(status: .free),
                 createdDate: .now
             )
         }

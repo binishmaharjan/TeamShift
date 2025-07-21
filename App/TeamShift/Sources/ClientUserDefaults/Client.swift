@@ -38,6 +38,7 @@ extension AppUser {
         signInMethod: .guest,
         avatar: Avatar(colorTemplate: .redOrange, iconData: .icnMan3),
         fcmToken: "randtoken",
+        subscription: Subscription(status: .free),
         createdDate: .now
     )
 }
