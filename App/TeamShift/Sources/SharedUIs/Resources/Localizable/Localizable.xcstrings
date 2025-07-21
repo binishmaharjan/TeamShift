@@ -923,6 +923,39 @@
           }
         }
       }
+    },
+    "Workplace_Empty_Description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap the + button to create your first workplace or join one with an invitation."
+          }
+        }
+      }
+    },
+    "Workplace_Empty_Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Workplaces Yet"
+          }
+        }
+      }
+    },
+    "Workplace_Nav_Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Workplace"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

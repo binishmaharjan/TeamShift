@@ -44,7 +44,7 @@ public final class MainTabCoordinator: CompositionCoordinator {
             workplaceTabView,
             profileTabView
         ]
-        tabViewController.selectedIndex = 2
+        tabViewController.selectedIndex = 1
     }
     
     public func didFinish(childCoordinator: any Coordinator, with result: Any?) {

@@ -33,8 +33,11 @@ public final class WorkplaceCoordinator: FlowCoordinator {
     
     public func start() {
         navigationControllers.append(startNavigationController)
+        
         let viewModel = WorkplaceViewModel(coordinator: self)
         let view = WorkPlaceView(viewModel: viewModel)
+            .navigationBar(l10.workplaceNavTitle)
+        
         let viewController = UIHostingController(rootView: view)
         startNavigationController.setViewControllers([viewController], animated: false)
     }
