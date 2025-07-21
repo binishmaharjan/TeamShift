@@ -46,7 +46,7 @@ extension CreateAccountView {
     private var emailTextField: some View {
         PrimaryTextField(
             l10.commonTextFieldEmail,
-            icon: .icnMail,
+            kind: .secure(image: .icnMail),
             text: $viewModel.email,
             fieldIdentifier: .email,
             focusedField: $focusedField,
@@ -58,11 +58,10 @@ extension CreateAccountView {
     private var passwordTextField: some View {
         PrimaryTextField(
             l10.commonTextFieldPassword,
-            icon: .icnLock,
+            kind: .secure(image: .icnLock),
             text: $viewModel.password,
             fieldIdentifier: .password,
-            focusedField: $focusedField,
-            isSecure: true
+            focusedField: $focusedField
         )
     }
     

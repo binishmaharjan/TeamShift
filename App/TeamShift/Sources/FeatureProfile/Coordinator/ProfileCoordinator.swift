@@ -44,7 +44,7 @@ public final class ProfileCoordinator: FlowCoordinator {
     }
 }
 
-// MARK: Profile Navigataion
+// MARK: Profile Navigation
 extension ProfileCoordinator {
     func profileRequestNavigation(for route: ProfileViewModel.Route) {
         switch route {

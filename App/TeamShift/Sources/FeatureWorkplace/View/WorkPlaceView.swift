@@ -1,7 +1,7 @@
 import SharedUIs
 import SwiftUI
 
-struct WorkPlaceView: View {
+struct WorkplaceView: View {
     // MARK: Init
     init(viewModel: WorkplaceViewModel) {
         self.viewModel = viewModel
@@ -20,15 +20,16 @@ struct WorkPlaceView: View {
             }
         }
         .background(Color.backgroundPrimary)
+        .padding(.horizontal, 24)
     }
 }
 
 // MARK: Views
-extension WorkPlaceView {
+extension WorkplaceView {
     @ViewBuilder
     private var addWorkplaceButton: some View {
         Button {
-            print("Add Workplace")
+            viewModel.addWorkplaceButtonTapped()
         } label: {
             Image.icnStoreAdd
                 .renderingMode(.template)
@@ -54,10 +55,9 @@ extension WorkPlaceView {
             .font(.customCaption)
             .foregroundStyle(Color.textSecondary)
             .multilineTextAlignment(.center)
-            .padding(.horizontal, 24)
     }
 }
 
 #Preview {
-    WorkPlaceView(viewModel: .init(coordinator: .init(navigationController: .init())))
+    WorkplaceView(viewModel: .init(coordinator: .init(navigationController: .init())))
 }

@@ -40,11 +40,10 @@ extension ChangePasswordView {
     private var oldPasswordTextField: some View {
         PrimaryTextField(
             l10.changePasswordTextFieldOldPassword,
-            icon: .icnLock,
+            kind: .secure(image: .icnLock),
             text: $viewModel.oldPassword,
             fieldIdentifier: .oldPassword,
-            focusedField: $focusedField,
-            isSecure: true
+            focusedField: $focusedField
         )
     }
     
@@ -52,22 +51,20 @@ extension ChangePasswordView {
     private var newPasswordTextField: some View {
         PrimaryTextField(
             l10.changePasswordTextFieldNewPassword,
-            icon: .icnLock,
+            kind: .secure(image: .icnLock),
             text: $viewModel.newPassword,
             fieldIdentifier: .newPassword,
-            focusedField: $focusedField,
-            isSecure: true
+            focusedField: $focusedField
         )
     }
     @ViewBuilder
     private var confirmPasswordTextField: some View {
         PrimaryTextField(
             l10.changePasswordTextFieldConfrimPassword,
-            icon: .icnLock,
+            kind: .secure(image: .icnLock),
             text: $viewModel.confirmPassword,
             fieldIdentifier: .confirmPassword,
-            focusedField: $focusedField,
-            isSecure: true
+            focusedField: $focusedField
         )
     }
     

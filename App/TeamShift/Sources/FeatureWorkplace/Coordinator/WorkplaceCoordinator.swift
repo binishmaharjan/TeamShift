@@ -35,10 +35,31 @@ public final class WorkplaceCoordinator: FlowCoordinator {
         navigationControllers.append(startNavigationController)
         
         let viewModel = WorkplaceViewModel(coordinator: self)
-        let view = WorkPlaceView(viewModel: viewModel)
+        let view = WorkplaceView(viewModel: viewModel)
             .navigationBar(l10.workplaceNavTitle)
         
         let viewController = UIHostingController(rootView: view)
         startNavigationController.setViewControllers([viewController], animated: false)
+    }
+}
+
+// MARK: Navigation
+extension WorkplaceCoordinator {
+    func workplaceRequestNavigation(for route: WorkplaceViewModel.Route) {
+        switch route {
+        case .showAddWorkplace:
+            pushAddWorkplaceView()
+        }
+    }
+    
+    private func pushAddWorkplaceView() {
+        let viewModel = AddWorkplaceViewModel(coordinator: self)
+        
+        let view = AddWorkplaceView(viewModel: viewModel)
+            .navigationBar("Add Workplace")
+            .withCustomBackButton()
+        
+        let viewController = NamedUIHostingController(rootView: view)
+        topNavigationController.pushViewController(viewController, animated: true)
     }
 }

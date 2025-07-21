@@ -12,6 +12,13 @@ final class LinkAccountViewModel {
     }
     
     // MARK: Properties
+    @ObservationIgnored
+    private weak var coordinator: ProfileCoordinator?
+    @ObservationIgnored
+    @Dependency(\.apiClient) var apiClient
+    @ObservationIgnored
+    @Dependency(\.userSession) var userSession
+    
     var email: String = ""
     var password: String = ""
     var alertConfig: AlertDialog.Config?
@@ -19,13 +26,6 @@ final class LinkAccountViewModel {
     var isSignInButtonEnabled: Bool {
         email.isEmail && password.count > 5
     }
-    
-    @ObservationIgnored
-    private weak var coordinator: ProfileCoordinator?
-    @ObservationIgnored
-    @Dependency(\.apiClient) var apiClient
-    @ObservationIgnored
-    @Dependency(\.userSession) var userSession
     
     func linkButtonTapped() async {
         isLoading = true

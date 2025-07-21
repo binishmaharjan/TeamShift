@@ -19,7 +19,6 @@ struct LinkAccountView: View {
     var body: some View {
         VStack {
             emailTextField
-                .padding(.top, 24)
             
             passwordTextField
             
@@ -34,6 +33,7 @@ struct LinkAccountView: View {
         }
         .background(Color.backgroundPrimary)
         .padding(.horizontal, 24)
+        .padding(.top, 24)
         .vSpacing(.top)
         .loadingView(viewModel.isLoading)
         .appAlert(isPresented: $viewModel.alertConfig.isPresented, alertConfig: viewModel.alertConfig)
@@ -45,7 +45,7 @@ extension LinkAccountView {
     private var emailTextField: some View {
         PrimaryTextField(
             l10.commonTextFieldEmail,
-            icon: .icnMail,
+            kind: .icon(image: .icnMail),
             text: $viewModel.email,
             fieldIdentifier: .email,
             focusedField: $focusedField,
@@ -57,11 +57,10 @@ extension LinkAccountView {
     private var passwordTextField: some View {
         PrimaryTextField(
             l10.commonTextFieldPassword,
-            icon: .icnLock,
+            kind: .secure(image: .icnLock),
             text: $viewModel.password,
             fieldIdentifier: .password,
-            focusedField: $focusedField,
-            isSecure: true
+            focusedField: $focusedField
         )
     }
     

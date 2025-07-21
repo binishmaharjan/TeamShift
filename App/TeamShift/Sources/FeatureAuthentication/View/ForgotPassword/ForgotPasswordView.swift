@@ -44,7 +44,7 @@ extension ForgotPasswordView {
     private var emailTextField: some View {
         PrimaryTextField(
             l10.commonTextFieldEmail,
-            icon: .icnMail,
+            kind: .icon(image: .icnMail),
             text: $viewModel.email,
             fieldIdentifier: .email,
             focusedField: $focusedField,

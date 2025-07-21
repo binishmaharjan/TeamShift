@@ -67,11 +67,10 @@ extension DeleteAccountView {
     private var passwordTextField: some View {
         PrimaryTextField(
             l10.commonTextFieldPassword,
-            icon: .icnLock,
+            kind: .secure(image: .icnLock),
             text: $viewModel.password,
             fieldIdentifier: .password,
-            focusedField: $focusedField,
-            isSecure: true
+            focusedField: $focusedField
         )
     }
     
