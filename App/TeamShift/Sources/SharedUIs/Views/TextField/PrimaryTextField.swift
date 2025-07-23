@@ -5,6 +5,7 @@ public struct PrimaryTextField<Field: Hashable>: View {
         case icon(image: Image)
         case secure(image: Image)
         case editor(height: CGFloat)
+        case picker(image: Image)
     }
     
     public init(
@@ -37,7 +38,7 @@ public struct PrimaryTextField<Field: Hashable>: View {
     
     private var height: CGFloat {
         switch kind {
-        case .icon, .secure:
+        case .icon, .secure, .picker:
             return 44
             
         case .editor(let height):
@@ -107,6 +108,9 @@ public struct PrimaryTextField<Field: Hashable>: View {
                     }
                 }
                 .font(.customFootnote)
+                
+            case .picker(let image):
+                EmptyView()
             }
         }
         .padding(13)

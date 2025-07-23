@@ -100,6 +100,12 @@ public struct ApiClient: Sendable {
     /// - Parameter none
     /// - Returns: AppUser
     public var getAppConfig: @Sendable () async throws -> AppConfig
+    /// Create Workplace
+    ///
+    /// - Parameters:
+    ///   - workplace: workplace detail
+    /// - Returns: Void
+    public var createWorkplace: @Sendable (_ workplace: Workplace) async throws -> Void
 }
 
 // MARK: DependencyValues
@@ -128,6 +134,7 @@ extension ApiClient: TestDependencyKey {
         signOut: unimplemented(),
         getCurrentUser: unimplemented(),
         updateUser: unimplemented(),
-        getAppConfig: unimplemented()
+        getAppConfig: unimplemented(),
+        createWorkplace: unimplemented()
     )
 }

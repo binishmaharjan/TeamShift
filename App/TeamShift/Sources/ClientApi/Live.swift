@@ -28,7 +28,8 @@ extension ApiClient {
             signOut: { try await session.signOut() },
             getCurrentUser: { try await session.getCurrentUser(uid: $0) },
             updateUser: { try await session.updateUser(for: $0, with: $1) },
-            getAppConfig: { try await session.getAppConfig() }
+            getAppConfig: { try await session.getAppConfig() },
+            createWorkplace: { try await session.createWorkplace(with: $0) }
         )
     }
 }
@@ -185,6 +186,10 @@ extension ApiClient {
         
         func getAppConfig() async throws -> AppConfig {
             try await userStoreClient.getAppConfig()
+        }
+        
+        func createWorkplace(with workplace: Workplace) async throws {
+            try await userStoreClient.createWorkplace(workplace: workplace)
         }
     }
 }

@@ -18,7 +18,8 @@ extension UserStoreClient {
             getUser: { try await session.getUserFromStore(for: $0) },
             updateUser: { try await session.updateUser(for: $0, with: $1) },
             deleteUser: { try await session.deleteUser(uid: $0) },
-            getAppConfig: { try await session.getAppConfig() }
+            getAppConfig: { try await session.getAppConfig() },
+            createWorkplace: { try await session.createWorkplace(with: $0) }
         )
     }
 }
@@ -81,6 +82,16 @@ extension UserStoreClient {
                 
                 let appConfig = try documentSnapshot.data(as: AppConfig.self)
                 return appConfig
+            } catch {
+                throw mapError(error)
+            }
+        }
+        
+        func createWorkplace(with workplace: Workplace) async throws {
+            do {
+                let id = workplace.id
+                let reference = Firestore.firestore().collection(CollectionID.workplaces.rawValue).document(id)
+                try reference.setData(from: workplace)
             } catch {
                 throw mapError(error)
             }

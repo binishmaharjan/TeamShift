@@ -157,4 +157,3 @@ extension ProfileCoordinator {
         topNavigationController.pushViewController(viewController, animated: true)
     }
 }
-

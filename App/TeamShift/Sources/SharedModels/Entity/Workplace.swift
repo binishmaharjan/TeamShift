@@ -1,5 +1,5 @@
+import Dependencies
 import Foundation
-import MapKit
 
 public struct Coordinate: Codable, Sendable, Equatable {
     public init(latitude: Double, longitude: Double) {
@@ -23,7 +23,6 @@ public struct Workplace: Equatable, Identifiable, Codable, Sendable {
     }
     
     public init(
-        id: String,
         name: String,
         ownerId: String,
         branchName: String? = nil,
@@ -32,7 +31,8 @@ public struct Workplace: Equatable, Identifiable, Codable, Sendable {
         phoneNumber: String? = nil,
         description: String? = nil
     ) {
-        self.id = id
+        @Dependency(\.uuid) var uuid
+        self.id = uuid().uuidString
         self.name = name
         self.ownerId = ownerId
         self.branchName = branchName

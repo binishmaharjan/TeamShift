@@ -10,4 +10,6 @@ public enum CollectionID: String {
     case users
     // id to appConfig
     case appConfig = "app_config"
+    // id to workplace
+    case workplaces
 }
