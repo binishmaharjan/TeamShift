@@ -59,6 +59,8 @@ let package = Package(
             name: "SharedModels",
             dependencies: [
                 "SharedMacros",
+                .product(name: "Dependencies", package: "swift-dependencies"),
+                .product(name: "DependenciesMacros", package: "swift-dependencies"),
             ],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
@@ -106,7 +108,8 @@ let package = Package(
                 "SharedUIs",
                 "SharedModels",
                 "ClientApi",
-                "ClientUserSession"
+                "ClientUserSession",
+                .product(name: "Dependencies", package: "swift-dependencies"),
             ],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
@@ -127,7 +130,10 @@ let package = Package(
             name: "FeatureWorkplace",
             dependencies: [
                 "SharedUIs",
-                "SharedModels"
+                "SharedModels",
+                "ClientApi",
+                "ClientUserSession",
+                .product(name: "Dependencies", package: "swift-dependencies"),
             ],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),

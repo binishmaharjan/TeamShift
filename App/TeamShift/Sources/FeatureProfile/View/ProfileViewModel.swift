@@ -39,11 +39,11 @@ final class ProfileViewModel {
     var toastHandler: ToastHandler = .init()
     
     @ObservationIgnored
-    @Dependency(\.userSession) var userSession
-    @ObservationIgnored
     private weak var coordinator: ProfileCoordinator?
     @ObservationIgnored
-    @Dependency(\.apiClient) var apiClient
+    @Dependency(\.userSession) private var userSession
+    @ObservationIgnored
+    @Dependency(\.apiClient) private var apiClient
     private let pasteboard = UIPasteboard.general
     
     func signOutButtonTapped() async {
