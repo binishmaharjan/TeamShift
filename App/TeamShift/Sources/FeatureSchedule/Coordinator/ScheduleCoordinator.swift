@@ -12,7 +12,7 @@ public final class ScheduleCoordinator: FlowCoordinator {
     // MARK: Init
     public init(navigationController: NavigationController) {
         print("ℹ️ \(Self.self): Start ScheduleCoordinator")
-        startNavigationController = navigationController
+        startViewController = navigationController
     }
     
     deinit {
@@ -22,20 +22,21 @@ public final class ScheduleCoordinator: FlowCoordinator {
     // MARK: Properties
     public var childCoordinator: (any Coordinator)?
     public weak var finishDelegate: (any CoordinatorFinishDelegate)?
-    private let startNavigationController: NavigationController
+    public  let startViewController: NavigationController
+    
     private var navigationControllers = [NavigationController]()
     private var topNavigationController: NavigationController {
-        navigationControllers.last ?? startNavigationController
+        navigationControllers.last ?? startViewController
     }
     private var rootNavigationController: NavigationController {
-        navigationControllers.first ?? startNavigationController
+        navigationControllers.first ?? startViewController
     }
     
     public func start() {
-        navigationControllers.append(startNavigationController)
+        navigationControllers.append(startViewController)
         let viewModel = ScheduleViewModel(coordinator: self)
         let view = ScheduleView(viewModel: viewModel)
         let viewController = UIHostingController(rootView: view)
-        startNavigationController.setViewControllers([viewController], animated: false)
+        startViewController.setViewControllers([viewController], animated: false)
     }
 }

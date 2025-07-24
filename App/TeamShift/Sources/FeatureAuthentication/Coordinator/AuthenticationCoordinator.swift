@@ -24,17 +24,17 @@ public final class AuthenticationCoordinator: FlowCoordinator {
     // MARK: Properties
     public var childCoordinator: (any Coordinator)?
     public weak var finishDelegate: (any CoordinatorFinishDelegate)?
-    public lazy var startNavigationController: NavigationController = {
+    public lazy var startViewController: NavigationController = {
         let navigationController = NavigationController()
         return navigationController
     }()
     
     private var navigationControllers = [NavigationController]()
     private var topNavigationController: NavigationController {
-        navigationControllers.last ?? startNavigationController
+        navigationControllers.last ?? startViewController
     }
     private var rootNavigationController: NavigationController {
-        navigationControllers.first ?? startNavigationController
+        navigationControllers.first ?? startViewController
     }
     private var routePresentationDelegates: [PresentationDelegate] = []
     
@@ -45,8 +45,8 @@ public final class AuthenticationCoordinator: FlowCoordinator {
         let view = OnboardingView(viewModel: viewModel)
             .toolbar(.hidden)
         let viewController = NamedUIHostingController(rootView: view)
-        navigationControllers.append(startNavigationController)
-        startNavigationController.setViewControllers([viewController], animated: false)
+        navigationControllers.append(startViewController)
+        startViewController.setViewControllers([viewController], animated: false)
     }
 }
 
@@ -70,7 +70,7 @@ extension AuthenticationCoordinator {
             .withCustomBackButton()
         
         let viewController = NamedUIHostingController(rootView: view)
-        startNavigationController.pushViewController(viewController, animated: true)
+        startViewController.pushViewController(viewController, animated: true)
     }
     
     private func pushLoginView() {
@@ -81,11 +81,11 @@ extension AuthenticationCoordinator {
             .withCustomBackButton()
         
         let viewController = NamedUIHostingController(rootView: view)
-        startNavigationController.pushViewController(viewController, animated: true)
+        startViewController.pushViewController(viewController, animated: true)
     }
     
     func popLast() {
-        startNavigationController.popViewController(animated: true)
+        startViewController.popViewController(animated: true)
     }
 }
 
@@ -125,6 +125,6 @@ extension AuthenticationCoordinator {
         navigationController.presentationController?.delegate = presentationDelegate
         routePresentationDelegates.append(presentationDelegate)
         
-        startNavigationController.present(navigationController, animated: true)
+        startViewController.present(navigationController, animated: true)
     }
 }

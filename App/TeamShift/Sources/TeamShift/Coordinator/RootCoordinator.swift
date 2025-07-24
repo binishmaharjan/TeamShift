@@ -60,13 +60,13 @@ extension RootCoordinator {
         let authenticationCoordinator = AuthenticationCoordinator()
         addChild(authenticationCoordinator)
         authenticationCoordinator.start()
-        startViewController.replace(authenticationCoordinator.startNavigationController, animated: true)
+        startViewController.replace(authenticationCoordinator.startViewController, animated: true)
     }
     
     private func startMainTab() {
         let mainTabCoordinator = MainTabCoordinator()
         addChild(mainTabCoordinator)
         mainTabCoordinator.start()
-        startViewController.replace(mainTabCoordinator.tabViewController, animated: true)
+        startViewController.replace(mainTabCoordinator.startViewController, animated: true)
     }
 }

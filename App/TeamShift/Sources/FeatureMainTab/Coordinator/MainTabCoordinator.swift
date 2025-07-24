@@ -29,7 +29,7 @@ public final class MainTabCoordinator: CompositionCoordinator {
     public var workplaceCoordinator: WorkplaceCoordinator?
     public var profileCoordinator: ProfileCoordinator?
     
-    public var tabViewController = UITabBarController()
+    public var startViewController = UITabBarController()
     
     // MARK: Methods
     public func start() {
@@ -39,12 +39,12 @@ public final class MainTabCoordinator: CompositionCoordinator {
         let workplaceTabView = setupWorkplaceView()
         let profileTabView = setupProfileView()
         
-        tabViewController.viewControllers = [
+        startViewController.viewControllers = [
             scheduleTabView,
             workplaceTabView,
             profileTabView
         ]
-        tabViewController.selectedIndex = 1
+        startViewController.selectedIndex = 1
     }
     
     public func didFinish(childCoordinator: any Coordinator, with result: Any?) {
@@ -74,8 +74,8 @@ extension MainTabCoordinator {
         appearance.stackedLayoutAppearance.normal.iconColor = unselectedColor
         appearance.stackedLayoutAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: unselectedColor as Any]
         
-        tabViewController.tabBar.standardAppearance = appearance
-        tabViewController.tabBar.scrollEdgeAppearance = appearance
+        startViewController.tabBar.standardAppearance = appearance
+        startViewController.tabBar.scrollEdgeAppearance = appearance
     }
     
     private func setupScheduleView() -> NavigationController {
