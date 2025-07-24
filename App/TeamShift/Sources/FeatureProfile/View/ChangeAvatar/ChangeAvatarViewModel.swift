@@ -30,8 +30,7 @@ final class ChangeAvatarViewModel {
     @Dependency(\.userSession) var userSession
     @ObservationIgnored
     @Dependency(\.apiClient) var apiClient
-    
-    var alertConfig: AlertDialog.Config?
+
     var isLoading = false
     
     let colorTemplates = ColorTemplate.allTemplates
@@ -53,7 +52,7 @@ extension ChangeAvatarViewModel {
         }
         
         guard let currentUser = userSession.currentUser else {
-            showErrorAlert(AppError.internalError(.userNotFound))
+            handleError(AppError.internalError(.userNotFound))
             return
         }
         
@@ -81,7 +80,7 @@ extension ChangeAvatarViewModel {
             changeAvatarSuccess()
         } catch {
             isLoading = false
-            showErrorAlert(error)
+            handleError(error)
         }
     }
 }
@@ -100,14 +99,10 @@ extension ChangeAvatarViewModel {
 // MARK: Alert
 extension ChangeAvatarViewModel {
     private func changeAvatarSuccess() {
-        alertConfig = .success(message: l10.changeAvatarAlertSuccess) { [weak self] in
-            self?.alertConfig = nil
-        }
+        coordinator?.showSuccessAlert(message: l10.changeAvatarAlertSuccess)
     }
     
-    private func showErrorAlert(_ error: Error) {
-        alertConfig = .error(message: error.localizedDescription) { [weak self] in
-            self?.alertConfig = nil
-        }
+    private func handleError(_ error: Error) {
+        coordinator?.handleError(error)
     }
 }

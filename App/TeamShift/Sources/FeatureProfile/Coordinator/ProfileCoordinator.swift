@@ -23,7 +23,10 @@ public final class ProfileCoordinator: FlowCoordinator {
     // MARK: Properties
     public var childCoordinator: (any Coordinator)?
     public weak var finishDelegate: (any CoordinatorFinishDelegate)?
-    public  let startViewController: NavigationController
+    public let startViewController: NavigationController
+    public var topMostViewController: UIViewController {
+        navigationControllers.last?.topMostViewController ?? startViewController
+    }
     
     private var navigationControllers = [NavigationController]()
     private var topNavigationController: NavigationController {
@@ -145,6 +148,25 @@ extension ProfileCoordinator {
     func popToRoot() {
         topNavigationController.popToRootViewController(animated: true)
     }
+    
+    func signOutConfirmDialog(primaryAction: @escaping (() -> Void)) {
+        topMostViewController.showConfirmationAlert(
+            title: l10.profileAlertSignOutTitle,
+            message: l10.profileAlertSignOutDescription,
+            primaryTitle: l10.commonButtonOK,
+            primaryAction: primaryAction
+        )
+    }
+    
+    func editNameDialog(primaryAction: @escaping ((String) -> Void)) {
+        topMostViewController.showTextFieldAlert(
+            title: l10.profileAlertChangeUsernameTitle,
+            message: l10.profileAlertChangeUsernameDescription,
+            textHint: l10.profileAlertChangeUsernameHint,
+            primaryTitle: l10.commonButtonOK,
+            primaryAction: primaryAction
+        )
+    }
 }
 
 // MARK: License Navigation
@@ -156,5 +178,18 @@ extension ProfileCoordinator {
         
         let viewController = NamedUIHostingController(rootView: view)
         topNavigationController.pushViewController(viewController, animated: true)
+    }
+}
+
+
+// MARK: Delete Navigation
+extension ProfileCoordinator {
+    func deleteConfirmDialog(primaryAction: @escaping (() -> Void)) {
+        topMostViewController.showConfirmationAlert(
+            title: l10.deleteAccountAlertConfirmTitle,
+            message: l10.deleteAccountAlertConfirmMessage,
+            primaryTitle: l10.deleteAccountAlertConfirmButtonTitle,
+            primaryAction: primaryAction
+        )
     }
 }

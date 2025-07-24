@@ -23,6 +23,9 @@ public final class WorkplaceCoordinator: FlowCoordinator {
     public var childCoordinator: (any Coordinator)?
     public weak var finishDelegate: (any CoordinatorFinishDelegate)?
     public  let startViewController: NavigationController
+    public var topMostViewController: UIViewController {
+        navigationControllers.last?.topMostViewController ?? startViewController
+    }
     
     private var navigationControllers = [NavigationController]()
     private var topNavigationController: NavigationController {

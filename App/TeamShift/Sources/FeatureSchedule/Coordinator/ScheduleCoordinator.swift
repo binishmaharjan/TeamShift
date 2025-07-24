@@ -22,14 +22,14 @@ public final class ScheduleCoordinator: FlowCoordinator {
     // MARK: Properties
     public var childCoordinator: (any Coordinator)?
     public weak var finishDelegate: (any CoordinatorFinishDelegate)?
-    public  let startViewController: NavigationController
+    public let startViewController: NavigationController
+    public var topMostViewController: UIViewController {
+        navigationControllers.last?.topMostViewController ?? startViewController
+    }
     
     private var navigationControllers = [NavigationController]()
     private var topNavigationController: NavigationController {
         navigationControllers.last ?? startViewController
-    }
-    private var rootNavigationController: NavigationController {
-        navigationControllers.first ?? startViewController
     }
     
     public func start() {

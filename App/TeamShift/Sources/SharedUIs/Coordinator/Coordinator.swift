@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 // https://vbat.dev/coordinators-swiftui
 // MARK: - Coordinator Protocol
@@ -12,6 +13,8 @@ public protocol Coordinator: CoordinatorFinishDelegate {
     
     /// Delegate to notify when the coordinator finishes its task.
     var finishDelegate: CoordinatorFinishDelegate? { get set }
+    
+    var topMostViewController: UIViewController { get }
     
     /// Starts the coordinator's task.
     func start()

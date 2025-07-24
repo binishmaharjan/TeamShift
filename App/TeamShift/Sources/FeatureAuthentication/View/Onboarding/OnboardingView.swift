@@ -29,7 +29,6 @@ struct OnboardingView: View {
         .padding(.horizontal, 24)
         .background(Color.backgroundPrimary)
         .loadingView(viewModel.isLoading)
-        .appAlert(isPresented: $viewModel.alertConfig.isPresented, alertConfig: viewModel.alertConfig)
     }
 }
 

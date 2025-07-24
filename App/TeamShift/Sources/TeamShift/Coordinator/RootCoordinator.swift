@@ -14,6 +14,9 @@ final class RootCoordinator: CompositionCoordinator {
     
     // MARK: Properties
     var startViewController = SingleContainerViewContainer()
+    public var topMostViewController: UIViewController {
+        startViewController.topMostViewController
+    }
     
     // MARK: Methods
     func start() {

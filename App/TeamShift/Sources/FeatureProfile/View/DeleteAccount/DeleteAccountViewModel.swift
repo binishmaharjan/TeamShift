@@ -13,7 +13,6 @@ final class DeleteAccountViewModel {
     }
     
     var password: String = ""
-    var alertConfig: AlertDialog.Config?
     var isLoading = false
     var isDeleteButtonEnabled: Bool {
         (signInMethod == .email) ? (password.count > 5) : true
@@ -53,42 +52,30 @@ final class DeleteAccountViewModel {
             successAccountDeleted()
         } catch {
             isLoading = false
-            showErrorAlert(error)
+            handleError(error)
         }
     }
 }
 
 extension DeleteAccountViewModel {
     private func confirmDeletion() {
-        alertConfig = .confirm(
-            buttonTitle: l10.deleteAccountAlertConfirmButtonTitle,
-            title: l10.deleteAccountAlertConfirmTitle,
-            message: l10.deleteAccountAlertConfirmMessage,
-            primaryAction: { [weak self] in
-                self?.alertConfig = nil
-                Task {
-                    await self?.deleteAccount()
-                }
-            },
-            secondaryAction: { [weak self] in
-                self?.alertConfig = nil
+        coordinator?.deleteConfirmDialog { [weak self] in
+            Task {
+                await self?.deleteAccount()
             }
-        )
+        }
     }
     
     private func successAccountDeleted() {
-        alertConfig = .info(
+        coordinator?.showSuccessAlert(
             title: l10.deleteAccountAlertSuccessTitle,
             message: l10.deleteAccountAlertSuccessMessage
         ) { [weak self] in
-            self?.alertConfig = nil
             self?.coordinator?.finish(with: .showOnboarding)
         }
     }
     
-    private func showErrorAlert(_ error: Error) {
-        alertConfig = .error(message: error.localizedDescription) { [weak self] in
-            self?.alertConfig = nil
-        }
+    private func handleError(_ error: Error) {
+        coordinator?.handleError(error)
     }
 }

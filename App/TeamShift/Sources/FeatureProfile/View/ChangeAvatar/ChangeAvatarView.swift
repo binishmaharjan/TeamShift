@@ -32,7 +32,6 @@ struct ChangeAvatarView: View {
             }
         }
         .loadingView(viewModel.isLoading)
-        .appAlert(isPresented: $viewModel.alertConfig.isPresented, alertConfig: viewModel.alertConfig)
         .background(Color.backgroundPrimary)
     }
 }

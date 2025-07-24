@@ -30,6 +30,9 @@ public final class MainTabCoordinator: CompositionCoordinator {
     public var profileCoordinator: ProfileCoordinator?
     
     public var startViewController = UITabBarController()
+    public var topMostViewController: UIViewController {
+        startViewController.topMostViewController
+    }
     
     // MARK: Methods
     public func start() {

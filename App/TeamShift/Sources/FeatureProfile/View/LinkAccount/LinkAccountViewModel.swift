@@ -21,7 +21,6 @@ final class LinkAccountViewModel {
     
     var email: String = ""
     var password: String = ""
-    var alertConfig: AlertDialog.Config?
     var isLoading = false
     var isSignInButtonEnabled: Bool {
         email.isEmail && password.count > 5
@@ -40,7 +39,7 @@ final class LinkAccountViewModel {
             linkSuccess()
         } catch {
             isLoading = false
-            showErrorAlert(error)
+            handleError(error)
         }
     }
     
@@ -56,23 +55,20 @@ final class LinkAccountViewModel {
             linkSuccess()
         } catch {
             isLoading = false
-            showErrorAlert(error)
+            handleError(error)
         }
     }
 }
 
 extension LinkAccountViewModel {
     private func linkSuccess() {
-        alertConfig = .success(message: l10.linkAccountAlertLinkSuccess) { [weak self] in
-            self?.alertConfig = nil
+        coordinator?.showSuccessAlert(message: l10.changePasswordAlertChangeSuccess) { [weak self] in
             self?.email = ""
             self?.password = ""
         }
     }
     
-    private func showErrorAlert(_ error: Error) {
-        alertConfig = .error(message: error.localizedDescription) { [weak self] in
-            self?.alertConfig = nil
-        }
+    private func handleError(_ error: Error) {
+        coordinator?.handleError(error)
     }
 }

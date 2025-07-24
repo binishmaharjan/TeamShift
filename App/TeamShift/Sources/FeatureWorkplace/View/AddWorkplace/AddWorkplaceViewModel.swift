@@ -26,6 +26,5 @@ final class AddWorkplaceViewModel {
     var locationCoords: Coordinate?
     var phoneNumber: String = ""
     var description: String = ""
-    var alertConfig: AlertDialog.Config?
     var isLoading = false
 }

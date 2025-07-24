@@ -68,7 +68,9 @@ let package = Package(
         ),
         .target(
             name: "SharedUIs",
-            dependencies: [],
+            dependencies: [
+                "SharedModels",
+            ],
             resources: [
                 .process("Resources"),
             ],

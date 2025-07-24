@@ -26,7 +26,6 @@ final class ProfileViewModel {
     }
     
     // MARK: Properties
-    var alertConfig: AlertDialog.Config?
     var isLoading = false
     var sections: [ProfileSection] = ProfileSection.allCases
     
@@ -131,41 +130,22 @@ extension ProfileViewModel {
 // MARK: Alert
 extension ProfileViewModel {
     private func showSignOutConfirm() async {
-        alertConfig = .confirm(
-            buttonTitle: l10.commonButtonOK,
-            title: l10.profileAlertSignOutTitle,
-            message: l10.profileAlertSignOutDescription,
-            primaryAction: { [weak self] in
-                self?.alertConfig = nil
-                Task {
-                    await self?.signOut()
-                }
-            },
-            secondaryAction: { [weak self] in
-                self?.alertConfig = nil
+        coordinator?.signOutConfirmDialog {[weak self] in
+            Task {
+                await self?.signOut()
             }
-        )
+        }
     }
     
     private func showEditNameAlert() {
-        alertConfig = .textField(
-            title: l10.profileAlertChangeUsernameTitle,
-            message: l10.profileAlertChangeUsernameDescription,
-            textHint: l10.profileAlertChangeUsernameHint,
-            primaryAction: { [weak self] newUsername in
-                self?.alertConfig = nil
-                Task {
-                    await self?.updateUsername(to: newUsername)
-                }
-            }, secondaryAction: { [weak self] in
-                self?.alertConfig = nil
+        coordinator?.editNameDialog { [weak self] newUsername in
+            Task {
+                await self?.updateUsername(to: newUsername)
             }
-        )
+        }
     }
     
     private func showErrorAlert(_ error: Error) {
-        alertConfig = .error(message: error.localizedDescription) { [weak self] in
-            self?.alertConfig = nil
-        }
+        coordinator?.handleError(error)
     }
 }

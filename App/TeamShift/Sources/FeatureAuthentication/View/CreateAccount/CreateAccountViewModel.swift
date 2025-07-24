@@ -11,18 +11,18 @@ final class CreateAccountViewModel {
     }
     
     // MARK: Properties
+    @ObservationIgnored
     weak var coordinator: AuthenticationCoordinator?
+    @ObservationIgnored
+    @Dependency(\.apiClient) var apiClient
+    
     var email = ""
     var password = ""
-    var alertConfig: AlertDialog.Config?
     var isLoading = false
     
     var isCreateButtonEnabled: Bool {
         email.isEmail && password.count > 5
     }
-    
-    @ObservationIgnored
-    @Dependency(\.apiClient) var apiClient
     
     // MARK: Methods
     func createButtonTapped() async {
@@ -34,7 +34,7 @@ final class CreateAccountViewModel {
             coordinator?.finish(with: .showMainTab)
         } catch {
             isLoading = false
-            showErrorAlert(error)
+            handleError(error)
         }
     }
     
@@ -47,15 +47,13 @@ final class CreateAccountViewModel {
             coordinator?.finish(with: .showMainTab)
         } catch {
             isLoading = false
-            showErrorAlert(error)
+            handleError(error)
         }
     }
 }
 
 extension CreateAccountViewModel {
-    private func showErrorAlert(_ error: Error) {
-        alertConfig = .error(message: error.localizedDescription) { [weak self] in
-            self?.alertConfig = nil
-        }
+    private func handleError(_ error: Error) {
+        coordinator?.handleError(error)
     }
 }

@@ -6,8 +6,13 @@ import SharedUIs
 
 @Observable @MainActor
 final class ForgotPasswordViewModel {
+    init(coordinator: AuthenticationCoordinator) {
+        self.coordinator = coordinator
+    }
+    
+    // MARK: Properties
+    weak var coordinator: AuthenticationCoordinator?
     var email: String = ""
-    var alertConfig: AlertDialog.Config?
     var isLoading = false
     var isEmailValid: Bool { email.isEmail }
     
@@ -22,21 +27,18 @@ final class ForgotPasswordViewModel {
             showEmailSentAlert()
         } catch {
             isLoading = false
-            showErrorAlert(error)
+            handleError(error)
         }
     }
 }
 
 extension ForgotPasswordViewModel {
     private func showEmailSentAlert() {
-        alertConfig = .success(message: l10.forgotPasswordAlertSentTitle) { [weak self] in
-            self?.alertConfig = nil
-        }
+        email = ""
+        coordinator?.showSuccessAlert(message: l10.forgotPasswordAlertSentTitle)
     }
     
-    private func showErrorAlert(_ error: Error) {
-        alertConfig = .error(message: error.localizedDescription) { [weak self] in
-            self?.alertConfig = nil
-        }
+    private func handleError(_ error: Error) {
+        coordinator?.handleError(error)
     }
 }

@@ -17,7 +17,6 @@ final class SignInViewModel {
     // MARK: Properties
     var email: String = ""
     var password: String = ""
-    var alertConfig: AlertDialog.Config?
     var isLoading = false
     var isSignInButtonEnabled: Bool {
         email.isEmail && password.count > 5
@@ -37,7 +36,7 @@ final class SignInViewModel {
             coordinator?.finish(with: .showMainTab)
         } catch {
             isLoading = false
-            showErrorAlert(error)
+            handleError(error)
         }
     }
     
@@ -50,7 +49,7 @@ final class SignInViewModel {
             coordinator?.finish(with: .showMainTab)
         } catch {
             isLoading = false
-            showErrorAlert(error)
+            handleError(error)
         }
     }
     
@@ -60,9 +59,7 @@ final class SignInViewModel {
 }
 
 extension SignInViewModel {
-    private func showErrorAlert(_ error: Error) {
-        alertConfig = .error(message: error.localizedDescription) { [weak self] in
-            self?.alertConfig = nil
-        }
+    private func handleError(_ error: Error) {
+        coordinator?.handleError(error)
     }
 }

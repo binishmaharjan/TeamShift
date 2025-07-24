@@ -147,6 +147,17 @@
         }
       }
     },
+    "Common_Button_Confirm" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm"
+          }
+        }
+      }
+    },
     "Common_Button_OK" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -352,6 +363,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete Account"
+          }
+        }
+      }
+    },
+    "Error_Unknown_Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unknown Error"
           }
         }
       }

@@ -37,7 +37,6 @@ struct CreateAccountView: View {
         .padding(.horizontal, 24)
         .vSpacing(.top)
         .loadingView(viewModel.isLoading)
-        .appAlert(isPresented: $viewModel.alertConfig.isPresented, alertConfig: viewModel.alertConfig)
     }
 }
 

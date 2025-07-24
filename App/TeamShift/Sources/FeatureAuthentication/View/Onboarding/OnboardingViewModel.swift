@@ -17,7 +17,6 @@ final class OnboardingViewModel {
     
     // MARK: Properties
     weak var coordinator: AuthenticationCoordinator?
-    var alertConfig: AlertDialog.Config?
     var isLoading = false
     
     @ObservationIgnored
@@ -32,24 +31,14 @@ final class OnboardingViewModel {
     }
     
     func signUpAsGuestTapped() async {
-        alertConfig = .confirm(
-            buttonTitle: l10.onboardingAlertGuestUserButton,
-            title: l10.onboardingAlertGuestUserTitle,
-            message: l10.onboardingAlertGuestUserDescription,
-            primaryAction: { [weak self] in
-                Task {
-                    await self?.handleContinueAsGuestAction()
-                }
-            },
-            secondaryAction: { [weak self] in
-                self?.alertConfig = nil
+        coordinator?.continueAsGuestConfirmDialog { [weak self] in
+            Task {
+                await self?.handleContinueAsGuestAction()
             }
-        )
+        }
     }
     
     private func handleContinueAsGuestAction() async {
-        alertConfig = nil
-        
         isLoading = true
         do {
             try await apiClient.signUpAsGuest()
@@ -57,15 +46,13 @@ final class OnboardingViewModel {
             coordinator?.finish(with: .showMainTab)
         } catch {
             isLoading = false
-            showErrorAlert(error)
+            handleError(error)
         }
     }
 }
 
 extension OnboardingViewModel {
-    private func showErrorAlert(_ error: Error) {
-        alertConfig = .error(message: error.localizedDescription) { [weak self] in
-            self?.alertConfig = nil
-        }
+    private func handleError(_ error: Error) {
+        coordinator?.handleError(error)
     }
 }

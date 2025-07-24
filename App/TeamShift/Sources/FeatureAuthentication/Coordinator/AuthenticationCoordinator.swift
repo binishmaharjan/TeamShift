@@ -28,13 +28,13 @@ public final class AuthenticationCoordinator: FlowCoordinator {
         let navigationController = NavigationController()
         return navigationController
     }()
+    public var topMostViewController: UIViewController {
+        navigationControllers.last?.topMostViewController ?? startViewController
+    }
     
     private var navigationControllers = [NavigationController]()
     private var topNavigationController: NavigationController {
         navigationControllers.last ?? startViewController
-    }
-    private var rootNavigationController: NavigationController {
-        navigationControllers.first ?? startViewController
     }
     private var routePresentationDelegates: [PresentationDelegate] = []
     
@@ -60,6 +60,15 @@ extension AuthenticationCoordinator {
         case .login:
             pushLoginView()
         }
+    }
+    
+    func continueAsGuestConfirmDialog(primaryAction: @escaping (() -> Void)) {
+        topMostViewController.showConfirmationAlert(
+            title: l10.onboardingAlertGuestUserTitle,
+            message: l10.onboardingAlertGuestUserDescription,
+            primaryTitle: l10.onboardingAlertGuestUserButton,
+            primaryAction: primaryAction
+        )
     }
     
     private func pushCreateAccountView() {
@@ -101,7 +110,7 @@ extension AuthenticationCoordinator {
     private func presentForgotPasswordView() {
         let navigationController = NavigationController()
         
-        let viewModel = ForgotPasswordViewModel()
+        let viewModel = ForgotPasswordViewModel(coordinator: self)
         let view = ForgotPasswordView(viewModel: viewModel)
             .navigationBar(l10.forgotPasswordTitle)
             .withCustomCloseButton { [weak navigationController, weak self] in

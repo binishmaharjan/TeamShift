@@ -27,6 +27,9 @@ final class SplashCoordinator: FlowCoordinator {
     
     // MARK: Properties
     private(set) var startViewController = UIViewController()
+    public var topMostViewController: UIViewController {
+        startViewController.topMostViewController
+    }
     
     // MARK: Methods
     func start() {

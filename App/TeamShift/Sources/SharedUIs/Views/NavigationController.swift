@@ -15,8 +15,8 @@ extension NavigationController {
         
         // Customize navigation bar appearance
         let appearance = UINavigationBarAppearance()
-        appearance.configureWithDefaultBackground()
-        appearance.backgroundColor = UIColor.systemBackground
+        appearance.configureWithTransparentBackground()
+//        appearance.backgroundColor = UIColor.systemBackground
         appearance.shadowColor = UIColor.separator
         
         // Set title text attributes

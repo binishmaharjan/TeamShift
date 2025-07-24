@@ -16,7 +16,6 @@ final class ChangePasswordViewModel {
     var oldPassword: String = ""
     var newPassword: String = ""
     var confirmPassword: String = ""
-    var alertConfig: AlertDialog.Config?
     var isLoading = false
     var isChangePasswordButtonEnabled: Bool {
         oldPassword.count > 5 && newPassword.count > 5 && confirmPassword.count > 5
@@ -31,7 +30,7 @@ final class ChangePasswordViewModel {
     
     func changePasswordButtonTapped() async {        
         guard newPassword == confirmPassword else {
-            showErrorAlert(AppError.internalError(.passwordNotMatched))
+            handleError(AppError.internalError(.passwordNotMatched))
             return
         }
         
@@ -42,24 +41,21 @@ final class ChangePasswordViewModel {
             passwordChangedSuccess()
         } catch {
             isLoading = false
-            showErrorAlert(error)
+            handleError(error)
         }
     }
 }
 
 extension ChangePasswordViewModel {
     private func passwordChangedSuccess() {
-        alertConfig = .success(message: l10.changePasswordAlertChangeSuccess) { [weak self] in
-            self?.alertConfig = nil
+        coordinator?.showSuccessAlert(message: l10.changePasswordAlertChangeSuccess) { [weak self] in
             self?.oldPassword = ""
             self?.newPassword = ""
             self?.confirmPassword = ""
         }
     }
     
-    private func showErrorAlert(_ error: Error) {
-        alertConfig = .error(message: error.localizedDescription) { [weak self] in
-            self?.alertConfig = nil
-        }
+    private func handleError(_ error: Error) {
+        coordinator?.handleError(error)
     }
 }
