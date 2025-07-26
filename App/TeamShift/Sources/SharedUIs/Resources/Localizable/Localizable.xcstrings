@@ -279,6 +279,83 @@
         }
       }
     },
+    "CreateWorkplace_Button_Create" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create Workplace"
+          }
+        }
+      }
+    },
+    "CreateWorkplace_Form_Address" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Address(Optional)"
+          }
+        }
+      }
+    },
+    "CreateWorkplace_Form_Branch_Name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Branch Name(Optional)"
+          }
+        }
+      }
+    },
+    "CreateWorkplace_Form_Description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Description(Optional)"
+          }
+        }
+      }
+    },
+    "CreateWorkplace_Form_Name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Workplace Name"
+          }
+        }
+      }
+    },
+    "CreateWorkplace_Form_Phone_Number" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Phone Number(Optional)"
+          }
+        }
+      }
+    },
+    "CreateWorkplace_Nav_Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create Workplace"
+          }
+        }
+      }
+    },
     "DeleteAccount_Alert_Confirm_Button_Title" : {
       "extractionState" : "manual",
       "localizations" : {

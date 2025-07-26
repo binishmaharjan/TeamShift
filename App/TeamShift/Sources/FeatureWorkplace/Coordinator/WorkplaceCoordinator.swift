@@ -52,15 +52,15 @@ extension WorkplaceCoordinator {
     func workplaceRequestNavigation(for route: WorkplaceViewModel.Route) {
         switch route {
         case .showAddWorkplace:
-            pushAddWorkplaceView()
+            pushCreateWorkplaceView()
         }
     }
     
-    private func pushAddWorkplaceView() {
-        let viewModel = AddWorkplaceViewModel(coordinator: self)
+    private func pushCreateWorkplaceView() {
+        let viewModel = CreateWorkplaceViewModel(coordinator: self)
         
-        let view = AddWorkplaceView(viewModel: viewModel)
-            .navigationBar("Add Workplace")
+        let view = CreateWorkplaceView(viewModel: viewModel)
+            .navigationBar(l10.createWorkplaceNavTitle)
             .withCustomBackButton()
         
         let viewController = NamedUIHostingController(rootView: view)

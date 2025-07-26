@@ -7,6 +7,7 @@ import Observation
 /* TODO:
  Fetch Maintenance Info
  Add: AppCheck
+ Refactor Localization: LocalizedStringResource
  */
 @Observable @MainActor
 final class SplashViewModel {

@@ -1,7 +1,7 @@
 import SharedUIs
 import SwiftUI
 
-struct AddWorkplaceView: View {
+struct CreateWorkplaceView: View {
     enum FocusableField: Hashable {
         case name
         case branchName
@@ -11,18 +11,18 @@ struct AddWorkplaceView: View {
     }
     
     // MARK: Init
-    init(viewModel: AddWorkplaceViewModel) {
+    init(viewModel: CreateWorkplaceViewModel) {
         self.viewModel = viewModel
     }
     
     // MARK: Properties
-    @State private var viewModel: AddWorkplaceViewModel
+    @State private var viewModel: CreateWorkplaceViewModel
     @FocusState private var focusedField: FocusableField?
     
     var body: some View {
         VStack {
             PrimaryTextField(
-                "Workplace Name",
+                l10.createWorkplaceFormName,
                 kind: .icon(image: .icnStore),
                 text: $viewModel.workplaceName,
                 fieldIdentifier: .name,
@@ -30,7 +30,7 @@ struct AddWorkplaceView: View {
             )
             
             PrimaryTextField(
-                "Branch Name(Optional)",
+                l10.createWorkplaceFormBranchName,
                 kind: .icon(image: .icnBranch),
                 text: $viewModel.branchName,
                 fieldIdentifier: .branchName,
@@ -38,7 +38,7 @@ struct AddWorkplaceView: View {
             )
             
             PrimaryTextField(
-                "Address(Optional)",
+                l10.createWorkplaceFormAddress,
                 kind: .icon(image: .icnDomain),
                 text: $viewModel.locationName,
                 fieldIdentifier: .address,
@@ -46,7 +46,7 @@ struct AddWorkplaceView: View {
             )
             
             PrimaryTextField(
-                "Phone Number(Optional)",
+                l10.createWorkplaceFormPhoneNumber,
                 kind: .icon(image: .icnCall),
                 text: $viewModel.phoneNumber,
                 fieldIdentifier: .phoneNumber,
@@ -55,15 +55,15 @@ struct AddWorkplaceView: View {
             )
             
             PrimaryTextField(
-                "Description(Optional)",
+                l10.createWorkplaceFormDescription,
                 kind: .editor(height: 150),
                 text: $viewModel.description,
                 fieldIdentifier: .description,
                 focusedField: $focusedField
             )
             
-            PrimaryButton(title: "Add Workplace") {
-                print("Add Workplace")
+            PrimaryButton(title:  l10.createWorkplaceButtonCreate) {
+                print(l10.createWorkplaceButtonCreate)
             }
         }
         .background(Color.backgroundPrimary)
@@ -75,5 +75,5 @@ struct AddWorkplaceView: View {
 }
 
 #Preview {
-    AddWorkplaceView(viewModel: .init(coordinator: .init(navigationController: .init())))
+    CreateWorkplaceView(viewModel: .init(coordinator: .init(navigationController: .init())))
 }

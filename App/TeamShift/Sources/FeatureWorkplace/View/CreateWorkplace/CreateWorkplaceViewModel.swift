@@ -7,7 +7,7 @@ import SharedModels
 import SharedUIs
 
 @Observable @MainActor
-final class AddWorkplaceViewModel {
+final class CreateWorkplaceViewModel {
     init(coordinator: WorkplaceCoordinator) {
         self.coordinator = coordinator
     }
@@ -49,7 +49,7 @@ final class AddWorkplaceViewModel {
     }
 }
 
-extension AddWorkplaceViewModel {
+extension CreateWorkplaceViewModel {
     private func handleError(_ error: Error) {
         coordinator?.handleError(error)
     }
