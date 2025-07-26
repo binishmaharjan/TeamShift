@@ -25,9 +25,9 @@ extension NavigationController {
             .font: UIFont.systemFont(ofSize: 16, weight: .semibold)
         ]
         
-        navigationBar.standardAppearance = appearance
-        navigationBar.scrollEdgeAppearance = appearance
-        navigationBar.compactAppearance = appearance
+//        navigationBar.standardAppearance = appearance
+//        navigationBar.scrollEdgeAppearance = appearance
+//        navigationBar.compactAppearance = appearance
         
         // Hide default back button
         navigationBar.topItem?.hidesBackButton = true
