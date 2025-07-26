@@ -22,6 +22,7 @@ let package = Package(
         .library(name: "ClientUserStore", targets: ["ClientUserStore"]),
         .library(name: "ClientUserSession", targets: ["ClientUserSession"]),
         .library(name: "ClientUserDefaults", targets: ["ClientUserDefaults"]),
+        .library(name: "CalendarKit", targets: ["KitCalendar"]),
     ],
     dependencies: [
         .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", exact: "0.58.2"),
@@ -196,6 +197,17 @@ let package = Package(
         ),
         .target(
             name: "ClientUserDefaults",
+            dependencies: [
+                "SharedModels",
+                .product(name: "Dependencies", package: "swift-dependencies"),
+                .product(name: "DependenciesMacros", package: "swift-dependencies"),
+            ],
+            plugins: [
+                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
+            ]
+        ),
+        .target(
+            name: "KitCalendar",
             dependencies: [
                 "SharedModels",
                 .product(name: "Dependencies", package: "swift-dependencies"),
