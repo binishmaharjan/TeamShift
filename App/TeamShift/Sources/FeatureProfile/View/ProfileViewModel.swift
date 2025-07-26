@@ -94,13 +94,13 @@ extension ProfileViewModel {
             try await apiClient.signOut()
             coordinator?.profileRequestNavigation(for: .showOnboarding)
         } catch {
-            showErrorAlert(error)
+            handleError(error)
         }
     }
     
     private func updateUsername(to newUsername: String?) async {
         guard let currentUser = userSession.currentUser else {
-            showErrorAlert(AppError.internalError(.userNotFound))
+            handleError(AppError.internalError(.userNotFound))
             return
         }
         
@@ -122,7 +122,7 @@ extension ProfileViewModel {
             isLoading = false
         } catch {
             isLoading = false
-            showErrorAlert(error)
+            handleError(error)
         }
     }
 }
@@ -145,7 +145,7 @@ extension ProfileViewModel {
         }
     }
     
-    private func showErrorAlert(_ error: Error) {
+    private func handleError(_ error: Error) {
         coordinator?.handleError(error)
     }
 }

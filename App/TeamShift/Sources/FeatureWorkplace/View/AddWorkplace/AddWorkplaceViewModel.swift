@@ -27,4 +27,30 @@ final class AddWorkplaceViewModel {
     var phoneNumber: String = ""
     var description: String = ""
     var isLoading = false
+    
+    func createWorkplaceButtonTapped() async {
+        let newWorkplace = Workplace(
+            name: workplaceName,
+            ownerId: "",
+            branchName: branchName,
+            locationName: locationName,
+            locationCoords: locationCoords,
+            phoneNumber: phoneNumber,
+            description: description
+        )
+        isLoading = true
+        
+        do {
+            isLoading = false
+            try await apiClient.createWorkplace(workplace: newWorkplace)
+        } catch {
+            isLoading = false
+        }
+    }
+}
+
+extension AddWorkplaceViewModel {
+    private func handleError(_ error: Error) {
+        coordinator?.handleError(error)
+    }
 }
