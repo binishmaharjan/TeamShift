@@ -1,5 +1,5 @@
-import ClientApi
-import ClientUserSession
+import ApiClient
+import UserSessionClient
 import Dependencies
 import Foundation
 import Observation

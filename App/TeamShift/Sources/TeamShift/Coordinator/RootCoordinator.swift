@@ -1,5 +1,5 @@
-import FeatureAuthentication
-import FeatureMainTab
+import AuthenticationFeature
+import MainTabFeature
 import SharedModels
 import SharedUIs
 import SwiftUI
