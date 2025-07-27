@@ -1,4 +1,5 @@
 import Foundation
+import KitLocation
 import Observation
 
 @Observable @MainActor
@@ -18,6 +19,7 @@ final class WorkplaceViewModel {
     weak var coordinator: WorkplaceCoordinator?
     
     func addWorkplaceButtonTapped() {
+        LocationKit.findLocation()
         coordinator?.workplaceRequestNavigation(for: .showAddWorkplace)
     }
 }
