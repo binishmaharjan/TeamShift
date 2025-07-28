@@ -12,7 +12,6 @@ public struct LocationPicker: View {
     // MARK: Properties
     @Binding var isPresented: Bool
     @StateObject private var manager = LocationManager()
-    @State private var selectedCoordinates: CLLocationCoordinate2D?
     @Environment(\.openURL) private var openURL
     @Namespace private var mapSpace
     @FocusState private var isKeyboardActive: Bool
@@ -99,10 +98,11 @@ public struct LocationPicker: View {
     private var mapView: some View {
         MapReader { proxy in
             Map(position: $manager.position) {
-                // testing
-                //            if let selectedCoordinates {
-                //                Marker("Selected", coordinate: selectedCoordinates)
-                //            }
+                if let selectedCoordinates = manager.selectedCoordinate {
+                    Marker(coordinate: selectedCoordinates) {
+                        Text("Selected")
+                    }
+                }
                 
                 UserAnnotation()
             }
@@ -110,6 +110,7 @@ public struct LocationPicker: View {
                 // get coordinates of tapped location
                 if let coordinate = proxy.convert(screenCoordinate, from: .local) {
                     print("Tapped coordinate: \(coordinate.latitude), \(coordinate.longitude)")
+                    manager.selectedCoordinate = coordinate
                 }
             }
             .mapControls {
@@ -120,7 +121,6 @@ public struct LocationPicker: View {
             .mapScope(mapSpace)
             .onMapCameraChange { ctx in
                 manager.currentRegion = ctx.region
-                //            selectedCoordinates = ctx.region.center
             }
         }
     }
@@ -195,7 +195,7 @@ public struct LocationPicker: View {
     private var selectLocationButton: some View {
         Button {
             isPresented = false
-            coordinates(selectedCoordinates)
+            coordinates(manager.selectedCoordinate)
         } label: {
             Text("Select Location")
                 .fontWeight(.semibold)

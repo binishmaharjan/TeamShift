@@ -17,6 +17,7 @@ class LocationManager: NSObject, ObservableObject {
     @Published var currentRegion: MKCoordinateRegion?
     @Published var position: MapCameraPosition = .automatic
     @Published var userCoordinates: CLLocationCoordinate2D?
+    @Published var selectedCoordinate: CLLocationCoordinate2D?
     // MARK: Properties-Search
     @Published var searchText = ""
     @Published var searchResult: [MKPlacemark] = []
@@ -49,7 +50,7 @@ extension LocationManager: CLLocationManagerDelegate {
         
         // updating user coordinates and map camera position
         userCoordinates = coordinates
-        let region = MKCoordinateRegion(center: coordinates, latitudinalMeters: 1000, longitudinalMeters: 1000)
+        let region = MKCoordinateRegion(center: coordinates, latitudinalMeters: 1_000, longitudinalMeters: 1_000)
         position = .region(region)
         
         // stop updates
@@ -95,9 +96,10 @@ extension LocationManager {
     
     func updateMapPosition(_ placemark: MKPlacemark) {
         let coordinates = placemark.coordinate
-        let region = MKCoordinateRegion(center: coordinates, latitudinalMeters: 1000, longitudinalMeters: 1000)
+        let region = MKCoordinateRegion(center: coordinates, latitudinalMeters: 1_000, longitudinalMeters: 1_000)
         position = .region(region)
         selectedResult = placemark
         showSearchResults = false
+        selectedCoordinate = placemark.coordinate
     }
 }
