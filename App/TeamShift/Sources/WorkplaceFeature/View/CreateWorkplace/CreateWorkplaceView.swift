@@ -37,9 +37,9 @@ struct CreateWorkplaceView: View {
                 focusedField: $focusedField
             )
             
-            PrimaryTextField(
+            LocationTextField(
                 l10.createWorkplaceFormAddress,
-                kind: .icon(image: .icnDomain),
+                image: .icnDomain,
                 text: $viewModel.locationName,
                 fieldIdentifier: .address,
                 focusedField: $focusedField

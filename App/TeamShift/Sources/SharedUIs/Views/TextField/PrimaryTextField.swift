@@ -5,7 +5,6 @@ public struct PrimaryTextField<Field: Hashable>: View {
         case icon(image: Image)
         case secure(image: Image)
         case editor(height: CGFloat)
-        case picker(image: Image)
     }
     
     public init(
@@ -38,7 +37,7 @@ public struct PrimaryTextField<Field: Hashable>: View {
     
     private var height: CGFloat {
         switch kind {
-        case .icon, .secure, .picker:
+        case .icon, .secure:
             return 44
             
         case .editor(let height):
@@ -108,9 +107,6 @@ public struct PrimaryTextField<Field: Hashable>: View {
                     }
                 }
                 .font(.customFootnote)
-                
-            case .picker(let image):
-                EmptyView()
             }
         }
         .padding(13)
@@ -123,5 +119,66 @@ public struct PrimaryTextField<Field: Hashable>: View {
         }
         .animation(.easeOut(duration: 0.15), value: isCurrentlyFocused)
         .animation(.easeOut(duration: 0.15), value: isVisibilityOn)
+    }
+}
+
+public struct LocationTextField<Field: Hashable>: View {
+    public init(
+        _ placeholder: String,
+        image: Image,
+        text: Binding<String>,
+        fieldIdentifier: Field,
+        focusedField: FocusState<Field?>.Binding,
+    ) {
+        self.placeholder = placeholder
+        self.image = image
+        self._text = text
+        self.fieldIdentifier = fieldIdentifier
+        self.focusedField = focusedField
+    }
+    
+    @Binding private var text: String
+    private let placeholder: String
+    private let fieldIdentifier: Field
+    private var focusedField: FocusState<Field?>.Binding
+    private var image: Image
+    private var height: CGFloat = 44
+    
+    private var isCurrentlyFocused: Bool {
+        focusedField.wrappedValue == fieldIdentifier
+    }
+    
+    public var body: some View {
+        HStack {
+            image
+                .resizable()
+                .renderingMode(.template)
+                .scaledToFit()
+                .frame(width: 18, height: 18)
+                .foregroundStyle(isCurrentlyFocused ? Color.appPrimary : Color.textPrimary.opacity(0.3))
+            
+            TextField(placeholder, text: $text)
+                .font(.customFootnote)
+                .focused(focusedField, equals: fieldIdentifier)
+            
+            Image.icnLocation
+                .resizable()
+                .renderingMode(.template)
+                .scaledToFit()
+                .frame(width: 18, height: 18)
+                .foregroundStyle(isCurrentlyFocused ? Color.appPrimary : Color.textPrimary.opacity(0.3))
+                .onTapGesture {
+                    print("Show Picker")
+                }
+        }
+        .padding(13)
+        .frame(height: height)
+        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+        .overlay {
+            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                .stroke(lineWidth: 1)
+                .fill(isCurrentlyFocused ? Color.appPrimary : Color.textPrimary.opacity(0.3))
+        }
+        .animation(.easeOut(duration: 0.15), value: isCurrentlyFocused)
     }
 }
