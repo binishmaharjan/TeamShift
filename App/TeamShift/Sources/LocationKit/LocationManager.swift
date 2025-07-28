@@ -3,7 +3,8 @@ import Foundation
 import MapKit
 import SwiftUI
 
-class LocationManager: NSObject, ObservableObject {
+@Observable
+class LocationManager: NSObject {
     // MARK: Init
     override init() {
         super.init()
@@ -11,19 +12,19 @@ class LocationManager: NSObject, ObservableObject {
     }
     
     // MARK: Properties
-    @Published var isUpdating: Bool = false
-    @Published var isPermissionDenied: Bool = false
+    var isUpdating: Bool = false
+    var isPermissionDenied: Bool = false
     // MARK: Properties-Map
-    @Published var currentRegion: MKCoordinateRegion?
-    @Published var position: MapCameraPosition = .automatic
-    @Published var userCoordinates: CLLocationCoordinate2D?
-    @Published var selectedCoordinate: CLLocationCoordinate2D?
+    var currentRegion: MKCoordinateRegion?
+    var position: MapCameraPosition = .automatic
+    var userCoordinates: CLLocationCoordinate2D?
+    var selectedCoordinate: CLLocationCoordinate2D?
     // MARK: Properties-Search
-    @Published var searchText = ""
-    @Published var searchResult: [MKPlacemark] = []
-    @Published var selectedResult: MKPlacemark?
-    @Published var showSearchResults = false
-    @Published var isSearching = false
+    var searchText = ""
+    var searchResult: [MKPlacemark] = []
+    var selectedResult: MKPlacemark?
+    var showSearchResults = false
+    var isSearching = false
     
     private var manager = CLLocationManager()
 }

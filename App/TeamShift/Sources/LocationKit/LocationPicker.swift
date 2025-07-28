@@ -11,7 +11,7 @@ public struct LocationPicker: View {
     
     // MARK: Properties
     @Binding var isPresented: Bool
-    @StateObject private var manager = LocationManager()
+    @State private var manager = LocationManager()
     @Environment(\.openURL) private var openURL
     @Namespace private var mapSpace
     @FocusState private var isKeyboardActive: Bool
