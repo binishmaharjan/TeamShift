@@ -49,7 +49,9 @@ final class CreateWorkplaceViewModel {
     }
     
     func onLocationPickerTapped() {
-        coordinator?.showLocationPicker()
+        coordinator?.showLocationPicker { coordinates in
+            print("Coordinates: \(coordinates)")
+        }
     }
 }
 

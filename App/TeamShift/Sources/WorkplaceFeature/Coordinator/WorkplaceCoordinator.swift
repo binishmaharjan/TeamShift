@@ -68,8 +68,8 @@ extension WorkplaceCoordinator {
         topNavigationController.pushViewController(viewController, animated: true)
     }
     
-    func showLocationPicker() {
-        let view = LocationPicker()
+    func showLocationPicker(_ onLocationSelected: @escaping (Coordinate?) -> Void) {
+        let view = LocationPicker(onLocationSelected: onLocationSelected)
         let viewController = NamedUIHostingController(rootView: view)
         topNavigationController.present(viewController, animated: true)
     }
