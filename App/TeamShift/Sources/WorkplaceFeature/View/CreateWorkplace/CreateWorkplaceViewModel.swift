@@ -47,6 +47,10 @@ final class CreateWorkplaceViewModel {
             isLoading = false
         }
     }
+    
+    func onLocationPickerTapped() {
+        coordinator?.showLocationPicker()
+    }
 }
 
 extension CreateWorkplaceViewModel {

@@ -43,7 +43,9 @@ struct CreateWorkplaceView: View {
                 text: $viewModel.locationName,
                 fieldIdentifier: .address,
                 focusedField: $focusedField
-            )
+            ) {
+                viewModel.onLocationPickerTapped()
+            }
             
             PrimaryTextField(
                 l10.createWorkplaceFormPhoneNumber,

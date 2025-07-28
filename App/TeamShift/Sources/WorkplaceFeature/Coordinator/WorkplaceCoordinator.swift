@@ -1,3 +1,4 @@
+import LocationKit
 import SharedModels
 import SharedUIs
 import SwiftUI
@@ -65,5 +66,11 @@ extension WorkplaceCoordinator {
         
         let viewController = NamedUIHostingController(rootView: view)
         topNavigationController.pushViewController(viewController, animated: true)
+    }
+    
+    func showLocationPicker() {
+        let view = LocationPicker()
+        let viewController = NamedUIHostingController(rootView: view)
+        topNavigationController.present(viewController, animated: true)
     }
 }

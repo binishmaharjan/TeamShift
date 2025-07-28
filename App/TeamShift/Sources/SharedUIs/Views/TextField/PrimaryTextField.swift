@@ -129,12 +129,14 @@ public struct LocationTextField<Field: Hashable>: View {
         text: Binding<String>,
         fieldIdentifier: Field,
         focusedField: FocusState<Field?>.Binding,
+        onTapped: @escaping (() -> Void)
     ) {
         self.placeholder = placeholder
         self.image = image
         self._text = text
         self.fieldIdentifier = fieldIdentifier
         self.focusedField = focusedField
+        self.onTapped = onTapped
     }
     
     @Binding private var text: String
@@ -143,6 +145,7 @@ public struct LocationTextField<Field: Hashable>: View {
     private var focusedField: FocusState<Field?>.Binding
     private var image: Image
     private var height: CGFloat = 44
+    private var onTapped: (() -> Void)
     
     private var isCurrentlyFocused: Bool {
         focusedField.wrappedValue == fieldIdentifier
@@ -168,6 +171,7 @@ public struct LocationTextField<Field: Hashable>: View {
                 .frame(width: 18, height: 18)
                 .foregroundStyle(isCurrentlyFocused ? Color.appPrimary : Color.textPrimary.opacity(0.3))
                 .onTapGesture {
+                    onTapped()
                     print("Show Picker")
                 }
         }
