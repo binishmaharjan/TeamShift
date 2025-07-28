@@ -1,11 +1,11 @@
 import ApiClient
-import UserSessionClient
 import Dependencies
 import Foundation
 import Observation
 import SharedModels
 import SharedUIs
 import UIKit
+import UserSessionClient
 
 @Observable @MainActor
 final class ProfileViewModel {

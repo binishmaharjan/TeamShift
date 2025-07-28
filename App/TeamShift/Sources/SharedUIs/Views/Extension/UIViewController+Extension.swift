@@ -1,6 +1,23 @@
 import SharedModels
 import UIKit
 
+// MARK: Alert
+public struct AlertAction {
+    public init(
+        title: String,
+        style: UIAlertAction.Style = .default,
+        handler: (() -> Void)? = nil
+    ) {
+        self.title = title
+        self.style = style
+        self.handler = handler
+    }
+    
+    public let title: String
+    public let style: UIAlertAction.Style
+    public let handler: (() -> Void)?
+}
+
 // MARK: Top Most ViewController
 extension UIViewController {
     /// Top Most ViewController
@@ -19,23 +36,6 @@ extension UIViewController {
         
         return self
     }
-}
-
-// MARK: Alert
-public struct AlertAction {
-    public init(
-        title: String,
-        style: UIAlertAction.Style = .default,
-        handler: (() -> Void)? = nil
-    ) {
-        self.title = title
-        self.style = style
-        self.handler = handler
-    }
-    
-    public let title: String
-    public let style: UIAlertAction.Style
-    public let handler: (() -> Void)?
 }
 
 extension UIViewController {

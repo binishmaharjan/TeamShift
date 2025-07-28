@@ -1,8 +1,8 @@
-import UserDefaultsClient
 import Dependencies
 @preconcurrency import FirebaseFirestore
 import Foundation
 import SharedModels
+import UserDefaultsClient
 
 // MARK: Dependency (liveValue)
 extension UserStoreClient: DependencyKey {

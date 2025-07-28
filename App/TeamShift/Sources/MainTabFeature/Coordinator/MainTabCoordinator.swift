@@ -1,9 +1,9 @@
 import ProfileFeature
 import ScheduleFeature
-import WorkplaceFeature
 import SharedModels
 import SharedUIs
 import SwiftUI
+import WorkplaceFeature
 
 public enum MainTabResult {
     case showAuthentication

@@ -1,8 +1,8 @@
-import UserSessionClient
 import Dependencies
 import Foundation
 import SharedUIs
 import SwiftUI
+import UserSessionClient
 
 enum ProfileRowType {
     case navigation

@@ -1,8 +1,8 @@
 import AuthenticationClient
-import UserSessionClient
-import UserStoreClient
 import Dependencies
 import SharedModels
+import UserSessionClient
+import UserStoreClient
 
 extension ApiClient: DependencyKey {
     public static let liveValue = ApiClient.live()

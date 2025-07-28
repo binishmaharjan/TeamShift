@@ -181,7 +181,6 @@ extension ProfileCoordinator {
     }
 }
 
-
 // MARK: Delete Navigation
 extension ProfileCoordinator {
     func deleteConfirmDialog(primaryAction: @escaping (() -> Void)) {

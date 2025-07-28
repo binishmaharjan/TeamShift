@@ -50,6 +50,7 @@ let package = Package(
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
             ]
         ),
+        /* Shared */
         .macro(
             name: "SharedMacros",
             dependencies: [
@@ -84,6 +85,7 @@ let package = Package(
                 .plugin(name: "AssetGenPlugin")
             ]
         ),
+        /* Features */
         .target(
             name: "AuthenticationFeature",
             dependencies: [
@@ -147,6 +149,7 @@ let package = Package(
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
             ]
         ),
+        /* Clients */
         .target(
             name: "ApiClient",
             dependencies: [
@@ -211,6 +214,7 @@ let package = Package(
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
             ]
         ),
+        /* Kits */
         .target(
             name: "LocationKit",
             dependencies: [
@@ -223,6 +227,7 @@ let package = Package(
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
             ]
         ),
+        /* Plugins */
         .plugin(
             name: "AssetGenPlugin",
             capability: .buildTool()
