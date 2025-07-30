@@ -1,6 +1,7 @@
 import ApiClient
 import Dependencies
 import Foundation
+import LocationKit
 import Observation
 import SharedModels
 import SharedUIs
@@ -19,6 +20,8 @@ final class CreateWorkplaceViewModel {
     @Dependency(\.userSession) private var userSession
     @ObservationIgnored
     @Dependency(\.apiClient) private var apiClient
+    @ObservationIgnored
+    @Dependency(\.locationGeoCoder) private var locationGeoCoder
     
     var workplaceName: String = ""
     var branchName: String = ""
@@ -49,8 +52,13 @@ final class CreateWorkplaceViewModel {
     }
     
     func onLocationPickerTapped() {
-        coordinator?.showLocationPicker { coordinates in
+        coordinator?.presentLocationPicker { coordinates in
+            guard let coordinates else { return }
             print("Coordinates: \(coordinates)")
+            Task { @MainActor in
+                let locationName = await self.locationGeoCoder.reverseShort(from: coordinates)
+                print("Location: \(locationName)")
+            }
         }
     }
 }

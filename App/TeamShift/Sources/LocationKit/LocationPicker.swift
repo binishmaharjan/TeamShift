@@ -6,8 +6,9 @@ import SwiftUI
 
 // https://www.youtube.com/watch?v=U2kBmasBSTA&t=108s
 public struct LocationPicker: View {
-    public init(onLocationSelected: @escaping ((Coordinate?) -> Void)) {
+    public init(onLocationSelected: ((Coordinate?) -> Void)? = nil, onClose: (() -> Void)? = nil) {
         self.onLocationSelected = onLocationSelected
+        self.onClose = onClose
     }
     
     // MARK: Properties
@@ -17,7 +18,8 @@ public struct LocationPicker: View {
     @Environment(\.dismiss) private var dismiss
     @Namespace private var mapSpace
     @FocusState private var isKeyboardActive: Bool
-    var onLocationSelected: ((Coordinate?) -> Void)
+    var onClose: (() -> Void)?
+    var onLocationSelected: ((Coordinate?) -> Void)?
     
     public  var body: some View {
         NavigationView {
@@ -68,6 +70,7 @@ extension LocationPicker {
             } else {
                 // Dismiss
                 // isPresented = false
+                onClose?()
                 dismiss()
             }
         } label: {
@@ -191,7 +194,8 @@ extension LocationPicker {
         PrimaryButton(title: l10.locationButtonSelect) {
             // Dismiss and pass the result to previous screen
             // isPresented = false
-            onLocationSelected(Coordinate(from: manager.selectedCoordinate))
+            onLocationSelected?(Coordinate(from: manager.selectedCoordinate))
+            onClose?()
             dismiss()
         }
         .padding(16)

@@ -131,44 +131,4 @@ extension LocationManager {
             return placeMark.coordinate.latitude == cLLocationCoordinate2D.latitude && placeMark.coordinate.longitude == cLLocationCoordinate2D.longitude
         }
     }
-    
-    @MainActor
-    func getDetailedLocationName(from coordinate: CLLocationCoordinate2D) async -> String {
-        let geoCoder = CLGeocoder()
-        let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-        
-        do {
-            let placeMark = try await geoCoder.reverseGeocodeLocation(location)
-            
-            if let placeMark = placeMark.first {
-                var components: [String] = []
-                
-                // Add name (specific place)
-                if let name = placeMark.name {
-                    components.append(name)
-                }
-                
-                // Add thoroughfare (street)
-                if let thoroughfare = placeMark.thoroughfare {
-                    if !components.contains(thoroughfare) {
-                        components.append(thoroughfare)
-                    }
-                }
-                
-                // Add locality (city)
-                if let locality = placeMark.locality {
-                    components.append(locality)
-                }
-                
-                if !components.isEmpty {
-                    return components.joined(separator: ", ")
-                }
-            }
-        } catch {
-            print("Reverse geocoding failed: \(error.localizedDescription)")
-        }
-        
-        // Format coordinates nicely
-        return String(format: "%.4f, %.4f", coordinate.latitude, coordinate.longitude)
-    }
 }

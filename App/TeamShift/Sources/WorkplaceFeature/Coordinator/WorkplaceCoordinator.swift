@@ -24,17 +24,18 @@ public final class WorkplaceCoordinator: FlowCoordinator {
     public var childCoordinator: (any Coordinator)?
     public weak var finishDelegate: (any CoordinatorFinishDelegate)?
     public  let startViewController: NavigationController
+    private var navigationControllers = [NavigationController]()
+    private var routePresentationDelegates: [PresentationDelegate] = []
     public var topMostViewController: UIViewController {
         navigationControllers.last?.topMostViewController ?? startViewController
     }
-    
-    private var navigationControllers = [NavigationController]()
     private var topNavigationController: NavigationController {
         navigationControllers.last ?? startViewController
     }
     private var rootNavigationController: NavigationController {
         navigationControllers.first ?? startViewController
     }
+    
     
     public func start() {
         navigationControllers.append(startViewController)
@@ -68,9 +69,20 @@ extension WorkplaceCoordinator {
         topNavigationController.pushViewController(viewController, animated: true)
     }
     
-    func showLocationPicker(_ onLocationSelected: @escaping (Coordinate?) -> Void) {
-        let view = LocationPicker(onLocationSelected: onLocationSelected)
+    func presentLocationPicker(_ onLocationSelected: @escaping (Coordinate?) -> Void) {
+        let view = LocationPicker(onLocationSelected: onLocationSelected) { [weak self] in
+//             remove presentation delegate when close button is tapped
+            self?.routePresentationDelegates.removeLast()
+        }
         let viewController = NamedUIHostingController(rootView: view)
+        
+        // for swipe down
+        let presentationDelegate = PresentationDelegate { [weak self] in
+            self?.routePresentationDelegates.removeLast()
+        }
+        viewController.presentationController?.delegate = presentationDelegate
+        routePresentationDelegates.append(presentationDelegate)
+        
         topNavigationController.present(viewController, animated: true)
     }
 }
