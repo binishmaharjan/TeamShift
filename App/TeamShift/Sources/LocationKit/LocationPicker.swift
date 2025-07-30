@@ -46,7 +46,7 @@ public struct LocationPicker: View {
             }
             .onAppear(perform: manager.requestUserLocation)
             .animation(.easeInOut(duration: 0.25), value: manager.showSearchResults)
-            .navigationBar("Select Location")
+            .navigationBar(l10.locationTitle)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     backButton
@@ -93,14 +93,14 @@ extension LocationPicker {
     @ViewBuilder
     private var noPermissionView: some View {
         ZStack(alignment: .bottom) {
-            Text("Please allow location permission\nin app settings!")
+            Text(l10.locationTextNoPermission)
                 .font(.customSubHeadline)
                 .foregroundStyle(Color.appPrimary)
                 .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
 
             // try again and go to setting button
-            PrimaryButton(title: "Go to Settings") {
+            PrimaryButton(title: l10.locationButtonSettings) {
                 if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
                     openURL(settingsURL)
                 }
@@ -146,7 +146,7 @@ extension LocationPicker {
                 .foregroundStyle(Color.textSecondary)
                 .fontWeight(.semibold)
             
-            TextField("Search", text: $manager.searchText)
+            TextField(l10.locationPlaceholder, text: $manager.searchText)
                 .font(.customSubHeadline)
                 .foregroundStyle(Color.textPrimary)
                 .padding(.vertical, 10)
@@ -188,7 +188,7 @@ extension LocationPicker {
     
     @ViewBuilder
     private var selectLocationButton: some View {
-        PrimaryButton(title: "Select Location") {
+        PrimaryButton(title: l10.locationButtonSelect) {
             // Dismiss and pass the result to previous screen
             // isPresented = false
             onLocationSelected(Coordinate(from: manager.selectedCoordinate))
