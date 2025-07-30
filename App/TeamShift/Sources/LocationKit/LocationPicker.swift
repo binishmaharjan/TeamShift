@@ -14,6 +14,7 @@ public struct LocationPicker: View {
     //    @Binding var isPresented: Bool(Presenting with swiftUI)
     @State private var manager = LocationManager()
     @Environment(\.openURL) private var openURL
+    @Environment(\.dismiss) private var dismiss
     @Namespace private var mapSpace
     @FocusState private var isKeyboardActive: Bool
     var onLocationSelected: ((Coordinate?) -> Void)
@@ -65,8 +66,9 @@ extension LocationPicker {
                 manager.clearSearchResult()
                 manager.showSearchResults = false
             } else {
-                // isPresented = false
                 // Dismiss
+                // isPresented = false
+                dismiss()
             }
         } label: {
             (manager.showSearchResults ? Image.icnBack : Image.icnClose)
@@ -190,6 +192,7 @@ extension LocationPicker {
             // Dismiss and pass the result to previous screen
             // isPresented = false
             onLocationSelected(Coordinate(from: manager.selectedCoordinate))
+            dismiss()
         }
         .padding(16)
         .background(.background)
