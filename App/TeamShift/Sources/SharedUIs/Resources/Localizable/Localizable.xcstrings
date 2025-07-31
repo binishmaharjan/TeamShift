@@ -279,6 +279,17 @@
         }
       }
     },
+    "CreateWorkplace_Alert_Success" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your new workplace has been successfully created. You can now invite members and set up schedules."
+          }
+        }
+      }
+    },
     "CreateWorkplace_Button_Create" : {
       "extractionState" : "manual",
       "localizations" : {

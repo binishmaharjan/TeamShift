@@ -31,10 +31,17 @@ final class CreateWorkplaceViewModel {
     var description: String = ""
     var isLoading = false
     
+    var isCreateButtonEnabled: Bool { !workplaceName.isEmpty }
+    
     func createWorkplaceButtonTapped() async {
+        guard let ownerId = userSession.currentUser?.id else {
+            handleError(AppError.internalError(.userNotFound))
+            return
+        }
+        
         let newWorkplace = Workplace(
             name: workplaceName,
-            ownerId: "",
+            ownerId: ownerId,
             branchName: branchName,
             locationName: locationName,
             locationCoords: locationCoords,
@@ -44,19 +51,23 @@ final class CreateWorkplaceViewModel {
         isLoading = true
         
         do {
-            isLoading = false
             try await apiClient.createWorkplace(workplace: newWorkplace)
+            isLoading = false
+            createSuccessAlert()
         } catch {
             isLoading = false
+            handleError(error)
         }
     }
     
     func onLocationPickerTapped() {
         coordinator?.presentLocationPicker { coordinates in
             guard let coordinates else { return }
-            print("Coordinates: \(coordinates)")
             Task { @MainActor in
                 let locationName = await self.locationGeoCoder.reverseShort(from: coordinates)
+                self.locationCoords = coordinates
+                self.locationName = locationName
+                print("Coordinates: \(coordinates)")
                 print("Location: \(locationName)")
             }
         }
@@ -64,6 +75,13 @@ final class CreateWorkplaceViewModel {
 }
 
 extension CreateWorkplaceViewModel {
+    private func createSuccessAlert() {
+        coordinator?.showSuccessAlert(message: l10.createWorkplaceAlertSuccess) { [weak self] in
+            // Go to manager screen
+            // when user presses the back button, it goes to list but not create screen.
+        }
+    }
+    
     private func handleError(_ error: Error) {
         coordinator?.handleError(error)
     }

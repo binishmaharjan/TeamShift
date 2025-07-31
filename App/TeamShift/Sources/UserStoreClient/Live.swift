@@ -91,6 +91,10 @@ extension UserStoreClient {
             do {
                 let id = workplace.id
                 let reference = Firestore.firestore().collection(CollectionID.workplaces.rawValue).document(id)
+                
+                // Log
+                printLog(for: reference, fields: SendableDictionary(workplace.asDictionary))
+                
                 try reference.setData(from: workplace)
             } catch {
                 throw mapError(error)

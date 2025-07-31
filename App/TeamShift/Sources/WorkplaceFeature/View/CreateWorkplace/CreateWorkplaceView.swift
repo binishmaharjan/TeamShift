@@ -21,58 +21,95 @@ struct CreateWorkplaceView: View {
     
     var body: some View {
         VStack {
-            PrimaryTextField(
-                l10.createWorkplaceFormName,
-                kind: .icon(image: .icnStore),
-                text: $viewModel.workplaceName,
-                fieldIdentifier: .name,
-                focusedField: $focusedField
-            )
+            workNameTextField
             
-            PrimaryTextField(
-                l10.createWorkplaceFormBranchName,
-                kind: .icon(image: .icnBranch),
-                text: $viewModel.branchName,
-                fieldIdentifier: .branchName,
-                focusedField: $focusedField
-            )
+            branchNameTextField
             
-            LocationTextField(
-                l10.createWorkplaceFormAddress,
-                image: .icnDomain,
-                text: $viewModel.locationName,
-                fieldIdentifier: .address,
-                focusedField: $focusedField
-            ) {
-                viewModel.onLocationPickerTapped()
-            }
+            addressTextField
             
-            PrimaryTextField(
-                l10.createWorkplaceFormPhoneNumber,
-                kind: .icon(image: .icnCall),
-                text: $viewModel.phoneNumber,
-                fieldIdentifier: .phoneNumber,
-                focusedField: $focusedField,
-                keyboardType: .phonePad
-            )
+            phoneNumberTextField
             
-            PrimaryTextField(
-                l10.createWorkplaceFormDescription,
-                kind: .editor(height: 150),
-                text: $viewModel.description,
-                fieldIdentifier: .description,
-                focusedField: $focusedField
-            )
+            descriptionTextField
             
-            PrimaryButton(title:  l10.createWorkplaceButtonCreate) {
-                print(l10.createWorkplaceButtonCreate)
-            }
+            createButton
         }
+        .loadingView(viewModel.isLoading)
+        .hideKeyboardOnTap()
         .background(Color.backgroundPrimary)
         .padding(.horizontal, 24)
         .padding(.top, 24)
         .vSpacing(.top)
-        .loadingView(viewModel.isLoading)
+    }
+}
+
+// MARK: Views
+extension CreateWorkplaceView {
+    @ViewBuilder
+    private var workNameTextField: some View {
+        PrimaryTextField(
+            l10.createWorkplaceFormName,
+            kind: .icon(image: .icnStore),
+            text: $viewModel.workplaceName,
+            fieldIdentifier: .name,
+            focusedField: $focusedField
+        )
+    }
+    
+    @ViewBuilder
+    private var branchNameTextField: some View {
+        PrimaryTextField(
+            l10.createWorkplaceFormBranchName,
+            kind: .icon(image: .icnBranch),
+            text: $viewModel.branchName,
+            fieldIdentifier: .branchName,
+            focusedField: $focusedField
+        )
+    }
+    
+    @ViewBuilder
+    private var addressTextField: some View {
+        LocationTextField(
+            l10.createWorkplaceFormAddress,
+            image: .icnDomain,
+            text: $viewModel.locationName,
+            fieldIdentifier: .address,
+            focusedField: $focusedField
+        ) {
+            viewModel.onLocationPickerTapped()
+        }
+    }
+    
+    @ViewBuilder
+    private var phoneNumberTextField: some View {
+        PrimaryTextField(
+            l10.createWorkplaceFormPhoneNumber,
+            kind: .icon(image: .icnCall),
+            text: $viewModel.phoneNumber,
+            fieldIdentifier: .phoneNumber,
+            focusedField: $focusedField,
+            keyboardType: .phonePad
+        )
+    }
+    
+    @ViewBuilder
+    private var descriptionTextField: some View {
+        PrimaryTextField(
+            l10.createWorkplaceFormDescription,
+            kind: .editor(height: 150),
+            text: $viewModel.description,
+            fieldIdentifier: .description,
+            focusedField: $focusedField
+        )
+    }
+    
+    @ViewBuilder
+    private var createButton: some View {
+        PrimaryButton(title:  l10.createWorkplaceButtonCreate) {
+            Task {
+                await viewModel.createWorkplaceButtonTapped()
+            }
+        }
+        .disabled(!viewModel.isCreateButtonEnabled)
     }
 }
 

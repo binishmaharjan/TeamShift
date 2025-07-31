@@ -11,12 +11,14 @@ public struct Coordinate: Codable, Sendable, Equatable {
     public let longitude: Double
 }
 
+@DictionaryBuilder
 public struct Workplace: Equatable, Identifiable, Codable, Sendable {
     enum CodingKeys: String, CodingKey {
         case id
         case name
         case ownerId = "owner_id"
         case branchName = "branch_name"
+        case locationName = "location_name"
         case locationCoords = "location_coords"
         case phoneNumber = "phone_number"
         case description
@@ -31,8 +33,8 @@ public struct Workplace: Equatable, Identifiable, Codable, Sendable {
         phoneNumber: String? = nil,
         description: String? = nil
     ) {
-        @Dependency(\.uuid) var uuid
-        self.id = uuid().uuidString
+        @Dependency(\.randomIDHelper) var randomIDHelper
+        self.id = randomIDHelper.generate()
         self.name = name
         self.ownerId = ownerId
         self.branchName = branchName
