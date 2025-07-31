@@ -35,6 +35,8 @@ extension AuthenticationClient {
 
 extension AuthenticationClient {
     actor Session {
+        @Dependency(\.randomIDHelper) private var randomIDHelper
+        
         func createUser(withEmail email: String, password: String) async throws -> AppUser {
             do {
                 let authDataResult = try await Auth.auth().createUser(withEmail: email, password: password)
@@ -68,7 +70,7 @@ extension AuthenticationClient {
                 let authDataResult = try await Auth.auth().signInAnonymously()
                 
                 let changeRequest = authDataResult.user.createProfileChangeRequest()
-                changeRequest.displayName = generateRandomUsername()
+                changeRequest.displayName = "user_\(randomIDHelper.generate(length: 10))"
                 try await changeRequest.commitChanges()
                 
                 return createNewUser(
@@ -282,17 +284,6 @@ extension AuthenticationClient {
         
         private func generateRandomNumber(upTo number: Int) -> Int {
             Int.random(in: 0 ..< number )
-        }
-        
-        private func generateRandomUsername() -> String {
-            // the pool of characters to choose
-            let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-            let randomCharacters = (0..<10).map { _ -> Character in
-                // Select a random character from the allowed set
-                // Force unwrap is safe here because 'characters' is guaranteed non-empty
-                characters.randomElement()!
-            }
-            return "user_" + String(randomCharacters)
         }
     }
 }
