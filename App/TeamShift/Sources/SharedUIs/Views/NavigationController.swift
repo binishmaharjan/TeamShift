@@ -15,8 +15,8 @@ extension NavigationController {
         
         // Customize navigation bar appearance
         let appearance = UINavigationBarAppearance()
-        appearance.configureWithDefaultBackground()
-        appearance.backgroundColor = UIColor.systemBackground
+        appearance.configureWithTransparentBackground()
+//        appearance.backgroundColor = UIColor.systemBackground
         appearance.shadowColor = UIColor.separator
         
         // Set title text attributes
@@ -25,9 +25,9 @@ extension NavigationController {
             .font: UIFont.systemFont(ofSize: 16, weight: .semibold)
         ]
         
-        navigationBar.standardAppearance = appearance
-        navigationBar.scrollEdgeAppearance = appearance
-        navigationBar.compactAppearance = appearance
+//        navigationBar.standardAppearance = appearance
+//        navigationBar.scrollEdgeAppearance = appearance
+//        navigationBar.compactAppearance = appearance
         
         // Hide default back button
         navigationBar.topItem?.hidesBackButton = true

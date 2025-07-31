@@ -1,12 +1,13 @@
-import ClientApi
-import ClientUserSession
+import ApiClient
 import Dependencies
 import Foundation
 import Observation
+import UserSessionClient
 
 /* TODO:
  Fetch Maintenance Info
  Add: AppCheck
+ Refactor Localization: LocalizedStringResource
  */
 @Observable @MainActor
 final class SplashViewModel {

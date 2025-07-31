@@ -1,5 +1,4 @@
 import Foundation
-import SharedUIs
 import SwiftUI
 
 public enum ColorTemplate: Int, CaseIterable, Codable, Sendable {
@@ -12,52 +11,6 @@ public enum ColorTemplate: Int, CaseIterable, Codable, Sendable {
     
     public var id: Int {
         self.rawValue
-    }
-    
-    public var gradient: LinearGradient {
-        switch self {
-        case .redOrange:
-            return LinearGradient(
-                colors: [Color.red.opacity(0.6), Color.orange.opacity(0.6)],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            
-        case .blueCyan:
-            return LinearGradient(
-                colors: [Color.blue.opacity(0.6), Color.cyan.opacity(0.6)],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            
-        case .greenMint:
-            return LinearGradient(
-                colors: [Color.green.opacity(0.6), Color.mint.opacity(0.6)],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            
-        case .purplePink:
-            return LinearGradient(
-                colors: [Color.purple.opacity(0.6), Color.pink.opacity(0.6)],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            
-        case .orangeYellow:
-            return LinearGradient(
-                colors: [Color.orange.opacity(0.6), Color.yellow.opacity(0.6)],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            
-        case .indigoBlue:
-            return LinearGradient(
-                colors: [Color.indigo.opacity(0.6), Color.blue.opacity(0.6)],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-        }
     }
 }
 

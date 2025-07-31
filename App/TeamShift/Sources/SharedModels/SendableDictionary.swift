@@ -5,6 +5,11 @@ public struct SendableDictionary: @unchecked Sendable {
         self.dictionary = dictionary
     }
     
+    public init?(_ dictionary: [String: Any]?) {
+        guard let dictionary else { return nil }
+        self.init(dictionary)
+    }
+    
     public let dictionary: [String: Any]
 }
 

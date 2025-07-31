@@ -10,18 +10,23 @@ let package = Package(
     platforms: [.iOS(.v17), .macOS(.v12)],
     products: [
         .library(name: "TeamShift", targets: ["TeamShift"]),
+        /* Shared */
         .library(name: "SharedModels", targets: ["SharedModels"]),
         .library(name: "SharedUIs", targets: ["SharedUIs"]),
-        .library(name: "FeatureAuthentication", targets: ["FeatureAuthentication"]),
-        .library(name: "FeatureMainTab", targets: ["FeatureMainTab"]),
-        .library(name: "FeatureProfile", targets: ["FeatureProfile"]),
-        .library(name: "FeatureSchedule", targets: ["FeatureSchedule"]),
-        .library(name: "FeatureWorkplace", targets: ["FeatureWorkplace"]),
-        .library(name: "ClientApi", targets: ["ClientApi"]),
-        .library(name: "ClientAuthentication", targets: ["ClientAuthentication"]),
-        .library(name: "ClientUserStore", targets: ["ClientUserStore"]),
-        .library(name: "ClientUserSession", targets: ["ClientUserSession"]),
-        .library(name: "ClientUserDefaults", targets: ["ClientUserDefaults"]),
+        /* Features */
+        .library(name: "AuthenticationFeature", targets: ["AuthenticationFeature"]),
+        .library(name: "MainTabFeature", targets: ["MainTabFeature"]),
+        .library(name: "ProfileFeature", targets: ["ProfileFeature"]),
+        .library(name: "ScheduleFeature", targets: ["ScheduleFeature"]),
+        .library(name: "WorkplaceFeature", targets: ["WorkplaceFeature"]),
+        /* Clients */
+        .library(name: "ApiClient", targets: ["ApiClient"]),
+        .library(name: "AuthenticationClient", targets: ["AuthenticationClient"]),
+        .library(name: "UserStoreClient", targets: ["UserStoreClient"]),
+        .library(name: "UserSessionClient", targets: ["UserSessionClient"]),
+        .library(name: "UserDefaultsClient", targets: ["UserDefaultsClient"]),
+        /* Kits */
+        .library(name: "LocationKit", targets: ["LocationKit"]),
     ],
     dependencies: [
         .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", exact: "0.58.2"),
@@ -36,15 +41,16 @@ let package = Package(
             dependencies: [
                 "SharedModels",
                 "SharedUIs",
-                "FeatureAuthentication",
-                "FeatureMainTab",
-                "ClientApi",
-                "ClientUserSession"
+                "AuthenticationFeature",
+                "MainTabFeature",
+                "ApiClient",
+                "UserSessionClient"
             ],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
             ]
         ),
+        /* Shared */
         .macro(
             name: "SharedMacros",
             dependencies: [
@@ -59,6 +65,8 @@ let package = Package(
             name: "SharedModels",
             dependencies: [
                 "SharedMacros",
+                .product(name: "Dependencies", package: "swift-dependencies"),
+                .product(name: "DependenciesMacros", package: "swift-dependencies"),
             ],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
@@ -66,7 +74,9 @@ let package = Package(
         ),
         .target(
             name: "SharedUIs",
-            dependencies: [],
+            dependencies: [
+                "SharedModels",
+            ],
             resources: [
                 .process("Resources"),
             ],
@@ -75,12 +85,13 @@ let package = Package(
                 .plugin(name: "AssetGenPlugin")
             ]
         ),
+        /* Features */
         .target(
-            name: "FeatureAuthentication",
+            name: "AuthenticationFeature",
             dependencies: [
                 "SharedUIs",
                 "SharedModels",
-                "ClientApi",
+                "ApiClient",
                 .product(name: "FirebaseAnalytics", package: "firebase-ios-sdk"),
             ],
             plugins: [
@@ -88,25 +99,26 @@ let package = Package(
             ]
         ),
         .target(
-            name: "FeatureMainTab",
+            name: "MainTabFeature",
             dependencies: [
                 "SharedUIs",
                 "SharedModels",
-                "FeatureProfile",
-                "FeatureSchedule",
-                "FeatureWorkplace"
+                "ProfileFeature",
+                "ScheduleFeature",
+                "WorkplaceFeature"
             ],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
             ]
         ),
         .target(
-            name: "FeatureProfile",
+            name: "ProfileFeature",
             dependencies: [
                 "SharedUIs",
                 "SharedModels",
-                "ClientApi",
-                "ClientUserSession"
+                "ApiClient",
+                "UserSessionClient",
+                .product(name: "Dependencies", package: "swift-dependencies"),
             ],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
@@ -114,7 +126,7 @@ let package = Package(
             ]
         ),
         .target(
-            name: "FeatureSchedule",
+            name: "ScheduleFeature",
             dependencies: [
                 "SharedUIs",
                 "SharedModels"
@@ -124,21 +136,26 @@ let package = Package(
             ]
         ),
         .target(
-            name: "FeatureWorkplace",
+            name: "WorkplaceFeature",
             dependencies: [
                 "SharedUIs",
-                "SharedModels"
+                "SharedModels",
+                "ApiClient",
+                "UserSessionClient",
+                "LocationKit",
+                .product(name: "Dependencies", package: "swift-dependencies"),
             ],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
             ]
         ),
+        /* Clients */
         .target(
-            name: "ClientApi",
+            name: "ApiClient",
             dependencies: [
                 "SharedModels",
-                "ClientAuthentication",
-                "ClientUserStore",
+                "AuthenticationClient",
+                "UserStoreClient",
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "DependenciesMacros", package: "swift-dependencies"),
             ],
@@ -147,10 +164,10 @@ let package = Package(
             ]
         ),
         .target(
-            name: "ClientAuthentication",
+            name: "AuthenticationClient",
             dependencies: [
                 "SharedModels",
-                "ClientUserSession",
+                "UserSessionClient",
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "DependenciesMacros", package: "swift-dependencies"),
                 .product(name: "FirebaseAuth", package: "firebase-ios-sdk"),
@@ -162,7 +179,7 @@ let package = Package(
             ]
         ),
         .target(
-            name: "ClientUserSession",
+            name: "UserSessionClient",
             dependencies: [
                 "SharedModels",
                 .product(name: "Dependencies", package: "swift-dependencies"),
@@ -174,10 +191,10 @@ let package = Package(
             ]
         ),
         .target(
-            name: "ClientUserStore",
+            name: "UserStoreClient",
             dependencies: [
                 "SharedModels",
-                "ClientUserDefaults",
+                "UserDefaultsClient",
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "DependenciesMacros", package: "swift-dependencies"),
                 .product(name: "FirebaseFirestore", package: "firebase-ios-sdk"),
@@ -187,7 +204,7 @@ let package = Package(
             ]
         ),
         .target(
-            name: "ClientUserDefaults",
+            name: "UserDefaultsClient",
             dependencies: [
                 "SharedModels",
                 .product(name: "Dependencies", package: "swift-dependencies"),
@@ -197,6 +214,20 @@ let package = Package(
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
             ]
         ),
+        /* Kits */
+        .target(
+            name: "LocationKit",
+            dependencies: [
+                "SharedUIs",
+                "SharedModels",
+                .product(name: "Dependencies", package: "swift-dependencies"),
+                .product(name: "DependenciesMacros", package: "swift-dependencies"),
+            ],
+            plugins: [
+                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
+            ]
+        ),
+        /* Plugins */
         .plugin(
             name: "AssetGenPlugin",
             capability: .buildTool()

@@ -1,5 +1,5 @@
-import FeatureAuthentication
-import FeatureMainTab
+import AuthenticationFeature
+import MainTabFeature
 import SharedModels
 import SharedUIs
 import SwiftUI
@@ -14,6 +14,9 @@ final class RootCoordinator: CompositionCoordinator {
     
     // MARK: Properties
     var startViewController = SingleContainerViewContainer()
+    public var topMostViewController: UIViewController {
+        startViewController.topMostViewController
+    }
     
     // MARK: Methods
     func start() {
@@ -60,13 +63,13 @@ extension RootCoordinator {
         let authenticationCoordinator = AuthenticationCoordinator()
         addChild(authenticationCoordinator)
         authenticationCoordinator.start()
-        startViewController.replace(authenticationCoordinator.startNavigationController, animated: true)
+        startViewController.replace(authenticationCoordinator.startViewController, animated: true)
     }
     
     private func startMainTab() {
         let mainTabCoordinator = MainTabCoordinator()
         addChild(mainTabCoordinator)
         mainTabCoordinator.start()
-        startViewController.replace(mainTabCoordinator.tabViewController, animated: true)
+        startViewController.replace(mainTabCoordinator.startViewController, animated: true)
     }
 }
