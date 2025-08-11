@@ -36,7 +36,6 @@ public final class WorkplaceCoordinator: FlowCoordinator {
         navigationControllers.first ?? startViewController
     }
     
-    
     public func start() {
         navigationControllers.append(startViewController)
         
@@ -60,18 +59,15 @@ extension WorkplaceCoordinator {
     
     private func pushCreateWorkplaceView() {
         let viewModel = CreateWorkplaceViewModel(coordinator: self)
-        
         let view = CreateWorkplaceView(viewModel: viewModel)
-            .navigationBar(l10.createWorkplaceNavTitle)
-            .withCustomBackButton()
-        
         let viewController = NamedUIHostingController(rootView: view)
+        viewController.title = l10.createWorkplaceNavTitle
         topNavigationController.pushViewController(viewController, animated: true)
     }
     
     func presentLocationPicker(_ onLocationSelected: @escaping (Coordinate?) -> Void) {
         let view = LocationPicker(onLocationSelected: onLocationSelected) { [weak self] in
-//             remove presentation delegate when close button is tapped
+            // remove presentation delegate when close button is tapped
             self?.routePresentationDelegates.removeLast()
         }
         let viewController = NamedUIHostingController(rootView: view)
