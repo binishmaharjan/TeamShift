@@ -81,4 +81,27 @@ extension WorkplaceCoordinator {
         
         topNavigationController.present(viewController, animated: true)
     }
+    
+    func popLast() {
+        topNavigationController.popViewController(animated: true)
+    }
+}
+
+// MARK: Create Workplace Navigation
+extension WorkplaceCoordinator {
+    func createWorkplaceRequestNavigation(for route: CreateWorkplaceViewModel.Route) {
+        switch route {
+        case .showWorkplaceDetail(let workplace):
+            showSuccessAlert(message: l10.createWorkplaceAlertSuccess) { [weak self] in
+                self?.pushWorkplaceDetailView(workplace: workplace)
+            }
+        }
+    }
+    
+    private func pushWorkplaceDetailView(workplace: Workplace) {
+        let viewModel = WorkplaceDetailViewModel(workplace: workplace)
+        let view = WorkplaceDetailView(viewModel: viewModel)
+        let viewController = NamedUIHostingController(rootView: view)
+        topNavigationController.pushViewController(viewController, animated: true)
+    }
 }
