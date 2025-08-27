@@ -278,7 +278,8 @@ extension AuthenticationClient {
                 avatar: Avatar(colorTemplate: randomColorTemplate, iconData: randomIconData),
                 fcmToken: "random_token",
                 subscription: Subscription(status: .free),
-                createdDate: .now
+                createdDate: .now,
+                workplaceIds: []
             )
         }
         

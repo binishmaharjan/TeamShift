@@ -67,6 +67,7 @@ public struct AppUser: Equatable, Identifiable, Codable, Sendable {
         case fcmToken = "fcm_token"
         case subscription
         case createdDate = "created_date"
+        case workplaceIds = "workplace_ids"
     }
     
     public init(
@@ -77,7 +78,8 @@ public struct AppUser: Equatable, Identifiable, Codable, Sendable {
         avatar: Avatar,
         fcmToken: String,
         subscription: Subscription,
-        createdDate: Date
+        createdDate: Date,
+        workplaceIds: [String] = []
     ) {
         self.id = id
         self.username = username
@@ -87,6 +89,7 @@ public struct AppUser: Equatable, Identifiable, Codable, Sendable {
         self.fcmToken = fcmToken
         self.subscription = subscription
         self.createdDate = createdDate
+        self.workplaceIds = workplaceIds
     }
     
     public let id: String
@@ -97,4 +100,5 @@ public struct AppUser: Equatable, Identifiable, Codable, Sendable {
     public var fcmToken: String
     public var subscription: Subscription
     public var createdDate: Date
+    public var workplaceIds: [String]
 }

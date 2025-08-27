@@ -39,6 +39,7 @@ extension AppUser {
         avatar: Avatar(colorTemplate: .redOrange, iconData: .icnMan3),
         fcmToken: "randtoken",
         subscription: Subscription(status: .free),
-        createdDate: .now
+        createdDate: .now,
+        workplaceIds: []
     )
 }
