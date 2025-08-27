@@ -102,6 +102,7 @@ extension WorkplaceCoordinator {
         let viewModel = WorkplaceDetailViewModel(workplace: workplace)
         let view = WorkplaceDetailView(viewModel: viewModel)
         let viewController = NamedUIHostingController(rootView: view)
+        viewController.title = workplace.name
         topNavigationController.pushViewController(viewController, animated: true)
     }
 }
