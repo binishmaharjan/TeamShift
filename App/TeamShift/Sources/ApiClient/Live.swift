@@ -191,7 +191,9 @@ extension ApiClient {
             var workplaceIds = await userSession.currentUser?.workplaceIds ?? []
             workplaceIds.append(workplace.id)
             
-            let dict = user.dictionaryBuilder().workplaceIds(workplaceIds).dictionary.asSendable
+            let dict = user.dictionaryBuilder()
+                .workplaceIds(workplaceIds)
+                .dictionary.asSendable
             
             try await userStoreClient.updateUser(uid: user.id, fields: dict)
         }
