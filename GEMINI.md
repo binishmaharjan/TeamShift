@@ -95,8 +95,8 @@ The project's directory structure is strictly defined. All new code must be plac
 
 ## 5. Code Quality & Tooling
 
-- **Code Style:** All Swift code **must** conform to the rules defined in the `.swiftlint.yml` file. SwiftLint runs automatically as a build plugin in Xcode. To run it manually from the command line, use `swift package lint`.
-- **SwiftUI View Structure:** To maintain readability, complex SwiftUI views **must** be broken down into smaller components. These components should be implemented as `private` computed properties or methods that return `some View`, decorated with the `@ViewBuilder` attribute. All such components must be grouped in an `extension` below the main `View` struct.
+- **Code Style:** All Swift code **must** conform to the rules defined in the `.swiftlint.yml` file. Check the SwiftLint `.swiftlint.yml` file and make sure the code written follows the rule. Swiftlint runs automatically as a build plugin in Xcode. To run it manually from the command line, use `swift package lint`.
+- **SwiftUI View Structure:** To maintain readability, complex SwiftUI views **must** be broken down into smaller components. These components should be implemented as `private` computed properties or methods that return `some View`, decorated with the `@ViewBuilder` attribute and `private` modifier. All such components must be grouped in an `extension` below the main `View` struct.
 - **API Documentation:** For shared modules like `*Client` and `*Kit`, all public functions and properties **must** be documented using Swift's three-slash (`///`) doc-comment syntax. This documentation should clearly explain the purpose, parameters, and return value of the API so that it is visible to developers in Xcode.
 - **Dependency Management:**
   - **SwiftPM:** All Swift dependencies are managed in `Package.swift`.
