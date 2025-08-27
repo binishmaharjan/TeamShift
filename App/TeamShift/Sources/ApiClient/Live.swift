@@ -40,49 +40,45 @@ extension ApiClient {
         @Dependency(\.userStoreClient) var userStoreClient
         @MainActor @Dependency(\.userSession) var userSession
         
+        private func updateCurrentUser(_ user: AppUser) async {
+            await MainActor.run {
+                userSession.currentUser = user
+            }
+        }
+        
         func createUser(withEmail email: String, password: String) async throws {
             let user = try await authenticationClient.createUser(withEmail: email, password: password)
             try await userStoreClient.saveUser(user: user)
             
-            await MainActor.run {
-                userSession.currentUser = user
-            }
+            await updateCurrentUser(user)
         }
         
         func signIn(with email: String, password: String) async throws {
             let uid = try await authenticationClient.signIn(withEmail: email, password: password)
             let user = try await userStoreClient.getUser(uid: uid)
               
-            await MainActor.run {
-                userSession.currentUser = user
-            }
+            await updateCurrentUser(user)
         }
         
         func signUpAsGuest() async throws {
             let user = try await authenticationClient.signUpAsGuest()
             try await userStoreClient.saveUser(user: user)
             
-            await MainActor.run {
-                userSession.currentUser = user
-            }
+            await updateCurrentUser(user)
         }
         
         func signUpWithGoogle() async throws {
             let user = try await authenticationClient.signUpWithGoogle()
             try await userStoreClient.saveUser(user: user)
             
-            await MainActor.run {
-                userSession.currentUser = user
-            }
+            await updateCurrentUser(user)
         }
         
         func signInWithGoogle() async throws {
             let uid = try await authenticationClient.signInWithGoogle()
             let user = try await userStoreClient.getUser(uid: uid)
             
-            await MainActor.run {
-                userSession.currentUser = user
-            }
+            await updateCurrentUser(user)
         }
         
         func sendPasswordReset(withEmail email: String) async throws {
@@ -175,9 +171,7 @@ extension ApiClient {
         func getCurrentUser(uid: String) async throws {
             let user = try await userStoreClient.getUser(uid: uid)
             
-            await MainActor.run {
-                userSession.currentUser = user
-            }
+            await updateCurrentUser(user)
         }
         
         func updateUser(for uid: String, with fields: SendableDictionary) async throws {
@@ -189,7 +183,17 @@ extension ApiClient {
         }
         
         func createWorkplace(with workplace: Workplace) async throws {
+            guard let user = await userSession.currentUser else {
+                throw ApiError.userNotFound
+            }
+            
             try await userStoreClient.createWorkplace(workplace: workplace)
+            var workplaceIds = await userSession.currentUser?.workplaceIds ?? []
+            workplaceIds.append(workplace.id)
+            
+            let dict = user.dictionaryBuilder().workplaceIds(workplaceIds).dictionary.asSendable
+            
+            try await userStoreClient.updateUser(uid: user.id, fields: dict)
         }
     }
 }
