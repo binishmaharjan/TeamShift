@@ -29,3 +29,20 @@ extension View {
             .frame(width: 1)
     }
 }
+
+// MARK: Offset Modifier(For CustomRefreshView)
+extension View {
+    @ViewBuilder
+    public func offset(coordinateSpace: String, offset: @escaping (CGFloat) -> Void) -> some View {
+        self.overlay {
+            GeometryReader { proxy in
+                let minY = proxy.frame(in: .named(coordinateSpace)).minY
+                Color.clear
+                    .preference(key: OffsetKey.self, value: minY)
+                    .onPreferenceChange(OffsetKey.self) { value in
+                        offset(value)
+                    }
+            }
+        }
+    }
+}

@@ -466,6 +466,9 @@
         }
       }
     },
+    "Fetching Data.." : {
+
+    },
     "ForgotPassword_Alert_Sent_Title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1033,6 +1036,9 @@
           }
         }
       }
+    },
+    "Pull To Refresh" : {
+
     },
     "SignIn_Button_Forgot_Password" : {
       "extractionState" : "manual",
