@@ -14,11 +14,15 @@ struct WorkplaceView: View {
         VStack {
             emptyWorkplace
         }
+        .task {
+            await viewModel.onViewAppear()
+        }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 addWorkplaceButton
             }
         }
+        .loadingView(viewModel.isLoading)
         .background(Color.backgroundPrimary)
         .padding(.horizontal, 24)
     }

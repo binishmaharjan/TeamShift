@@ -29,7 +29,8 @@ extension ApiClient {
             getCurrentUser: { try await session.getCurrentUser(uid: $0) },
             updateUser: { try await session.updateUser(for: $0, with: $1) },
             getAppConfig: { try await session.getAppConfig() },
-            createWorkplace: { try await session.createWorkplace(with: $0) }
+            createWorkplace: { try await session.createWorkplace(with: $0) },
+            getWorkplace: { try await session.getWorkplace(for: $0) }
         )
     }
 }
@@ -196,6 +197,14 @@ extension ApiClient {
                 .dictionary.asSendable
             
             try await userStoreClient.updateUser(uid: user.id, fields: dict)
+            
+            await MainActor.run {
+                userSession.currentUser?.workplaceIds = workplaceIds
+            }
+        }
+        
+        func getWorkplace(for user: AppUser) async throws -> [Workplace] {
+            try await userStoreClient.getWorkplace(user: user)
         }
     }
 }
