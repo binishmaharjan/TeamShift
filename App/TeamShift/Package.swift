@@ -71,7 +71,7 @@ let package = Package(
                 .process("Resources"),
             ],
             plugins: [
-                .plugin(name: "AssetGenPlugin")
+                // .plugin(name: "AssetGenPlugin") // temp: Disabling for faster buld
             ]
         ),
         /* Features */
@@ -104,7 +104,7 @@ let package = Package(
                 .product(name: "Dependencies", package: "swift-dependencies"),
             ],
             plugins: [
-                .plugin(name: "LicensePlugin")
+                // .plugin(name: "LicensePlugin") // temp: Disabling for faster buld
             ]
         ),
         .target(
