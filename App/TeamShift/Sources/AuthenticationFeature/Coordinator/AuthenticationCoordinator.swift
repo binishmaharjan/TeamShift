@@ -43,7 +43,6 @@ public final class AuthenticationCoordinator: FlowCoordinator {
         let viewModel = OnboardingViewModel(coordinator: self)
 
         let view = OnboardingView(viewModel: viewModel)
-            .toolbar(.hidden)
         let viewController = NamedUIHostingController(rootView: view)
         navigationControllers.append(startViewController)
         startViewController.setViewControllers([viewController], animated: false)
@@ -73,23 +72,17 @@ extension AuthenticationCoordinator {
     
     private func pushCreateAccountView() {
         let viewModel = CreateAccountViewModel(coordinator: self)
-        
         let view = CreateAccountView(viewModel: viewModel)
-            .navigationBar(l10.onboardingTitle)
-            .withCustomBackButton()
-        
         let viewController = NamedUIHostingController(rootView: view)
+        viewController.title = l10.onboardingTitle
         startViewController.pushViewController(viewController, animated: true)
     }
     
     private func pushLoginView() {
         let viewModel = SignInViewModel(coordinator: self)
-        
         let view = SignInView(viewModel: viewModel)
-            .navigationBar(l10.signInTitle)
-            .withCustomBackButton()
-        
         let viewController = NamedUIHostingController(rootView: view)
+        viewController.title = l10.signInTitle
         startViewController.pushViewController(viewController, animated: true)
     }
     

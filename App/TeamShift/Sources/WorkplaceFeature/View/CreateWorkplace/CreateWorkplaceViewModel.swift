@@ -9,6 +9,10 @@ import UserSessionClient
 
 @Observable @MainActor
 final class CreateWorkplaceViewModel {
+    enum Route {
+        case showWorkplaceDetail(Workplace)
+    }
+    
     init(coordinator: WorkplaceCoordinator) {
         self.coordinator = coordinator
     }
@@ -53,7 +57,7 @@ final class CreateWorkplaceViewModel {
         do {
             try await apiClient.createWorkplace(workplace: newWorkplace)
             isLoading = false
-            createSuccessAlert()
+            createSuccessAlert(for: newWorkplace)
         } catch {
             isLoading = false
             handleError(error)
@@ -75,11 +79,8 @@ final class CreateWorkplaceViewModel {
 }
 
 extension CreateWorkplaceViewModel {
-    private func createSuccessAlert() {
-        coordinator?.showSuccessAlert(message: l10.createWorkplaceAlertSuccess) { [weak self] in
-            // Go to manager screen
-            // when user presses the back button, it goes to list but not create screen.
-        }
+    private func createSuccessAlert(for workplace: Workplace) {
+        coordinator?.createWorkplaceRequestNavigation(for: .showWorkplaceDetail(workplace))
     }
     
     private func handleError(_ error: Error) {

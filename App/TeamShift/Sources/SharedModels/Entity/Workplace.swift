@@ -53,3 +53,16 @@ public struct Workplace: Equatable, Identifiable, Codable, Sendable {
     public var phoneNumber: String?
     public var description: String?
 }
+
+// MARK: Mock
+extension Workplace {
+    public static let mockData = Workplace(
+        name: "Convenience store",
+        ownerId: "random_owner_id",
+        branchName: "San Francisco Branch",
+        locationName: "123 Main Street, San Francisco, CA 94102",
+        locationCoords: .init(latitude: 37.7749, longitude: -122.4194),
+        phoneNumber: "090-123-4560",
+        description: "This is a sample description of the workplace. It provides a brief overview of the location and its purpose."
+    )
+}

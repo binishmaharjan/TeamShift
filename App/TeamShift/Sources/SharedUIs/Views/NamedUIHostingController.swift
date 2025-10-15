@@ -32,7 +32,7 @@ public class NamedUIHostingController<Content: View>: UIHostingController<Conten
         super.init(rootView: rootView)
         
         // hide default navigation back button
-        navigationItem.setHidesBackButton(true, animated: false)
+//        navigationItem.setHidesBackButton(true, animated: false)
     }
     
     @available(*, unavailable)

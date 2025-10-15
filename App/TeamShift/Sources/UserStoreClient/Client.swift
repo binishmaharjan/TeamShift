@@ -11,6 +11,7 @@ public struct UserStoreClient: Sendable {
     public var deleteUser: @Sendable (_ uid: String) async throws -> Void
     public var getAppConfig: @Sendable () async throws -> AppConfig
     public var createWorkplace: @Sendable (_ workplace: Workplace) async throws -> Void
+    public var getWorkplace: @Sendable (_ user: AppUser) async throws -> [Workplace]
 }
 
 // MARK: DependencyValues
@@ -29,6 +30,7 @@ extension UserStoreClient: TestDependencyKey {
         updateUser: unimplemented(),
         deleteUser: unimplemented(),
         getAppConfig: unimplemented(),
-        createWorkplace: unimplemented()
+        createWorkplace: unimplemented(),
+        getWorkplace: unimplemented()
     )
 }

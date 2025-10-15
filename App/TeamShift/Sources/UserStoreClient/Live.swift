@@ -19,7 +19,8 @@ extension UserStoreClient {
             updateUser: { try await session.updateUser(for: $0, with: $1) },
             deleteUser: { try await session.deleteUser(uid: $0) },
             getAppConfig: { try await session.getAppConfig() },
-            createWorkplace: { try await session.createWorkplace(with: $0) }
+            createWorkplace: { try await session.createWorkplace(with: $0) },
+            getWorkplace: { try await session.getWorkplace(for: $0) }
         )
     }
 }
@@ -96,6 +97,39 @@ extension UserStoreClient {
                 printLog(for: reference, fields: SendableDictionary(workplace.asDictionary))
                 
                 try reference.setData(from: workplace)
+            } catch {
+                throw mapError(error)
+            }
+        }
+        
+        func getWorkplace(for user: AppUser) async throws -> [Workplace] {
+            do {
+                let chunks = user.workplaceIds.chunked(into: 10)
+                
+                return try await withThrowingTaskGroup(of: [Workplace].self, returning: [Workplace].self) { group in
+                    // Start all chunk requests simultaneously
+                    for chunk in chunks {
+                        group.addTask {
+                            let snapshot = try await Firestore.firestore()
+                                .collection(CollectionID.workplaces.rawValue)
+                                .whereField("id", in: chunk)
+                                .getDocuments()
+                            
+                            return try snapshot.documents.compactMap { document -> Workplace? in
+                                try document.data(as: Workplace.self)
+                            }
+                        }
+                    }
+                    
+                    // Collect all results
+                    var allWorkplaces: [Workplace] = []
+                    for try await workplaces in group {
+                        allWorkplaces.append(contentsOf: workplaces)
+                    }
+                    
+                    // return the result
+                    return allWorkplaces
+                }
             } catch {
                 throw mapError(error)
             }

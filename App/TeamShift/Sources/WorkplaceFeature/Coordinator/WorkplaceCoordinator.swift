@@ -36,7 +36,6 @@ public final class WorkplaceCoordinator: FlowCoordinator {
         navigationControllers.first ?? startViewController
     }
     
-    
     public func start() {
         navigationControllers.append(startViewController)
         
@@ -60,18 +59,15 @@ extension WorkplaceCoordinator {
     
     private func pushCreateWorkplaceView() {
         let viewModel = CreateWorkplaceViewModel(coordinator: self)
-        
         let view = CreateWorkplaceView(viewModel: viewModel)
-            .navigationBar(l10.createWorkplaceNavTitle)
-            .withCustomBackButton()
-        
         let viewController = NamedUIHostingController(rootView: view)
+        viewController.title = l10.createWorkplaceNavTitle
         topNavigationController.pushViewController(viewController, animated: true)
     }
     
     func presentLocationPicker(_ onLocationSelected: @escaping (Coordinate?) -> Void) {
         let view = LocationPicker(onLocationSelected: onLocationSelected) { [weak self] in
-//             remove presentation delegate when close button is tapped
+            // remove presentation delegate when close button is tapped
             self?.routePresentationDelegates.removeLast()
         }
         let viewController = NamedUIHostingController(rootView: view)
@@ -84,5 +80,33 @@ extension WorkplaceCoordinator {
         routePresentationDelegates.append(presentationDelegate)
         
         topNavigationController.present(viewController, animated: true)
+    }
+    
+    func popLast() {
+        topNavigationController.popViewController(animated: true)
+    }
+}
+
+// MARK: Create Workplace Navigation
+extension WorkplaceCoordinator {
+    func createWorkplaceRequestNavigation(for route: CreateWorkplaceViewModel.Route) {
+        switch route {
+        case .showWorkplaceDetail(let workplace):
+            showSuccessAlert(message: l10.createWorkplaceAlertSuccess) { [weak self] in
+                self?.pushWorkplaceDetailView(workplace: workplace)
+            }
+        }
+    }
+    
+    private func pushWorkplaceDetailView(workplace: Workplace) {
+        let viewModel = WorkplaceDetailViewModel(workplace: workplace)
+        let view = WorkplaceDetailView(viewModel: viewModel)
+        let viewController = NamedUIHostingController(rootView: view)
+        viewController.title = workplace.name
+        
+        var viewControllers = topNavigationController.viewControllers
+        viewControllers.removeLast()
+        viewControllers.append(viewController)
+        topNavigationController.setViewControllers(viewControllers, animated: true)
     }
 }
