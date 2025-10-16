@@ -12,6 +12,11 @@ final class WorkplaceViewModel {
         case showAddWorkplace
     }
     
+    enum Action {
+        case onAppear
+        case onPullToRefresh
+    }
+    
     // MARK: Init
     init(coordinator: WorkplaceCoordinator) {
         self.coordinator = coordinator
@@ -37,7 +42,20 @@ final class WorkplaceViewModel {
         }
     }
     
-    func onViewAppear() async {
+    func send(action: Action) async {
+        switch action {
+        case .onAppear:
+            await fetchWorkplaceList()
+            
+        case .onPullToRefresh:
+            await fetchWorkplaceList(showIndicator: false)
+        }
+    }
+}
+
+// Private
+extension WorkplaceViewModel {
+    private func fetchWorkplaceList(showIndicator: Bool = true) async {
         guard let currentUser = userSession.currentUser else {
             handleError(AppError.internalError(.userNotFound))
             return

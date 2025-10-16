@@ -19,10 +19,12 @@ struct WorkplaceView: View {
                     emptyWorkplace(width: geometry.size.width, height: geometry.size.height)
                 }
             } onRefresh: {
+                try? await Task.sleep(for: .seconds(0.5))
+                await viewModel.send(action: .onPullToRefresh)
             }
         }
         .task {
-            await viewModel.onViewAppear()
+            await viewModel.send(action: .onAppear)
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
