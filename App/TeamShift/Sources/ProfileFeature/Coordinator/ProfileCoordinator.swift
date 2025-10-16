@@ -78,7 +78,7 @@ extension ProfileCoordinator {
     private func pushChangeAvatarView() {
         let viewModel = ChangeAvatarViewModel(coordinator: self)
         let view = ChangeAvatarView(viewModel: viewModel)
-        let viewController = NamedUIHostingController(rootView: view)
+        let viewController = UIHostingController(rootView: view)
         viewController.title = l10.changeAvatarNavTitle
         topNavigationController.pushViewController(viewController, animated: true)
     }
@@ -86,7 +86,7 @@ extension ProfileCoordinator {
     private func pushChangePasswordView() {
         let viewModel = ChangePasswordViewModel(coordinator: self)
         let view = ChangePasswordView(viewModel: viewModel)
-        let viewController = NamedUIHostingController(rootView: view)
+        let viewController = UIHostingController(rootView: view)
         viewController.title = l10.changePasswordNavTitle
         topNavigationController.pushViewController(viewController, animated: true)
     }
@@ -94,7 +94,7 @@ extension ProfileCoordinator {
     private func pushLinkAccountView() {
         let viewModel = LinkAccountViewModel(coordinator: self)
         let view = LinkAccountView(viewModel: viewModel)
-        let viewController = NamedUIHostingController(rootView: view)
+        let viewController = UIHostingController(rootView: view)
         viewController.title = l10.linkAccountNavTitle
         topNavigationController.pushViewController(viewController, animated: true)
     }
@@ -102,7 +102,7 @@ extension ProfileCoordinator {
     private func pushDeleteAccountView() {
         let viewModel = DeleteAccountViewModel(coordinator: self)
         let view = DeleteAccountView(viewModel: viewModel)
-        let viewController = NamedUIHostingController(rootView: view)
+        let viewController = UIHostingController(rootView: view)
         viewController.title = l10.deleteAccountNavTitle
         topNavigationController.pushViewController(viewController, animated: true)
     }
@@ -110,7 +110,7 @@ extension ProfileCoordinator {
     private func pushStartWeekDayView() {
         let viewModel = StartWeekDayViewModel(coordinator: self)
         let view = StartWeekDayView(viewModel: viewModel)
-        let viewController = NamedUIHostingController(rootView: view)
+        let viewController = UIHostingController(rootView: view)
         viewController.title = ""
         topNavigationController.pushViewController(viewController, animated: true)
     }
@@ -118,7 +118,7 @@ extension ProfileCoordinator {
     private func pushLicenseView() {
         let viewModel = LicenseViewModel(coordinator: self)
         let view = LicenseView(viewModel: viewModel)
-        let viewController = NamedUIHostingController(rootView: view)
+        let viewController = UIHostingController(rootView: view)
         viewController.title = l10.licenseNavTitle
         topNavigationController.pushViewController(viewController, animated: true)
     }
@@ -155,7 +155,7 @@ extension ProfileCoordinator {
 extension ProfileCoordinator {
     func pushLicenseDescription(licenseName: String, licenseText: String) {
         let view = LicenseDescriptionView(licenseText: licenseText)        
-        let viewController = NamedUIHostingController(rootView: view)
+        let viewController = UIHostingController(rootView: view)
         viewController.title = licenseName
         topNavigationController.pushViewController(viewController, animated: true)
     }
