@@ -31,7 +31,7 @@ struct WorkplaceView: View {
                 addWorkplaceButton
             }
         }
-        .safeAreaPadding(.top, 0)
+//        .safeAreaPadding(.top, 0)
         .loadingView(viewModel.isLoading)
         .background(Color.backgroundPrimary)
     }

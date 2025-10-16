@@ -104,7 +104,7 @@ let package = Package(
                 .product(name: "Dependencies", package: "swift-dependencies"),
             ],
             plugins: [
-                .plugin(name: "LicensePlugin")
+                .plugin(name: "LicensePlugin"),
             ]
         ),
         .target(

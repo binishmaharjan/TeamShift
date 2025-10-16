@@ -5,35 +5,35 @@ public struct CustomRefreshView<Content: View>: View {
     
     public init(
         scrollDelegate: CustomRefreshViewModel,
-        showIndicator: Bool = false,
-        navigationHeight: CGFloat = 0,
+        showsScrollIndicators: Bool = false,
+//        navigationHeight: CGFloat = 0,
         @ViewBuilder content: @escaping () -> Content,
         onRefresh: @escaping () async -> Void
     ) {
         self.content = content()
         self.scrollDelegate = scrollDelegate
-        self.showIndicator = showIndicator
-        self.navigationHeight = navigationHeight
+        self.showsScrollIndicators = showsScrollIndicators
+//        self.navigationHeight = navigationHeight
         self.onRefresh = onRefresh
     }
     
     // MARK: Properties
     private var content: Content
     private var scrollDelegate: CustomRefreshViewModel
-    private var showIndicator: Bool
-    private var navigationHeight: CGFloat
+    private var showsScrollIndicators: Bool
+//    private var navigationHeight: CGFloat
     private var onRefresh: () async -> Void
     
     public var body: some View {
-        ScrollView(.vertical, showsIndicators: showIndicator) {
+        ScrollView(.vertical, showsIndicators: showsScrollIndicators) {
             VStack(spacing: 0) {
                 content
-                    .offset(y: Configuration.maxScrollOffset * scrollDelegate.progress)
+                    .offset(y: Configuration.refreshTriggerOffset * scrollDelegate.progress)
             }
             .overlay {
                 VStack(spacing: 0) {
                     // MARK: Adding a clear frame to avoid space from Custom Navigation Bar
-                    Color.clear.frame(height: navigationHeight)
+//                    Color.clear.frame(height: navigationHeight)
                     
                     progressView
                     .scaleEffect(scrollDelegate.isEligible ? 1 : 0.001)
@@ -43,7 +43,7 @@ public struct CustomRefreshView<Content: View>: View {
                         .opacity(scrollDelegate.isEligible ? 0 : 1)
                         .animation(.easeInOut(duration: 0.25), value: scrollDelegate.isEligible)
                     }
-                    .frame(height: Configuration.maxScrollOffset * scrollDelegate.progress)
+                    .frame(height: Configuration.refreshTriggerOffset * scrollDelegate.progress)
                     .frame(maxWidth: .infinity)
                     .opacity(scrollDelegate.progress)
                     .offset(
@@ -62,7 +62,7 @@ public struct CustomRefreshView<Content: View>: View {
                 
                 // MARK: Stopping the progress when its eligible for refresh
                 if !scrollDelegate.isEligible {
-                    var progress = offset / Configuration.maxScrollOffset
+                    var progress = offset / Configuration.refreshTriggerOffset
                     progress = (progress < 0 ? 0 : progress)
                     progress = (progress > 1 ? 1 : progress)
                     scrollDelegate.scrollOffset = offset
@@ -76,6 +76,7 @@ public struct CustomRefreshView<Content: View>: View {
                 }
             }
         }
+        .safeAreaPadding(.top, 0)
         .coordinateSpace(name: Configuration.scrollCoordinateSpace)
         .onAppear(perform: scrollDelegate.addGesture)
         .onDisappear(perform: scrollDelegate.removeGesture)
