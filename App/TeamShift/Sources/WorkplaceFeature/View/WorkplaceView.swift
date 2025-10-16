@@ -13,11 +13,13 @@ struct WorkplaceView: View {
     private var scrollDelegate = CustomRefreshViewModel()
     
     var body: some View {
-        CustomRefreshView(scrollDelegate: scrollDelegate) {
-            VStack {
-                emptyWorkplace
+        GeometryReader { geometry in
+            CustomRefreshView(scrollDelegate: scrollDelegate) {
+                VStack {
+                    emptyWorkplace(width: geometry.size.width, height: geometry.size.height)
+                }
+            } onRefresh: {
             }
-        } onRefresh: {
         }
         .task {
             await viewModel.onViewAppear()
@@ -27,7 +29,7 @@ struct WorkplaceView: View {
                 addWorkplaceButton
             }
         }
-        .safeAreaPadding(.top, 44)
+        .safeAreaPadding(.top, 0)
         .loadingView(viewModel.isLoading)
         .background(Color.backgroundPrimary)
     }
@@ -48,30 +50,25 @@ extension WorkplaceView {
     }
     
     @ViewBuilder
-    private var emptyWorkplace: some View {
-        GeometryReader { geometry in
-            VStack {
-                Image.icnStore
-                    .renderingMode(.template)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 64, height: 64)
-                    .foregroundStyle(Color.textSecondary)
-                
-                Text(l10.workplaceEmptyTitle)
-                    .font(.customHeadline)
-                    .foregroundStyle(Color.textSecondary)
-                
-                Text(l10.workplaceEmptyDescription)
-                    .font(.customCaption)
-                    .foregroundStyle(Color.textSecondary)
-                    .multilineTextAlignment(.center)
-            }
-            // Since CustomRefreshView is Scroll View and does not have
-            // fixed height, so content cannot be centered. So, fetching the height and width from
-            // geometry reader and setting it as VStack size
-            .frame(width: geometry.size.width, height: geometry.size.height)
+    func emptyWorkplace(width: CGFloat, height: CGFloat) -> some View {
+        VStack {
+            Image.icnStore
+                .renderingMode(.template)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 64, height: 64)
+                .foregroundStyle(Color.textSecondary)
+            
+            Text(l10.workplaceEmptyTitle)
+                .font(.customHeadline)
+                .foregroundStyle(Color.textSecondary)
+            
+            Text(l10.workplaceEmptyDescription)
+                .font(.customCaption)
+                .foregroundStyle(Color.textSecondary)
+                .multilineTextAlignment(.center)
         }
+        .frame(width: width, height: height)
     }
 }
 
