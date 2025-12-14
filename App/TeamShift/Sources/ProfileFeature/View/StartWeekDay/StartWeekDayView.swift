@@ -14,7 +14,6 @@ struct StartWeekDayView: View {
             Text("Start WeekDay View")
                 .font(.customHeadline)
         }
-        .background(Color.backgroundPrimary)
     }
 }
 

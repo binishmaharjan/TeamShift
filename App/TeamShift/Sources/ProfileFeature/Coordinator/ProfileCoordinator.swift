@@ -104,8 +104,7 @@ extension ProfileCoordinator {
     
     private func pushStartWeekDayView() {
         let viewModel = StartWeekDayViewModel(coordinator: self)
-        let view = StartWeekDayView(viewModel: viewModel)
-        let viewController = UIHostingController(rootView: view)
+        let viewController = StartWeekDayViewController(viewModel: viewModel)
         viewController.title = ""
         topNavigationController.pushViewController(viewController, animated: true)
     }
