@@ -110,3 +110,11 @@ extension WorkplaceCoordinator {
         topNavigationController.setViewControllers(viewControllers, animated: true)
     }
 }
+
+/*
+ WorkplaceView — App/TeamShift/Sources/WorkplaceFeature/View/WorkplaceView.swift
+ CreateWorkplaceView — App/TeamShift/Sources/WorkplaceFeature/View/CreateWorkplace/CreateWorkplaceView.swift
+ WorkplaceDetailView — App/TeamShift/Sources/WorkplaceFeature/View/WorkplaceDetail/WorkplaceDetailView.swift
+ LocationPicker — App/TeamShift/Sources/LocationKit/LocationPicker.swift
+ ScheduleView — App/TeamShift/Sources/ScheduleFeature/View/ScheduleView.swift
+ */
