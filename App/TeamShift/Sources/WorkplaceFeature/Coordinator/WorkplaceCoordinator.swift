@@ -63,11 +63,10 @@ extension WorkplaceCoordinator {
     }
     
     func presentLocationPicker(_ onLocationSelected: @escaping (Coordinate?) -> Void) {
-        let view = LocationPicker(onLocationSelected: onLocationSelected) { [weak self] in
+        let viewController = LocationPickerViewController(onLocationSelected: onLocationSelected) { [weak self] in
             // remove presentation delegate when close button is tapped
             self?.routePresentationDelegates.removeLast()
         }
-        let viewController = UIHostingController(rootView: view)
         
         // for swipe down
         let presentationDelegate = PresentationDelegate { [weak self] in
@@ -108,9 +107,5 @@ extension WorkplaceCoordinator {
 }
 
 /*
- WorkplaceView — App/TeamShift/Sources/WorkplaceFeature/View/WorkplaceView.swift
- CreateWorkplaceView — App/TeamShift/Sources/WorkplaceFeature/View/CreateWorkplace/CreateWorkplaceView.swift
- WorkplaceDetailView — App/TeamShift/Sources/WorkplaceFeature/View/WorkplaceDetail/WorkplaceDetailView.swift
  LocationPicker — App/TeamShift/Sources/LocationKit/LocationPicker.swift
- ScheduleView — App/TeamShift/Sources/ScheduleFeature/View/ScheduleView.swift
  */
