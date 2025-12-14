@@ -77,8 +77,7 @@ extension AuthenticationCoordinator {
     
     private func pushLoginView() {
         let viewModel = SignInViewModel(coordinator: self)
-        let view = SignInView(viewModel: viewModel)
-        let viewController = UIHostingController(rootView: view)
+        let viewController = SignInViewController(viewModel: viewModel)
         viewController.title = l10.signInTitle
         startViewController.pushViewController(viewController, animated: true)
     }
