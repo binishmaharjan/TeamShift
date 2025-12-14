@@ -97,8 +97,7 @@ extension ProfileCoordinator {
     
     private func pushDeleteAccountView() {
         let viewModel = DeleteAccountViewModel(coordinator: self)
-        let view = DeleteAccountView(viewModel: viewModel)
-        let viewController = UIHostingController(rootView: view)
+        let viewController = DeleteAccountViewController(viewModel: viewModel)
         viewController.title = l10.deleteAccountNavTitle
         topNavigationController.pushViewController(viewController, animated: true)
     }
