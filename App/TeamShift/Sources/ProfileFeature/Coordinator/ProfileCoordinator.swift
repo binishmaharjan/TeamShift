@@ -82,8 +82,7 @@ extension ProfileCoordinator {
     
     private func pushChangePasswordView() {
         let viewModel = ChangePasswordViewModel(coordinator: self)
-        let view = ChangePasswordView(viewModel: viewModel)
-        let viewController = UIHostingController(rootView: view)
+        let viewController = ChangePasswordViewController(viewModel: viewModel)
         viewController.title = l10.changePasswordNavTitle
         topNavigationController.pushViewController(viewController, animated: true)
     }
