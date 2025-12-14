@@ -32,7 +32,6 @@ struct ChangeAvatarView: View {
             }
         }
         .loadingView(viewModel.isLoading)
-        .background(Color.backgroundPrimary)
     }
 }
 

@@ -75,8 +75,7 @@ extension ProfileCoordinator {
     
     private func pushChangeAvatarView() {
         let viewModel = ChangeAvatarViewModel(coordinator: self)
-        let view = ChangeAvatarView(viewModel: viewModel)
-        let viewController = UIHostingController(rootView: view)
+        let viewController = ChangeAvatarViewController(viewModel: viewModel)
         viewController.title = l10.changeAvatarNavTitle
         topNavigationController.pushViewController(viewController, animated: true)
     }
