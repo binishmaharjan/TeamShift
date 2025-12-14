@@ -1,4 +1,5 @@
 import SharedModels
+import SwiftUI
 import UIKit
 
 // MARK: Alert
@@ -94,6 +95,7 @@ extension UIViewController {
     }
 }
 
+// MARK: Coordinator + Alert Handlings
 extension Coordinator {
     public func handleError(_ error: Error) {
         guard let error = error as? AppError else {
@@ -132,5 +134,40 @@ extension Coordinator {
                 AlertAction(title: l10.commonButtonOK, style: .default, handler: completion)
             ]
         )
+    }
+}
+
+// MARK: UIViewController + SwiftUIViews
+extension UIViewController {
+    /// Add SwiftUI.View to self(ViewController)
+    /// - Parameters:
+    ///   - swiftUIView: SwiftUI.View to be added
+    ///   - view: Parent UIView
+    /// - Returns: UIHostingController
+    @discardableResult
+    public func addSubSwiftUIView(_ swiftUIView: some SwiftUI.View, to view: UIView) -> UIViewController {
+        let hostingController = UIHostingController(rootView: swiftUIView)
+        hostingController.view.backgroundColor = .clear
+        
+        addChild(hostingController)
+        view.addSubview(hostingController.view)
+        setAnchor(hostingController.view, to: view)
+        hostingController.didMove(toParent: self)
+        
+        return hostingController
+    }
+    
+    /// Set Anchor for two views to be of same size
+    ///   - subview: UIView to added
+    ///   - view: Parent UIView
+    public func setAnchor(_ subview: UIView, to view: UIView) {
+        subview.translatesAutoresizingMaskIntoConstraints = false
+        let constraints = [
+            subview.topAnchor.constraint(equalTo: view.topAnchor),
+            subview.leftAnchor.constraint(equalTo: view.leftAnchor),
+            subview.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            subview.rightAnchor.constraint(equalTo: view.rightAnchor),
+        ]
+        NSLayoutConstraint.activate(constraints)
     }
 }
