@@ -111,8 +111,7 @@ extension ProfileCoordinator {
     
     private func pushLicenseView() {
         let viewModel = LicenseViewModel(coordinator: self)
-        let view = LicenseView(viewModel: viewModel)
-        let viewController = UIHostingController(rootView: view)
+        let viewController = LicenseViewController(viewModel: viewModel)
         viewController.title = l10.licenseNavTitle
         topNavigationController.pushViewController(viewController, animated: true)
     }
