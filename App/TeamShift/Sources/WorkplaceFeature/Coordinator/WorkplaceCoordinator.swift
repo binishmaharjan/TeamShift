@@ -97,8 +97,7 @@ extension WorkplaceCoordinator {
     
     private func pushWorkplaceDetailView(workplace: Workplace) {
         let viewModel = WorkplaceDetailViewModel(workplace: workplace)
-        let view = WorkplaceDetailView(viewModel: viewModel)
-        let viewController = UIHostingController(rootView: view)
+        let viewController = WorkplaceDetailViewController(viewModel: viewModel)
         viewController.title = workplace.name
         
         var viewControllers = topNavigationController.viewControllers
