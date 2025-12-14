@@ -70,8 +70,7 @@ extension AuthenticationCoordinator {
     
     private func pushCreateAccountView() {
         let viewModel = CreateAccountViewModel(coordinator: self)
-        let view = CreateAccountView(viewModel: viewModel)
-        let viewController = UIHostingController(rootView: view)
+        let viewController = CreateAccountViewController(viewModel: viewModel)
         viewController.title = l10.onboardingTitle
         startViewController.pushViewController(viewController, animated: true)
     }

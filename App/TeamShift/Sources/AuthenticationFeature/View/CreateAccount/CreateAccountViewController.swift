@@ -2,10 +2,10 @@ import SharedUIs
 import SwiftUI
 import UIKit
 
-final class OnboardingViewController: UIViewController {
-    let viewModel: OnboardingViewModel
+final class CreateAccountViewController: UIViewController {
+    let viewModel: CreateAccountViewModel
     
-    init(viewModel: OnboardingViewModel) {
+    init(viewModel: CreateAccountViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -21,7 +21,7 @@ final class OnboardingViewController: UIViewController {
     
     private func setUpView() {
         view.backgroundColor = Color.backgroundPrimary.uiColor
-        let swiftUIView = OnboardingView(viewModel: viewModel)
+        let swiftUIView = CreateAccountView(viewModel: viewModel)
         addSubSwiftUIView(swiftUIView, to: view)
     }
 }

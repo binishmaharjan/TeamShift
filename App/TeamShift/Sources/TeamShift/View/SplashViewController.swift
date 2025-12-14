@@ -20,6 +20,7 @@ final class SplashViewController: UIViewController {
     }
     
     private func setUpView() {
+        view.backgroundColor = Color.backgroundPrimary.uiColor
         let swiftUIView = SplashView(viewModel: viewModel)
         addSubSwiftUIView(swiftUIView, to: view)
         
