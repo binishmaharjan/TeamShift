@@ -33,7 +33,6 @@ struct WorkplaceView: View {
         }
 //        .safeAreaPadding(.top, 0)
         .loadingView(viewModel.isLoading)
-        .background(Color.backgroundPrimary)
     }
 }
 

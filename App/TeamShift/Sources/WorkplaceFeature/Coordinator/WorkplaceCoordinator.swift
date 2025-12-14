@@ -57,8 +57,7 @@ extension WorkplaceCoordinator {
     
     private func pushCreateWorkplaceView() {
         let viewModel = CreateWorkplaceViewModel(coordinator: self)
-        let view = CreateWorkplaceView(viewModel: viewModel)
-        let viewController = UIHostingController(rootView: view)
+        let viewController = CreateWorkplaceViewController(viewModel: viewModel)
         viewController.title = l10.createWorkplaceNavTitle
         topNavigationController.pushViewController(viewController, animated: true)
     }

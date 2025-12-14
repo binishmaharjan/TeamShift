@@ -35,7 +35,6 @@ struct CreateWorkplaceView: View {
         }
         .loadingView(viewModel.isLoading)
         .hideKeyboardOnTap()
-        .background(Color.backgroundPrimary)
         .padding(.horizontal, 24)
         .padding(.top, 24)
         .vSpacing(.top)
