@@ -100,18 +100,14 @@ extension AuthenticationCoordinator {
         let navigationController = NavigationController()
         
         let viewModel = ForgotPasswordViewModel(coordinator: self)
-        let view = ForgotPasswordView(viewModel: viewModel)
-            .navigationBar(l10.forgotPasswordTitle)
-            .withCustomCloseButton { [weak navigationController, weak self] in
-                // For Close Button Tapped
-                navigationController?.dismiss(animated: true)
-                if let presentedNavigationController = navigationController {
-                    self?.navigationControllers.removeAll { $0 === presentedNavigationController }
-                    self?.routePresentationDelegates.removeLast()
-                }
+        let viewController = ForgotPasswordViewController(viewModel: viewModel) { [weak navigationController, weak self] in
+            navigationController?.dismiss(animated: true)
+            if let presentedNavigationController = navigationController {
+                self?.navigationControllers.removeAll { $0 === presentedNavigationController }
+                self?.routePresentationDelegates.removeLast()
             }
-        
-        let viewController = UIHostingController(rootView: view)
+        }
+        viewController.title = l10.forgotPasswordTitle
         navigationController.setViewControllers([viewController], animated: false)
         navigationControllers.append(navigationController)
         
