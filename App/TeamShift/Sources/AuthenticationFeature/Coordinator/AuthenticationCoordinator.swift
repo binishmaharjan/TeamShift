@@ -41,9 +41,7 @@ public final class AuthenticationCoordinator: FlowCoordinator {
     // MARK: Methods
     public func start() {
         let viewModel = OnboardingViewModel(coordinator: self)
-
-        let view = OnboardingView(viewModel: viewModel)
-        let viewController = NamedUIHostingController(rootView: view)
+        let viewController = OnboardingViewController(viewModel: viewModel)
         navigationControllers.append(startViewController)
         startViewController.setViewControllers([viewController], animated: false)
     }
@@ -72,16 +70,14 @@ extension AuthenticationCoordinator {
     
     private func pushCreateAccountView() {
         let viewModel = CreateAccountViewModel(coordinator: self)
-        let view = CreateAccountView(viewModel: viewModel)
-        let viewController = NamedUIHostingController(rootView: view)
+        let viewController = CreateAccountViewController(viewModel: viewModel)
         viewController.title = l10.onboardingTitle
         startViewController.pushViewController(viewController, animated: true)
     }
     
     private func pushLoginView() {
         let viewModel = SignInViewModel(coordinator: self)
-        let view = SignInView(viewModel: viewModel)
-        let viewController = NamedUIHostingController(rootView: view)
+        let viewController = SignInViewController(viewModel: viewModel)
         viewController.title = l10.signInTitle
         startViewController.pushViewController(viewController, animated: true)
     }
@@ -104,18 +100,14 @@ extension AuthenticationCoordinator {
         let navigationController = NavigationController()
         
         let viewModel = ForgotPasswordViewModel(coordinator: self)
-        let view = ForgotPasswordView(viewModel: viewModel)
-            .navigationBar(l10.forgotPasswordTitle)
-            .withCustomCloseButton { [weak navigationController, weak self] in
-                // For Close Button Tapped
-                navigationController?.dismiss(animated: true)
-                if let presentedNavigationController = navigationController {
-                    self?.navigationControllers.removeAll { $0 === presentedNavigationController }
-                    self?.routePresentationDelegates.removeLast()
-                }
+        let viewController = ForgotPasswordViewController(viewModel: viewModel) { [weak navigationController, weak self] in
+            navigationController?.dismiss(animated: true)
+            if let presentedNavigationController = navigationController {
+                self?.navigationControllers.removeAll { $0 === presentedNavigationController }
+                self?.routePresentationDelegates.removeLast()
             }
-        
-        let viewController = NamedUIHostingController(rootView: view)
+        }
+        viewController.title = l10.forgotPasswordTitle
         navigationController.setViewControllers([viewController], animated: false)
         navigationControllers.append(navigationController)
         

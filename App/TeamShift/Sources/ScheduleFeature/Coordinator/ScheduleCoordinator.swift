@@ -35,8 +35,7 @@ public final class ScheduleCoordinator: FlowCoordinator {
     public func start() {
         navigationControllers.append(startViewController)
         let viewModel = ScheduleViewModel(coordinator: self)
-        let view = ScheduleView(viewModel: viewModel)
-        let viewController = UIHostingController(rootView: view)
+        let viewController = ScheduleViewController(viewModel: viewModel)
         startViewController.setViewControllers([viewController], animated: false)
     }
 }

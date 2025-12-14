@@ -34,8 +34,7 @@ final class SplashCoordinator: FlowCoordinator {
     // MARK: Methods
     func start() {
         let viewModel = SplashViewModel(coordinator: self)
-        let view = SplashView(viewModel: viewModel)
-        let viewController = NamedUIHostingController(rootView: view)
+        let viewController = SplashViewController(viewModel: viewModel)
         startViewController = viewController
     }
 }

@@ -45,7 +45,7 @@ extension CreateAccountView {
     private var emailTextField: some View {
         PrimaryTextField(
             l10.commonTextFieldEmail,
-            kind: .secure(image: .icnMail),
+            kind: .icon(image: .icnMail),
             text: $viewModel.email,
             fieldIdentifier: .email,
             focusedField: $focusedField,

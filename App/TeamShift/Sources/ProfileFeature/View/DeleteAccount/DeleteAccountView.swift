@@ -33,7 +33,6 @@ struct DeleteAccountView: View {
         .padding(.horizontal, 24)
         .vSpacing(.top)
         .loadingView(viewModel.isLoading)
-        .background(Color.backgroundPrimary)
     }
 }
 

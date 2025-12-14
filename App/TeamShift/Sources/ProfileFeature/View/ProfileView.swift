@@ -34,12 +34,8 @@ struct ProfileView: View {
             .padding(.bottom, 10)
             .background(Color.backgroundList)
         }
-        .onAppear {
-            viewModel.refreshUserData()
-        }
         .loadingView(viewModel.isLoading)
         .displayToast(handledBy: viewModel.toastHandler)
-        .background(Color.backgroundList.ignoresSafeArea())
     }
 }
 

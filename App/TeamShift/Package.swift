@@ -29,7 +29,6 @@ let package = Package(
         .library(name: "LocationKit", targets: ["LocationKit"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", exact: "0.58.2"),
         .package(url: "https://github.com/firebase/firebase-ios-sdk", exact: "11.12.0"),
         .package(url: "https://github.com/google/GoogleSignIn-iOS.git", exact: "8.0.0"),
         .package(url: "https://github.com/pointfreeco/swift-dependencies.git", exact: "1.9.2"),
@@ -45,9 +44,6 @@ let package = Package(
                 "MainTabFeature",
                 "ApiClient",
                 "UserSessionClient"
-            ],
-            plugins: [
-                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
             ]
         ),
         /* Shared */
@@ -56,9 +52,6 @@ let package = Package(
             dependencies: [
                 .product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
                 .product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
-            ],
-            plugins: [
-                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
             ]
         ),
         .target(
@@ -67,9 +60,6 @@ let package = Package(
                 "SharedMacros",
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "DependenciesMacros", package: "swift-dependencies"),
-            ],
-            plugins: [
-                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
             ]
         ),
         .target(
@@ -81,7 +71,6 @@ let package = Package(
                 .process("Resources"),
             ],
             plugins: [
-                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
                 .plugin(name: "AssetGenPlugin")
             ]
         ),
@@ -93,9 +82,6 @@ let package = Package(
                 "SharedModels",
                 "ApiClient",
                 .product(name: "FirebaseAnalytics", package: "firebase-ios-sdk"),
-            ],
-            plugins: [
-                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
             ]
         ),
         .target(
@@ -106,9 +92,6 @@ let package = Package(
                 "ProfileFeature",
                 "ScheduleFeature",
                 "WorkplaceFeature"
-            ],
-            plugins: [
-                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
             ]
         ),
         .target(
@@ -121,8 +104,7 @@ let package = Package(
                 .product(name: "Dependencies", package: "swift-dependencies"),
             ],
             plugins: [
-                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
-                .plugin(name: "LicensePlugin")
+                .plugin(name: "LicensePlugin"),
             ]
         ),
         .target(
@@ -130,9 +112,6 @@ let package = Package(
             dependencies: [
                 "SharedUIs",
                 "SharedModels"
-            ],
-            plugins: [
-                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
             ]
         ),
         .target(
@@ -144,9 +123,6 @@ let package = Package(
                 "UserSessionClient",
                 "LocationKit",
                 .product(name: "Dependencies", package: "swift-dependencies"),
-            ],
-            plugins: [
-                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
             ]
         ),
         /* Clients */
@@ -158,9 +134,6 @@ let package = Package(
                 "UserStoreClient",
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "DependenciesMacros", package: "swift-dependencies"),
-            ],
-            plugins: [
-                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
             ]
         ),
         .target(
@@ -173,9 +146,6 @@ let package = Package(
                 .product(name: "FirebaseAuth", package: "firebase-ios-sdk"),
                 .product(name: "GoogleSignIn", package: "GoogleSignIn-iOS"),
                 .product(name: "GoogleSignInSwift", package: "GoogleSignIn-iOS"),
-            ],
-            plugins: [
-                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
             ]
         ),
         .target(
@@ -185,9 +155,6 @@ let package = Package(
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "DependenciesMacros", package: "swift-dependencies"),
                 .product(name: "FirebaseAuth", package: "firebase-ios-sdk"),
-            ],
-            plugins: [
-                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
             ]
         ),
         .target(
@@ -198,9 +165,6 @@ let package = Package(
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "DependenciesMacros", package: "swift-dependencies"),
                 .product(name: "FirebaseFirestore", package: "firebase-ios-sdk"),
-            ],
-            plugins: [
-                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
             ]
         ),
         .target(
@@ -209,9 +173,6 @@ let package = Package(
                 "SharedModels",
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "DependenciesMacros", package: "swift-dependencies"),
-            ],
-            plugins: [
-                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
             ]
         ),
         /* Kits */
@@ -222,9 +183,6 @@ let package = Package(
                 "SharedModels",
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "DependenciesMacros", package: "swift-dependencies"),
-            ],
-            plugins: [
-                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
             ]
         ),
         /* Plugins */
