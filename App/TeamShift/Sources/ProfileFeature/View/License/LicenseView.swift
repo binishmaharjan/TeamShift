@@ -14,7 +14,6 @@ struct LicenseView: View {
             licenseList
             .padding(.vertical, 16)
         }
-        .background(Color.backgroundList)
     }
 }
 

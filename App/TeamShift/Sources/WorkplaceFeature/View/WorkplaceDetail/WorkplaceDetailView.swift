@@ -22,7 +22,6 @@ struct WorkplaceDetailView: View {
                     .padding(.horizontal, 20)
             }
         }
-        .background(Color.backgroundPrimary.ignoresSafeArea())
     }
 }
 

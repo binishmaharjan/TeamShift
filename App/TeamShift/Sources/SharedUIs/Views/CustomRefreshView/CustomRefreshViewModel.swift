@@ -1,3 +1,4 @@
+import CoreGraphics
 import Foundation
 import UIKit
 
@@ -9,7 +10,7 @@ import UIKit
 @Observable @MainActor
 public final class CustomRefreshViewModel: NSObject, UIGestureRecognizerDelegate {
     enum Configuration {
-        static let maxScrollOffset: CGFloat = 75
+        static let refreshTriggerOffset: CGFloat = 75
         static let scrollCoordinateSpace: String = UUID().uuidString
     }
     
@@ -62,7 +63,7 @@ public final class CustomRefreshViewModel: NSObject, UIGestureRecognizerDelegate
         if gesture.state == .cancelled || gesture.state == .ended {
             // MARK: Max Scroll Offset
             if !isRefreshing {
-                if scrollOffset > Configuration.maxScrollOffset {
+                if scrollOffset > Configuration.refreshTriggerOffset {
                     isEligible = true
                 } else {
                     isEligible = false
