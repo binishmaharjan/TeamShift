@@ -40,10 +40,8 @@ public final class WorkplaceCoordinator: FlowCoordinator {
         navigationControllers.append(startViewController)
         
         let viewModel = WorkplaceViewModel(coordinator: self)
-        let view = WorkplaceView(viewModel: viewModel)
-            .navigationBar(l10.workplaceNavTitle)
-        
-        let viewController = UIHostingController(rootView: view)
+        let viewController = WorkplaceViewController(viewModel: viewModel)
+        viewController.title = l10.workplaceNavTitle
         startViewController.setViewControllers([viewController], animated: false)
     }
 }
