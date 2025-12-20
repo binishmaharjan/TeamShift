@@ -1,16 +1,36 @@
-## User settings
-xcuserdata/
-*/xcuserdata/
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
 
-## Obj-C/Swift specific
+# Xcode
+build/
+DerivedData/
 *.hmap
-
-## App packaging
 *.ipa
 *.dSYM.zip
 *.dSYM
 
-## Playgrounds
+## User settings
+xcuserdata/
+
+# Tuist
+*.xcodeproj
+*.xcworkspace
+*.generated.swift
+Tuist/Derived/
+Tuist/Dependencies/
+# Commit lockfiles for version pinning
+!Tuist/Dependencies/Lockfiles/
+
+# Swift Package Manager
+.build/
+Packages/
+.swiftpm/
+Package.resolved
+.package.resolved
+
+# Playgrounds
 timeline.xctimeline
 playground.xcworkspace
 
@@ -18,15 +38,8 @@ playground.xcworkspace
 vendor/*
 !vendor/cache
 
-.build/
-
-## fastlane
+# fastlane
 fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
-*.p8
-
-## DS_Store
-*.DS_Store
-
