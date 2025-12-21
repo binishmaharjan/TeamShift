@@ -23,30 +23,12 @@ struct WorkplaceView: View {
                 await viewModel.send(action: .onPullToRefresh)
             }
         }
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                addWorkplaceButton
-            }
-        }
-//        .safeAreaPadding(.top, 0)
         .loadingView(viewModel.isLoading)
     }
 }
 
 // MARK: Views
 extension WorkplaceView {
-    @ViewBuilder
-    private var addWorkplaceButton: some View {
-        Button {
-            viewModel.addWorkplaceButtonTapped()
-        } label: {
-            Image.icnStoreAdd
-                .renderingMode(.template)
-                .foregroundStyle(Color.appPrimary)
-        }
-        .buttonStyle(.toolbar)
-    }
-    
     @ViewBuilder
     func emptyWorkplace(width: CGFloat, height: CGFloat) -> some View {
         VStack {
@@ -66,7 +48,8 @@ extension WorkplaceView {
                 .foregroundStyle(Color.textSecondary)
                 .multilineTextAlignment(.center)
         }
-        .frame(width: width, height: height)
+        .frame(width: (width - 32), height: height)
+        .padding(.horizontal, 16)
     }
 }
 
