@@ -1,6 +1,6 @@
 import CoreLocation
 import Foundation
-import MapKit
+@preconcurrency import MapKit
 import SwiftUI
 
 @Observable

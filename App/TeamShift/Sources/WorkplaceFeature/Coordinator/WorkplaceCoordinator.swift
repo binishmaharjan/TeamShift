@@ -52,6 +52,8 @@ extension WorkplaceCoordinator {
         switch route {
         case .showAddWorkplace:
             pushCreateWorkplaceView()
+        case .showWorkplaceDetail(let workplace):
+            pushWorkplaceDetailView(workplace: workplace)
         }
     }
     
@@ -61,7 +63,14 @@ extension WorkplaceCoordinator {
         viewController.title = l10.createWorkplaceNavTitle
         topNavigationController.pushViewController(viewController, animated: true)
     }
-    
+
+    private func pushWorkplaceDetailView(workplace: Workplace) {
+        let viewModel = WorkplaceDetailViewModel(workplace: workplace)
+        let viewController = WorkplaceDetailViewController(viewModel: viewModel)
+        viewController.title = workplace.name
+        topNavigationController.pushViewController(viewController, animated: true)
+    }
+
     func presentLocationPicker(_ onLocationSelected: @escaping (Coordinate?) -> Void) {
         let viewController = LocationPickerViewController(onLocationSelected: onLocationSelected) { [weak self] in
             // remove presentation delegate when close button is tapped
@@ -89,12 +98,12 @@ extension WorkplaceCoordinator {
         switch route {
         case .showWorkplaceDetail(let workplace):
             showSuccessAlert(message: l10.createWorkplaceAlertSuccess) { [weak self] in
-                self?.pushWorkplaceDetailView(workplace: workplace)
+                self?.pushWorkplaceDetailViewRemovingPreviousView(workplace: workplace)
             }
         }
     }
     
-    private func pushWorkplaceDetailView(workplace: Workplace) {
+    private func pushWorkplaceDetailViewRemovingPreviousView(workplace: Workplace) {
         let viewModel = WorkplaceDetailViewModel(workplace: workplace)
         let viewController = WorkplaceDetailViewController(viewModel: viewModel)
         viewController.title = workplace.name

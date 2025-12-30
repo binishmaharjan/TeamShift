@@ -1,0 +1,492 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3A58AF05AC327540AC10EFE2 /* TeamShift.icon in Resources */ = {isa = PBXBuildFile; fileRef = 004DE7BE2D7ACF6CFCEBAE19 /* TeamShift.icon */; };
+		A636E5D9BF26C835DA5D0B6E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36DE98BAE7CE179FF8699198 /* Assets.xcassets */; };
+		B200AA57FD65F60895146810 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 57B12AA02C5E4F1DBF4AC04A /* GoogleService-Info.plist */; };
+		BAD6FE30637B1FC0248E0AE9 /* TeamShiftKit in Frameworks */ = {isa = PBXBuildFile; productRef = 917D741B283973DDEC9863D7 /* TeamShiftKit */; };
+		C074539A9FA8DE132354D0C2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D031DA7FC5E683916753AD /* SceneDelegate.swift */; };
+		F8AF1AA0D400A647C28F4836 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F76173B984DD32CC59FE52 /* AppDelegate.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2ACFAAB8428805018FF2993E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		004DE7BE2D7ACF6CFCEBAE19 /* TeamShift.icon */ = {isa = PBXFileReference; path = TeamShift.icon; sourceTree = "<group>"; };
+		095F5B212F5D9056CF0F7BAC /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
+		36DE98BAE7CE179FF8699198 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4E66F28841DE03F9A5ECD423 /* Staging.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Staging.xcconfig; sourceTree = "<group>"; };
+		57B12AA02C5E4F1DBF4AC04A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		99D73335C730F3FB1D249F7E /* Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Production.xcconfig; sourceTree = "<group>"; };
+		A5D031DA7FC5E683916753AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		B3F76173B984DD32CC59FE52 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		CC8F0C93F97C53DC32E0707F /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
+		F2AE1FC453A19C93062D1554 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		F49044FE00362AD908DB07BE /* TeamShiftKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = TeamShiftKit; path = ../TeamShiftKit; sourceTree = "<group>"; };
+		FAF96402ACF571D1781C1AE7 /* TeamShift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeamShift.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EFC9ECDCB824DA6275C58AF9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BAD6FE30637B1FC0248E0AE9 /* TeamShiftKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2E8503B1F5541C7D83557C54 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				36DE98BAE7CE179FF8699198 /* Assets.xcassets */,
+				57B12AA02C5E4F1DBF4AC04A /* GoogleService-Info.plist */,
+				F2AE1FC453A19C93062D1554 /* Info.plist */,
+				004DE7BE2D7ACF6CFCEBAE19 /* TeamShift.icon */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		751552048DE69DFC9CBC4F11 = {
+			isa = PBXGroup;
+			children = (
+				D262244B2F4CF3865E616B6D /* Products */,
+				FD749DD5DA6B290959952A2B /* Project */,
+				9CCD8BE825E289EA41ACA8EB /* Packages */,
+			);
+			sourceTree = "<group>";
+		};
+		9CCD8BE825E289EA41ACA8EB /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				F49044FE00362AD908DB07BE /* TeamShiftKit */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		BA2A527AC277EB485EC2F733 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				095F5B212F5D9056CF0F7BAC /* Development.xcconfig */,
+				99D73335C730F3FB1D249F7E /* Production.xcconfig */,
+				CC8F0C93F97C53DC32E0707F /* Shared.xcconfig */,
+				4E66F28841DE03F9A5ECD423 /* Staging.xcconfig */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		CBC3556FAFCCDB94CCA6AF95 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				B3F76173B984DD32CC59FE52 /* AppDelegate.swift */,
+				A5D031DA7FC5E683916753AD /* SceneDelegate.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		D262244B2F4CF3865E616B6D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FAF96402ACF571D1781C1AE7 /* TeamShift.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FD749DD5DA6B290959952A2B /* Project */ = {
+			isa = PBXGroup;
+			children = (
+				BA2A527AC277EB485EC2F733 /* Configuration */,
+				2E8503B1F5541C7D83557C54 /* Resources */,
+				CBC3556FAFCCDB94CCA6AF95 /* Sources */,
+			);
+			name = Project;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0DA9A4055620DF02B6D1F3E6 /* TeamShift */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 185EA16AC6F3B98977536674 /* Build configuration list for PBXNativeTarget "TeamShift" */;
+			buildPhases = (
+				CC857A8868BF3A72A0D376E8 /* Sources */,
+				753FED25B28F90F3DDE1EE44 /* Resources */,
+				EFC9ECDCB824DA6275C58AF9 /* Frameworks */,
+				2ACFAAB8428805018FF2993E /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TeamShift;
+			packageProductDependencies = (
+				917D741B283973DDEC9863D7 /* TeamShiftKit */,
+			);
+			productName = TeamShift;
+			productReference = FAF96402ACF571D1781C1AE7 /* TeamShift.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		603B38C19E6928F77340F337 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = 78F3070132AE4884860C0A4F /* Build configuration list for PBXProject "TeamShift" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 751552048DE69DFC9CBC4F11;
+			packageReferences = (
+				8441D0638235E25542F4E109 /* XCLocalSwiftPackageReference "../TeamShiftKit" */,
+			);
+			productRefGroup = D262244B2F4CF3865E616B6D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0DA9A4055620DF02B6D1F3E6 /* TeamShift */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		753FED25B28F90F3DDE1EE44 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A636E5D9BF26C835DA5D0B6E /* Assets.xcassets in Resources */,
+				B200AA57FD65F60895146810 /* GoogleService-Info.plist in Resources */,
+				3A58AF05AC327540AC10EFE2 /* TeamShift.icon in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CC857A8868BF3A72A0D376E8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8AF1AA0D400A647C28F4836 /* AppDelegate.swift in Sources */,
+				C074539A9FA8DE132354D0C2 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		219348E7D8F3BCBD6C765E78 /* Staging */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4E66F28841DE03F9A5ECD423 /* Staging.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Staging;
+		};
+		63D3C3D175FCA0B9FE97D78A /* Development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 095F5B212F5D9056CF0F7BAC /* Development.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Development;
+		};
+		6D8505075F862FA62C74DBA9 /* Production */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 99D73335C730F3FB1D249F7E /* Production.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Production;
+		};
+		879DC580A5E206BACDFEA0C0 /* Production */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 99D73335C730F3FB1D249F7E /* Production.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_BUNDLE_IDENTIFIER)";
+				PRODUCT_NAME = TeamShift;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Production;
+		};
+		907CDB83CE9543AED23514BF /* Staging */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4E66F28841DE03F9A5ECD423 /* Staging.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_BUNDLE_IDENTIFIER)";
+				PRODUCT_NAME = TeamShift;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Staging;
+		};
+		DFFF53623CDA8C9D9CEDE848 /* Development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 095F5B212F5D9056CF0F7BAC /* Development.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_BUNDLE_IDENTIFIER)";
+				PRODUCT_NAME = TeamShift;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
+				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Development;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		185EA16AC6F3B98977536674 /* Build configuration list for PBXNativeTarget "TeamShift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DFFF53623CDA8C9D9CEDE848 /* Development */,
+				879DC580A5E206BACDFEA0C0 /* Production */,
+				907CDB83CE9543AED23514BF /* Staging */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Production;
+		};
+		78F3070132AE4884860C0A4F /* Build configuration list for PBXProject "TeamShift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				63D3C3D175FCA0B9FE97D78A /* Development */,
+				6D8505075F862FA62C74DBA9 /* Production */,
+				219348E7D8F3BCBD6C765E78 /* Staging */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Production;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		8441D0638235E25542F4E109 /* XCLocalSwiftPackageReference "../TeamShiftKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../TeamShiftKit;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		917D741B283973DDEC9863D7 /* TeamShiftKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TeamShiftKit;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 603B38C19E6928F77340F337 /* Project object */;
+}
