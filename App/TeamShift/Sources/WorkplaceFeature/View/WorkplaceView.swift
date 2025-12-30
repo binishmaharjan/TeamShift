@@ -1,3 +1,4 @@
+import SharedModels
 import SharedUIs
 import SwiftUI
 
@@ -16,42 +17,36 @@ struct WorkplaceView: View {
         GeometryReader { geometry in
             CustomRefreshView(scrollDelegate: scrollDelegate) {
                 VStack {
-                    emptyWorkplace(width: geometry.size.width, height: geometry.size.height)
+                    switch viewModel.workplaces {
+                    case .none:
+                        EmptyView()
+                        
+                    case .some(let workplaces) where workplaces .isEmpty:
+                        emptyWorkplace(width: geometry.size.width, height: geometry.size.height)
+                        
+                    case .some(let workplaces):
+                        VStack(spacing: 16) {
+                            ForEach(workplaces, id: \.id) { workplace in
+                                workplaceItem(for: workplace)
+                            }
+                        }
+                    }
                 }
+
             } onRefresh: {
                 try? await Task.sleep(for: .seconds(0.5))
                 await viewModel.send(action: .onPullToRefresh)
             }
         }
-        .task {
-            await viewModel.send(action: .onAppear)
-        }
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                addWorkplaceButton
-            }
-        }
-//        .safeAreaPadding(.top, 0)
         .loadingView(viewModel.isLoading)
+        .background(Color.backgroundList)
     }
 }
 
 // MARK: Views
 extension WorkplaceView {
     @ViewBuilder
-    private var addWorkplaceButton: some View {
-        Button {
-            viewModel.addWorkplaceButtonTapped()
-        } label: {
-            Image.icnStoreAdd
-                .renderingMode(.template)
-                .foregroundStyle(Color.appPrimary)
-        }
-        .buttonStyle(.toolbar)
-    }
-    
-    @ViewBuilder
-    func emptyWorkplace(width: CGFloat, height: CGFloat) -> some View {
+    private func emptyWorkplace(width: CGFloat, height: CGFloat) -> some View {
         VStack {
             Image.icnStore
                 .renderingMode(.template)
@@ -69,10 +64,63 @@ extension WorkplaceView {
                 .foregroundStyle(Color.textSecondary)
                 .multilineTextAlignment(.center)
         }
-        .frame(width: width, height: height)
+        .frame(width: (width - 32), height: height)
+        .padding(.horizontal, 16)
+    }
+    
+    @ViewBuilder
+    private func workplaceItem(for workplace: Workplace) -> some View {
+        HStack(spacing: 8) {
+            Image.icnStore.renderingMode(.template)
+                .foregroundStyle(Color.appPrimary)
+                .frame(width: 32, height: 32)
+                .padding()
+                .background(Color.backgroundList.opacity(0.8))
+                .cornerRadius(8)
+            
+            VStack {
+                Text(workplace.name)
+                    .font(.customSubHeadline)
+                    .foregroundStyle(Color.textPrimary)
+                    .hSpacing(.leading)
+                
+                Text(workplace.branchName ?? "")
+                    .font(.customFootnote)
+                    .foregroundStyle(Color.textPrimary)
+                    .hSpacing(.leading)
+                
+                HStack {
+                    Text("Members: 0")
+                        .font(.customCaption)
+                        .foregroundStyle(Color.textSecondary)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 4)
+                        .overlay {
+                            Capsule()
+                                .stroke(Color.textSecondary, lineWidth: 1)
+                        }
+                }
+                .hSpacing(.leading)
+            }
+            .vSpacing(.top)
+            
+        }
+        .hSpacing(.leading)
+        .padding()
+        .frame(maxWidth: .infinity)
+        .background(Color.backgroundPrimary)
+        .cornerRadius(16)
+        .shadow(color: Color.textPrimary.opacity(0.05), radius: 5, x: 0, y: 2)
+        .padding(.horizontal)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            viewModel.workplaceRowTapped(workplace)
+        }
     }
 }
 
 #Preview {
-    WorkplaceView(viewModel: .init(coordinator: .init(navigationController: .init())))
+    let viewModel = WorkplaceViewModel()
+    viewModel.workplaces = [.mockData]
+    return WorkplaceView(viewModel: viewModel)
 }

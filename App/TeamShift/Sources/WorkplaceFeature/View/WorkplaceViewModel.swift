@@ -10,6 +10,7 @@ final class WorkplaceViewModel {
     // MARK: Enum
     enum Route {
         case showAddWorkplace
+        case showWorkplaceDetail(Workplace)
     }
     
     enum Action {
@@ -18,6 +19,7 @@ final class WorkplaceViewModel {
     }
     
     // MARK: Init
+    init() {}
     init(coordinator: WorkplaceCoordinator) {
         self.coordinator = coordinator
     }
@@ -31,6 +33,7 @@ final class WorkplaceViewModel {
     @Dependency(\.userSession) private var userSession
     
     var isLoading = false
+    var workplaces: [Workplace]?
     
     func addWorkplaceButtonTapped() {
         coordinator?.workplaceRequestNavigation(for: .showAddWorkplace)
@@ -40,6 +43,10 @@ final class WorkplaceViewModel {
                 print(workplace)
             }
         }
+    }
+    
+    func workplaceRowTapped(_ workplace: Workplace) {
+        coordinator?.workplaceRequestNavigation(for: .showWorkplaceDetail(workplace))
     }
     
     func send(action: Action) async {
@@ -65,10 +72,7 @@ extension WorkplaceViewModel {
         
         do {
             isLoading = false
-            let workPlaces = try await apiClient.getWorkplace(user: currentUser)
-            workPlaces.forEach { workplace in
-                print(workplace)
-            }
+            workplaces = try await apiClient.getWorkplace(user: currentUser)
         } catch {
             isLoading = false
             handleError(error)
